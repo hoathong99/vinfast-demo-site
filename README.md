@@ -214,6 +214,8 @@ node scripts/qa-desktop.mjs   # desktop screenshots
 
 `qa-base.mjs` expects a `/demo/` base build served on port 4322 by `scripts/serve-base.mjs`; it verifies GitHub Pages subpath behavior.
 
+The scripts launch the first Chromium-based browser they find (Chrome, then Edge) via `scripts/browser-path.mjs`. Set `CHROME_PATH` to use a specific executable.
+
 ## Production checklist
 
 - [ ] Replace demo store name, address, hotlines, Zalo, email, map.

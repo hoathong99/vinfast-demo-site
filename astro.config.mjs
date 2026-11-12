@@ -8,6 +8,10 @@ export default defineConfig({
   base,
   output: "static",
   trailingSlash: "always",
+  // Bind IPv4 so the QA scripts (and `localhost`) reach the dev server on every OS.
+  server: {
+    host: "127.0.0.1",
+  },
   build: {
     format: "directory",
   },

@@ -6,4 +6,5 @@ dist/
 .DS_Store
 *.log
 qa-*.png
+*.tmp.mjs
 mock-endpoint.jsonl

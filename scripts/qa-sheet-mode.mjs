@@ -1,9 +1,7 @@
 import { chromium } from "playwright-core";
+import { executablePath } from "./browser-path.mjs";
 
-const browser = await chromium.launch({
-  executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe",
-  headless: true,
-});
+const browser = await chromium.launch({ executablePath, headless: true });
 const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
 const posts = [];
 const errors = [];

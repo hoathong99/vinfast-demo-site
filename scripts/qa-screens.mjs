@@ -1,6 +1,6 @@
 import { chromium } from "playwright-core";
+import { executablePath } from "./browser-path.mjs";
 
-const executablePath = "C:/Program Files/Google/Chrome/Application/chrome.exe";
 const base = "http://127.0.0.1:4321";
 
 const browser = await chromium.launch({ executablePath, headless: true });
