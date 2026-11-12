@@ -5,10 +5,10 @@ import { site } from "../data/site";
 import { url } from "../lib/format";
 
 const services = [
-  { title: "Bảo dưỡng định kỳ", text: "Kiểm tra tổng quát, thay dầu, kiểm tra pin và hệ thống điện." },
-  { title: "Sửa chữa chung", text: "Chẩn đoán lỗi, sửa chữa hệ thống điện, gầm và thân vỏ." },
-  { title: "Đồng sơn", text: "Sửa chữa va chạm nhẹ, sơn lại chi tiết theo màu xe." },
-  { title: "Kiểm tra pin", text: "Đánh giá tình trạng pin và tư vấn phương án sử dụng." },
+  { id: "bao-duong", title: "Bảo dưỡng định kỳ", text: "Kiểm tra tổng quát, thay dầu, kiểm tra pin và hệ thống điện." },
+  { id: "sua-chua", title: "Sửa chữa chung", text: "Chẩn đoán lỗi, sửa chữa hệ thống điện, gầm và thân vỏ." },
+  { id: "dong-son", title: "Đồng sơn", text: "Sửa chữa va chạm nhẹ, sơn lại chi tiết theo màu xe." },
+  { id: "kiem-tra-pin", title: "Kiểm tra pin", text: "Đánh giá tình trạng pin và tư vấn phương án sử dụng." },
 ];
 ---
 
@@ -33,7 +33,7 @@ const services = [
     <div class="container">
       <div class="news-grid">
         {services.map((service) => (
-          <article class="highlight-item">
+          <article class="highlight-item" id={service.id}>
             <h3>{service.title}</h3>
             <p>{service.text}</p>
           </article>

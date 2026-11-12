@@ -24,6 +24,7 @@ const { slides } = Astro.props;
           alt={slide.alt}
           width="1920"
           height="900"
+          draggable="false"
           loading={index === 0 ? "eager" : "lazy"}
           fetchpriority={index === 0 ? "high" : "auto"}
         />
@@ -31,19 +32,26 @@ const { slides } = Astro.props;
     ))}
   </div>
 
-  <div class="hero-controls">
-    <button class="hero-arrow" type="button" data-carousel-prev aria-label="Ảnh trước">‹</button>
-    <button class="hero-arrow" type="button" data-carousel-next aria-label="Ảnh sau">›</button>
-    <div class="hero-dots" data-carousel-dots>
-      {slides.map((_, index) => (
-        <button
-          class="hero-dot"
-          type="button"
-          data-carousel-dot
-          aria-label={`Chuyển đến ảnh ${index + 1}`}
-          aria-current={index === 0 ? "true" : "false"}
-        />
-      ))}
-    </div>
+  <button class="hero-arrow hero-arrow--prev" type="button" data-carousel-prev aria-label="Ảnh trước">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="m15 5-7 7 7 7" />
+    </svg>
+  </button>
+  <button class="hero-arrow hero-arrow--next" type="button" data-carousel-next aria-label="Ảnh sau">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="m9 5 7 7-7 7" />
+    </svg>
+  </button>
+
+  <div class="hero-dots" data-carousel-dots>
+    {slides.map((_, index) => (
+      <button
+        class="hero-dot"
+        type="button"
+        data-carousel-dot
+        aria-label={`Chuyển đến ảnh ${index + 1}`}
+        aria-current={index === 0 ? "true" : "false"}
+      />
+    ))}
   </div>
 </section>

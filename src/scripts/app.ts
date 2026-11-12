@@ -190,6 +190,68 @@ function initCarousel(root: HTMLElement): void {
   next?.addEventListener("click", () => render(index + 1));
   dots.forEach((dot, dotIndex) => dot.addEventListener("click", () => render(dotIndex)));
 
+  /* Drag / swipe horizontally */
+  let drag: { id: number; startX: number; startScroll: number; moved: boolean } | null = null;
+  let settleTimer: number | undefined;
+
+  track.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    drag = { id: event.pointerId, startX: event.clientX, startScroll: track.scrollLeft, moved: false };
+    root.classList.add("is-dragging");
+    paused = true;
+    stop();
+    try {
+      track.setPointerCapture(event.pointerId);
+    } catch {
+      /* pointer capture is optional */
+    }
+  });
+
+  track.addEventListener("pointermove", (event) => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const delta = event.clientX - drag.startX;
+    if (Math.abs(delta) > 4) drag.moved = true;
+    if (!drag.moved) return;
+    track.scrollLeft = drag.startScroll - delta;
+    event.preventDefault();
+  });
+
+  const endDrag = (event: PointerEvent): void => {
+    if (!drag || event.pointerId !== drag.id) return;
+    const { moved, startScroll } = drag;
+    drag = null;
+    try {
+      track.releasePointerCapture(event.pointerId);
+    } catch {
+      /* pointer capture is optional */
+    }
+    if (moved) {
+      const width = track.clientWidth || 1;
+      // Positive when the content moved forward (next slide).
+      const delta = track.scrollLeft - startScroll;
+      const startIndex = Math.round(startScroll / width);
+      // Treat short flicks as one slide, longer drags as however many slides they span.
+      const steps =
+        Math.abs(delta) < 60 ? 0 : Math.sign(delta) * Math.max(1, Math.round(Math.abs(delta) / width));
+      /*
+       * Keep scroll-snap disabled while the slide animates into place.
+       * Re-enabling it straight away makes the browser snap back to the
+       * nearest slide (often the one the drag started from) and cancels
+       * the programmatic scroll.
+       */
+      window.clearTimeout(settleTimer);
+      render(startIndex + steps);
+      settleTimer = window.setTimeout(() => root.classList.remove("is-dragging"), 450);
+    } else {
+      root.classList.remove("is-dragging");
+    }
+    paused = false;
+    start();
+  };
+
+  track.addEventListener("pointerup", endDrag);
+  track.addEventListener("pointercancel", endDrag);
+
   let frame = 0;
   track.addEventListener(
     "scroll",
@@ -641,9 +703,172 @@ function initReveal(): void {
   items.forEach((item) => observer.observe(item));
 }
 
+/* ---------------- Header behaviour ---------------- */
+
+function initNav(): void {
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-nav-item]"));
+  if (!items.length) return;
+
+  const closeAll = (except?: HTMLElement): void => {
+    items.forEach((item) => {
+      if (item === except) return;
+      item.classList.remove("is-open");
+      item.querySelector<HTMLButtonElement>("[data-nav-toggle]")?.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  items.forEach((item) => {
+    const button = item.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+    if (!button) return;
+    button.addEventListener("click", () => {
+      const open = !item.classList.contains("is-open");
+      closeAll(item);
+      item.classList.toggle("is-open", open);
+      button.setAttribute("aria-expanded", String(open));
+    });
+    item.addEventListener("mouseenter", () => button.setAttribute("aria-expanded", "true"));
+    item.addEventListener("mouseleave", () => {
+      if (!item.classList.contains("is-open")) button.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target as Element).closest("[data-nav-item]")) closeAll();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAll();
+  });
+}
+
+function initHeaderScroll(): void {
+  const header = document.querySelector<HTMLElement>(".site-header");
+  if (!header) return;
+  let lastY = window.scrollY;
+  let hidden = false;
+
+  const setHidden = (value: boolean): void => {
+    if (hidden === value) return;
+    hidden = value;
+    header.classList.toggle("is-hidden", value);
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      const y = window.scrollY;
+      if (document.body.classList.contains("no-scroll")) return;
+      if (document.querySelector(".nav-item.is-open")) return;
+      if (y <= 120) {
+        setHidden(false);
+        lastY = y;
+        return;
+      }
+      if (y - lastY > 6) setHidden(true);
+      else if (lastY - y > 6) setHidden(false);
+      lastY = y;
+    },
+    { passive: true },
+  );
+}
+
+/* ---------------- Test drive form ---------------- */
+
+interface TestDriveVehicle {
+  slug: string;
+  name: string;
+  type: string;
+  image: string;
+  price: string;
+}
+
+function initTestDrive(): void {
+  document.querySelectorAll<HTMLElement>("[data-test-drive]").forEach((root) => {
+    const select = root.querySelector<HTMLSelectElement>("[data-td-vehicle]");
+    const image = root.querySelector<HTMLImageElement>("[data-td-image]");
+    if (!select || !image) return;
+
+    const nameEl = root.querySelector<HTMLElement>("[data-td-name]");
+    const priceEl = root.querySelector<HTMLElement>("[data-td-price]");
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-td-tab]"));
+
+    let list: TestDriveVehicle[] = [];
+    try {
+      list = JSON.parse(root.dataset.vehicles || "[]") as TestDriveVehicle[];
+    } catch {
+      list = [];
+    }
+
+    const update = (animate = true): void => {
+      const option = select.selectedOptions[0];
+      if (!option) return;
+      const src = option.dataset.image;
+      if (src && image.getAttribute("src") !== src) {
+        if (animate && !reducedMotion) {
+          image.classList.add("is-swapping");
+          const preload = new Image();
+          const reveal = (): void => {
+            image.src = src;
+            image.classList.remove("is-swapping");
+          };
+          preload.onload = reveal;
+          preload.onerror = reveal;
+          preload.src = src;
+        } else {
+          image.src = src;
+        }
+      }
+      const name = option.dataset.name || option.textContent || "";
+      image.alt = name;
+      if (nameEl) nameEl.textContent = name;
+      if (priceEl) priceEl.textContent = option.dataset.price || "";
+    };
+
+    const fill = (type: string): void => {
+      const filtered = list.filter((vehicle) => vehicle.type === type);
+      select.innerHTML = "";
+      filtered.forEach((vehicle) => {
+        const option = new Option(vehicle.name, vehicle.slug);
+        option.dataset.image = vehicle.image;
+        option.dataset.name = vehicle.name;
+        option.dataset.price = vehicle.price;
+        select.add(option);
+      });
+      if (filtered.length) select.value = filtered[0].slug;
+      update(false);
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((other) => {
+          const active = other === tab;
+          other.classList.toggle("is-active", active);
+          other.setAttribute("aria-selected", String(active));
+        });
+        fill(tab.dataset.tdTab || "car");
+      });
+    });
+
+    select.addEventListener("change", () => update());
+
+    const model = new URLSearchParams(window.location.search).get("model");
+    const match = model ? list.find((vehicle) => vehicle.slug === model) : undefined;
+    if (match) {
+      const tab = tabs.find((item) => item.dataset.tdTab === match.type);
+      tab?.click();
+      if (Array.from(select.options).some((option) => option.value === match.slug)) {
+        select.value = match.slug;
+      }
+    }
+    update(false);
+  });
+}
+
 captureUtm();
+initNav();
+initHeaderScroll();
 document.querySelectorAll<HTMLElement>("[data-carousel]").forEach(initCarousel);
 initDrawer();
+initTestDrive();
 initGallery();
 initCalculators();
 initFilters();

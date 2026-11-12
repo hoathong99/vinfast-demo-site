@@ -1,30 +1,99 @@
 ---
 import { site } from "../data/site";
+import { vehicles } from "../data/vehicles";
+import { news } from "../data/news";
 import { url } from "../lib/format";
 
 const base = import.meta.env.BASE_URL || "/";
 const current = Astro.url.pathname.startsWith(base)
   ? Astro.url.pathname.slice(base.length)
   : Astro.url.pathname;
-const isActive = (href: string) => current === href || current.startsWith(href);
+const currentPath = current.split("#")[0];
+const isActive = (href: string) => {
+  const path = href.split("#")[0];
+  return currentPath === path || (path !== "" && currentPath.startsWith(path));
+};
+
+const cars = vehicles.filter((vehicle) => vehicle.type === "car").sort((a, b) => a.order - b.order);
+const bikes = vehicles.filter((vehicle) => vehicle.type === "motorbike").sort((a, b) => a.order - b.order);
+
+const services = [
+  { label: "Đặt lịch dịch vụ", href: "dat-lich-dich-vu/" },
+  { label: "Bảo dưỡng định kỳ", href: "dat-lich-dich-vu/#bao-duong" },
+  { label: "Sửa chữa chung", href: "dat-lich-dich-vu/#sua-chua" },
+  { label: "Đồng sơn", href: "dat-lich-dich-vu/#dong-son" },
+  { label: "Kiểm tra pin", href: "dat-lich-dich-vu/#kiem-tra-pin" },
+];
+
+const navItems = [
+  {
+    label: "Ô tô điện",
+    href: "o-to-dien/",
+    children: [
+      { label: "Tất cả ô tô điện", href: "o-to-dien/" },
+      ...cars.map((vehicle) => ({ label: vehicle.name, href: `o-to-dien/${vehicle.slug}/` })),
+    ],
+  },
+  {
+    label: "Xe máy điện",
+    href: "xe-may-dien/",
+    children: [
+      { label: "Tất cả xe máy điện", href: "xe-may-dien/" },
+      ...bikes.map((vehicle) => ({ label: vehicle.name, href: `xe-may-dien/${vehicle.slug}/` })),
+    ],
+  },
+  { label: "Dịch vụ", href: "dat-lich-dich-vu/", children: services },
+  {
+    label: "Tin tức",
+    href: "tin-tuc/",
+    children: [
+      { label: "Tất cả tin tức", href: "tin-tuc/" },
+      ...news.map((item) => ({ label: item.title, href: `tin-tuc/${item.slug}/` })),
+    ],
+  },
+  { label: "Liên hệ", href: "lien-he/" },
+];
 ---
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="logo" href={url("")}>
-      <img src={url("images/logo.webp")} alt="" width="240" height="298" />
-      <span class="logo-text">
-        <strong>{site.name}</strong>
-        <span>{site.tagline}</span>
-      </span>
+    <a class="logo" href={url("")} aria-label="VinFast CarOn — Trang chủ">
+      <img src={url("images/logo.webp")} alt="VinFast CarOn" width="240" height="298" />
     </a>
 
     <nav class="main-nav" aria-label="Điều hướng chính">
-      {site.nav.map((item) => (
-        <a href={url(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>
-          {item.label}
-        </a>
-      ))}
+      {navItems.map((item) =>
+        item.children ? (
+          <div class="nav-item" data-nav-item>
+            <button
+              class="nav-link nav-link--toggle"
+              type="button"
+              aria-expanded="false"
+              aria-haspopup="true"
+              data-nav-toggle
+            >
+              {item.label}
+              <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div class="nav-dropdown">
+              {item.children.map((child) => (
+                <a
+                  href={url(child.href)}
+                  aria-current={isActive(child.href) && !child.href.includes("#") ? "page" : undefined}
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a class="nav-link" href={url(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ),
+      )}
     </nav>
 
     <a class="btn btn--sm header-cta" href={url(site.cta.href)}>{site.cta.label}</a>
@@ -49,22 +118,32 @@ const isActive = (href: string) => current === href || current.startsWith(href);
   <div class="drawer-panel" role="dialog" aria-modal="true" aria-label="Menu di động">
     <div class="drawer-head">
       <a class="logo" href={url("")}>
-        <img src={url("images/logo.webp")} alt="" width="240" height="298" />
-        <span class="logo-text">
-          <strong>{site.name}</strong>
-          <span>Demo</span>
-        </span>
+        <img src={url("images/logo.webp")} alt="VinFast CarOn" width="240" height="298" />
       </a>
       <button class="drawer-close" type="button" aria-label="Đóng menu" data-drawer-close>×</button>
     </div>
 
     <nav class="drawer-nav" aria-label="Điều hướng di động">
       <a href={url("")}>Trang chủ <span aria-hidden="true">→</span></a>
-      {site.nav.map((item) => (
-        <a href={url(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>
-          {item.label} <span aria-hidden="true">→</span>
-        </a>
-      ))}
+      {navItems.map((item) =>
+        item.children ? (
+          <details class="drawer-group">
+            <summary>
+              {item.label}
+              <span class="drawer-caret" aria-hidden="true">▾</span>
+            </summary>
+            <div class="drawer-sub">
+              {item.children.map((child) => (
+                <a href={url(child.href)}>{child.label}</a>
+              ))}
+            </div>
+          </details>
+        ) : (
+          <a href={url(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>
+            {item.label} <span aria-hidden="true">→</span>
+          </a>
+        ),
+      )}
       <a href={url(site.cta.href)}>{site.cta.label} <span aria-hidden="true">→</span></a>
     </nav>
 
