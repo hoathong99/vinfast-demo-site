@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import LeadForm from "../components/LeadForm.astro";
-import { site } from "../data/site";
+import ServiceBookingForm from "../components/ServiceBookingForm.astro";
 import { url } from "../lib/format";
 
 const services = [
@@ -16,20 +15,19 @@ const services = [
   title="Đặt lịch dịch vụ — VinFast CarOn Demo"
   description="Đặt lịch bảo dưỡng, sửa chữa xe điện tại xưởng dịch vụ demo."
 >
-  <div class="page-hero">
+  <section class="booking-head">
     <div class="container">
       <nav class="breadcrumbs" aria-label="Breadcrumb">
         <a href={url("")}>Trang chủ</a>
         <span>/</span>
         <span aria-current="page">Đặt lịch dịch vụ</span>
       </nav>
-      <div class="eyebrow">Dịch vụ</div>
       <h1>Đặt lịch dịch vụ</h1>
       <p>Đặt hẹn bảo dưỡng hoặc sửa chữa để giảm thời gian chờ tại xưởng demo.</p>
     </div>
-  </div>
+  </section>
 
-  <section class="section">
+  <section class="service-strip">
     <div class="container">
       <div class="news-grid">
         {services.map((service) => (
@@ -42,44 +40,9 @@ const services = [
     </div>
   </section>
 
-  <section class="lead-section section--soft">
-    <div class="container lead-layout">
-      <div class="lead-copy">
-        <div class="eyebrow">Xưởng dịch vụ demo</div>
-        <h2>Đặt hẹn nhanh</h2>
-        <p>
-          Cung cấp thông tin xe và hạng mục cần kiểm tra. Đây là form mẫu, không tạo lịch hẹn thật.
-        </p>
-        <ul>
-          <li>Kiểm tra tình trạng xe trước khi nhận.</li>
-          <li>Tư vấn hạng mục và thời gian dự kiến.</li>
-          <li>Xác nhận lịch qua điện thoại.</li>
-        </ul>
-
-        <div class="contact-card" style="margin-top: 20px">
-          <h2>Liên hệ xưởng</h2>
-          <ul class="contact-list">
-            <li>
-              <span>Hotline dịch vụ</span>
-              <a href={site.hotlineServiceHref} data-track="call_click">{site.hotlineService}</a>
-            </li>
-            <li>
-              <span>Địa chỉ</span>
-              <strong>{site.address}</strong>
-            </li>
-            <li>
-              <span>Giờ làm việc</span>
-              {site.hours.map((item) => <p style="margin:0">{item.label}: {item.value}</p>)}
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <LeadForm
-        formType="service"
-        title="Đặt hẹn dịch vụ"
-        intro="Chọn xe, hạng mục và thời gian mong muốn. Form demo sẽ ghi dữ liệu vào Google Sheet khi có endpoint."
-      />
+  <section class="booking-section">
+    <div class="container">
+      <ServiceBookingForm />
     </div>
   </section>
 </BaseLayout>

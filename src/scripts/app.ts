@@ -773,7 +773,7 @@ function initHeaderScroll(): void {
 
 /* ---------------- Test drive form ---------------- */
 
-interface TestDriveVehicle {
+interface BookingVehicle {
   slug: string;
   name: string;
   type: string;
@@ -781,19 +781,19 @@ interface TestDriveVehicle {
   price: string;
 }
 
-function initTestDrive(): void {
-  document.querySelectorAll<HTMLElement>("[data-test-drive]").forEach((root) => {
-    const select = root.querySelector<HTMLSelectElement>("[data-td-vehicle]");
-    const image = root.querySelector<HTMLImageElement>("[data-td-image]");
+function initBookingForms(): void {
+  document.querySelectorAll<HTMLElement>("[data-booking]").forEach((root) => {
+    const select = root.querySelector<HTMLSelectElement>("[data-booking-vehicle]");
+    const image = root.querySelector<HTMLImageElement>("[data-booking-image]");
     if (!select || !image) return;
 
-    const nameEl = root.querySelector<HTMLElement>("[data-td-name]");
-    const priceEl = root.querySelector<HTMLElement>("[data-td-price]");
-    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-td-tab]"));
+    const nameEl = root.querySelector<HTMLElement>("[data-booking-name]");
+    const priceEl = root.querySelector<HTMLElement>("[data-booking-price]");
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-booking-tab]"));
 
-    let list: TestDriveVehicle[] = [];
+    let list: BookingVehicle[] = [];
     try {
-      list = JSON.parse(root.dataset.vehicles || "[]") as TestDriveVehicle[];
+      list = JSON.parse(root.dataset.vehicles || "[]") as BookingVehicle[];
     } catch {
       list = [];
     }
@@ -844,7 +844,7 @@ function initTestDrive(): void {
           other.classList.toggle("is-active", active);
           other.setAttribute("aria-selected", String(active));
         });
-        fill(tab.dataset.tdTab || "car");
+        fill(tab.dataset.bookingTab || "car");
       });
     });
 
@@ -853,7 +853,7 @@ function initTestDrive(): void {
     const model = new URLSearchParams(window.location.search).get("model");
     const match = model ? list.find((vehicle) => vehicle.slug === model) : undefined;
     if (match) {
-      const tab = tabs.find((item) => item.dataset.tdTab === match.type);
+      const tab = tabs.find((item) => item.dataset.bookingTab === match.type);
       tab?.click();
       if (Array.from(select.options).some((option) => option.value === match.slug)) {
         select.value = match.slug;
@@ -868,7 +868,7 @@ initNav();
 initHeaderScroll();
 document.querySelectorAll<HTMLElement>("[data-carousel]").forEach(initCarousel);
 initDrawer();
-initTestDrive();
+initBookingForms();
 initGallery();
 initCalculators();
 initFilters();

@@ -1,0 +1,202 @@
+---
+import { vehicles } from "../data/vehicles";
+import { site } from "../data/site";
+import { url, formatVnd } from "../lib/format";
+
+const cars = vehicles.filter((vehicle) => vehicle.type === "car").sort((a, b) => a.order - b.order);
+const bikes = vehicles.filter((vehicle) => vehicle.type === "motorbike").sort((a, b) => a.order - b.order);
+const initial = cars[0];
+
+const times = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "17:30"];
+const serviceOptions = ["Bảo dưỡng", "Sửa chữa", "Đồng sơn", "Kiểm tra pin", "Khác"];
+
+const showrooms = [
+  `VinFast CarOn 3S Gia Lâm — ${site.address}`,
+  "VinFast CarOn 3S Sóc Sơn — Số 15 đường 3, Xã Sóc Sơn, Hà Nội",
+  "VinFast CarOn Hải Phòng — Số 42 Phan Đăng Lưu, An Dương, Hải Phòng",
+];
+
+const uid = `service-${Math.random().toString(36).slice(2, 8)}`;
+
+const vehicleData = [...cars, ...bikes].map((vehicle) => ({
+  slug: vehicle.slug,
+  name: vehicle.name,
+  type: vehicle.type,
+  image: url(vehicle.images[0]),
+  price: formatVnd(vehicle.price),
+}));
+---
+
+<div class="booking" data-booking data-vehicles={JSON.stringify(vehicleData)}>
+  <div class="booking-media">
+    <img
+      src={url(initial.images[0])}
+      alt={initial.name}
+      width="1200"
+      height="675"
+      loading="lazy"
+      decoding="async"
+      data-booking-image
+    />
+    <div class="booking-caption">
+      <strong data-booking-name>{initial.name}</strong>
+      <span data-booking-price>{formatVnd(initial.price)}</span>
+    </div>
+  </div>
+
+  <div class="booking-panel">
+    <div class="booking-tabs" role="tablist" aria-label="Loại xe">
+      <button class="booking-tab is-active" type="button" role="tab" aria-selected="true" data-booking-tab="car">
+        Xe ô tô
+      </button>
+      <button class="booking-tab" type="button" role="tab" aria-selected="false" data-booking-tab="motorbike">
+        Xe máy điện
+      </button>
+    </div>
+
+    <form class="lead-form lead-form-js booking-form" data-form-type="service" novalidate>
+      <h3>Thông tin khách hàng</h3>
+
+      <div class="field">
+        <label for={`${uid}-name`}>Họ Tên <span class="req">*</span></label>
+        <input
+          id={`${uid}-name`}
+          name="fullName"
+          type="text"
+          autocomplete="name"
+          placeholder="Nhập họ và tên"
+          maxlength="80"
+          required
+        />
+        <div class="field-error" data-error-for="fullName">Vui lòng nhập họ tên (ít nhất 2 ký tự).</div>
+      </div>
+
+      <div class="field">
+        <label for={`${uid}-phone`}>Số điện thoại <span class="req">*</span></label>
+        <input
+          id={`${uid}-phone`}
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          placeholder="Tối thiểu 10 chữ số"
+          minlength="10"
+          maxlength="11"
+          required
+        />
+        <div class="field-error" data-error-for="phone">Số điện thoại chưa hợp lệ (10–11 chữ số).</div>
+      </div>
+
+      <h3>Lựa chọn mẫu xe</h3>
+
+      <div class="field">
+        <label for={`${uid}-vehicle`}>Lựa chọn mẫu xe <span class="req">*</span></label>
+        <select id={`${uid}-vehicle`} name="vehicleSlug" required data-booking-vehicle>
+          {cars.map((vehicle) => (
+            <option value={vehicle.slug} data-image={url(vehicle.images[0])} data-name={vehicle.name} data-price={formatVnd(vehicle.price)}>
+              {vehicle.name}
+            </option>
+          ))}
+        </select>
+        <div class="field-error" data-error-for="vehicleSlug">Vui lòng chọn mẫu xe.</div>
+      </div>
+
+      <h3>Hạng mục dịch vụ</h3>
+
+      <div class="field">
+        <label>Hạng mục cần thực hiện <span class="req">*</span></label>
+        <div class="check-grid">
+          {serviceOptions.map((option) => (
+            <label class="check-item">
+              <input type="checkbox" name="serviceType" value={option} />
+              <span>{option}</span>
+            </label>
+          ))}
+        </div>
+        <div class="field-error" data-error-for="serviceType">Vui lòng chọn ít nhất một hạng mục.</div>
+      </div>
+
+      <h3>Lựa chọn thời gian</h3>
+
+      <div class="field">
+        <label for={`${uid}-time`}>Thời gian <span class="req">*</span></label>
+        <select id={`${uid}-time`} name="preferredTime" required>
+          <option value="">Chọn khung giờ</option>
+          {times.map((time) => <option value={time}>{time}</option>)}
+        </select>
+        <div class="field-error" data-error-for="preferredTime">Vui lòng chọn khung giờ.</div>
+      </div>
+
+      <div class="field">
+        <label for={`${uid}-date`}>Ngày <span class="req">*</span></label>
+        <input id={`${uid}-date`} name="preferredDate" type="date" required data-date-min />
+        <div class="field-error" data-error-for="preferredDate">Vui lòng chọn ngày.</div>
+      </div>
+
+      <h3>Lựa chọn địa điểm</h3>
+
+      <div class="field">
+        <label for={`${uid}-showroom`}>Tại <span class="req">*</span></label>
+        <select id={`${uid}-showroom`} name="showroom" required>
+          {showrooms.map((showroom) => <option value={showroom}>{showroom}</option>)}
+        </select>
+      </div>
+
+      <h3>Thông tin xe</h3>
+
+      <div class="field">
+        <label for={`${uid}-plate`}>Biển số xe</label>
+        <input id={`${uid}-plate`} name="licensePlate" type="text" placeholder="Ví dụ: 30A-12345" maxlength="20" />
+      </div>
+
+      <div class="field">
+        <label for={`${uid}-km`}>Số km hiện tại</label>
+        <input id={`${uid}-km`} name="km" type="number" min="0" step="1" placeholder="Ví dụ: 12000" />
+      </div>
+
+      <h3>Yêu cầu khác</h3>
+
+      <div class="field">
+        <label for={`${uid}-message`}>Ghi chú</label>
+        <textarea
+          id={`${uid}-message`}
+          name="message"
+          maxlength="1000"
+          placeholder="Mô tả tình trạng xe hoặc yêu cầu thêm"
+        ></textarea>
+      </div>
+
+      <div class="hp-field" aria-hidden="true">
+        <label>Website<input name="company_website" type="text" tabindex="-1" autocomplete="off" /></label>
+      </div>
+
+      <input type="hidden" name="formType" value="service" />
+      <input type="hidden" name="pagePath" value="" data-page-path />
+      <input type="hidden" name="referrer" value="" data-referrer />
+      <input type="hidden" name="utmSource" value="" data-utm-source />
+      <input type="hidden" name="utmMedium" value="" data-utm-medium />
+      <input type="hidden" name="utmCampaign" value="" data-utm-campaign />
+      <input type="hidden" name="utmContent" value="" data-utm-content />
+      <input type="hidden" name="utmTerm" value="" data-utm-term />
+      <input type="hidden" name="clickId" value="" data-click-id />
+      <input type="hidden" name="sessionId" value="" data-session-id />
+      <input type="hidden" name="elapsedMs" value="0" data-elapsed />
+      <input type="hidden" name="consentVersion" value={site.notice ? "demo-2026-11" : "demo"} />
+
+      <div class="field consent-field">
+        <label class="consent">
+          <input type="checkbox" name="consent" required />
+          <span>
+            Tôi đồng ý cho phép VinFast CarOn xử lý dữ liệu cá nhân của tôi và các thông tin khác do tôi cung cấp cho
+            mục đích và theo phương thức được mô tả chi tiết tại
+            <a href={url("chinh-sach/bao-mat/")}>Chính sách Bảo vệ Dữ liệu cá nhân</a>.
+          </span>
+        </label>
+        <div class="field-error" data-error-for="consent">Vui lòng đồng ý trước khi gửi.</div>
+      </div>
+
+      <button class="btn btn--block booking-submit" type="submit">Đặt lịch dịch vụ</button>
+      <div class="form-status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>

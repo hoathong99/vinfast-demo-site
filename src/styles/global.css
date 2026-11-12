@@ -1950,18 +1950,18 @@ ol {
   text-decoration: underline;
 }
 
-/* Test drive page */
-.td-head {
+/* Booking pages (test drive, service) */
+.booking-head {
   padding: 34px 0 12px;
   text-align: center;
 }
 
-.td-head .breadcrumbs {
+.booking-head .breadcrumbs {
   justify-content: center;
   margin-bottom: 12px;
 }
 
-.td-head h1 {
+.booking-head h1 {
   color: var(--blue);
   text-transform: uppercase;
   letter-spacing: 0.015em;
@@ -1969,24 +1969,33 @@ ol {
   margin: 0;
 }
 
-.td-head p {
+.booking-head p {
   font-style: italic;
   color: var(--muted);
   margin: 8px 0 0;
 }
 
-.td-section {
+.booking-section {
   padding: 24px 0 68px;
 }
 
-.test-drive {
+.service-strip {
+  padding-top: 6px;
+}
+
+.service-strip .news-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.booking {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: 48px;
   align-items: start;
 }
 
-.td-media {
+.booking-media {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1995,45 +2004,45 @@ ol {
   top: 110px;
 }
 
-.td-media img {
+.booking-media img {
   width: 100%;
   max-width: 560px;
   height: auto;
   transition: opacity 0.2s ease;
 }
 
-.td-media img.is-swapping {
+.booking-media img.is-swapping {
   opacity: 0.2;
 }
 
-.td-media-caption {
+.booking-caption {
   display: grid;
   gap: 2px;
   text-align: center;
 }
 
-.td-media-caption strong {
+.booking-caption strong {
   font-size: 18px;
   color: var(--ink);
 }
 
-.td-media-caption span {
+.booking-caption span {
   font-size: 13px;
   color: var(--muted);
 }
 
-.td-panel {
+.booking-panel {
   min-width: 0;
 }
 
-.td-tabs {
+.booking-tabs {
   display: flex;
   justify-content: flex-end;
   gap: 26px;
   border-bottom: 1px solid var(--line);
 }
 
-.td-tab {
+.booking-tab {
   padding: 10px 0;
   margin-bottom: -1px;
   border: 0;
@@ -2048,16 +2057,16 @@ ol {
   cursor: pointer;
 }
 
-.td-tab:hover {
+.booking-tab:hover {
   color: var(--blue-dark);
 }
 
-.td-tab.is-active {
+.booking-tab.is-active {
   color: var(--blue);
   border-bottom-color: var(--blue);
 }
 
-.td-form {
+.booking-form {
   padding: 20px 0 0;
   border: 0;
   border-radius: 0;
@@ -2065,35 +2074,35 @@ ol {
   box-shadow: none;
 }
 
-.td-form h3 {
+.booking-form h3 {
   margin: 20px 0 8px;
   font-size: 18px;
 }
 
-.td-form > h3:first-child {
+.booking-form > h3:first-child {
   margin-top: 0;
 }
 
-.td-form .field {
+.booking-form .field {
   margin-bottom: 10px;
 }
 
-.td-form .field label {
+.booking-form .field label {
   font-size: 12.5px;
   font-weight: 700;
 }
 
-.td-form .field input,
-.td-form .field select {
+.booking-form .field input,
+.booking-form .field select {
   min-height: 42px;
   border-radius: 6px;
 }
 
-.td-form .consent {
+.booking-form .consent {
   margin-top: 16px;
 }
 
-.td-submit {
+.booking-submit {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -2489,6 +2498,10 @@ ol {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .service-strip .news-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .detail-grid {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -2508,17 +2521,17 @@ ol {
     grid-template-columns: 1fr;
   }
 
-  .test-drive {
+  .booking {
     grid-template-columns: 1fr;
     gap: 26px;
   }
 
-  .td-media {
+  .booking-media {
     position: static;
     order: -1;
   }
 
-  .td-media img {
+  .booking-media img {
     max-width: 460px;
   }
 
@@ -2629,6 +2642,10 @@ ol {
 
   .vehicle-grid,
   .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-strip .news-grid {
     grid-template-columns: 1fr;
   }
 

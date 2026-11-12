@@ -26,8 +26,8 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
 }));
 ---
 
-<div class="test-drive" data-test-drive data-vehicles={JSON.stringify(vehicleData)}>
-  <div class="td-media">
+<div class="booking" data-booking data-vehicles={JSON.stringify(vehicleData)}>
+  <div class="booking-media">
     <img
       src={url(initial.images[0])}
       alt={initial.name}
@@ -35,25 +35,25 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
       height="675"
       loading="lazy"
       decoding="async"
-      data-td-image
+      data-booking-image
     />
-    <div class="td-media-caption">
-      <strong data-td-name>{initial.name}</strong>
-      <span data-td-price>{formatVnd(initial.price)}</span>
+    <div class="booking-caption">
+      <strong data-booking-name>{initial.name}</strong>
+      <span data-booking-price>{formatVnd(initial.price)}</span>
     </div>
   </div>
 
-  <div class="td-panel">
-    <div class="td-tabs" role="tablist" aria-label="Loại xe">
-      <button class="td-tab is-active" type="button" role="tab" aria-selected="true" data-td-tab="car">
+  <div class="booking-panel">
+    <div class="booking-tabs" role="tablist" aria-label="Loại xe">
+      <button class="booking-tab is-active" type="button" role="tab" aria-selected="true" data-booking-tab="car">
         Xe ô tô
       </button>
-      <button class="td-tab" type="button" role="tab" aria-selected="false" data-td-tab="motorbike">
+      <button class="booking-tab" type="button" role="tab" aria-selected="false" data-booking-tab="motorbike">
         Xe máy điện
       </button>
     </div>
 
-    <form class="lead-form lead-form-js td-form" data-form-type="test_drive" novalidate>
+    <form class="lead-form lead-form-js booking-form" data-form-type="test_drive" novalidate>
       <h3>Thông tin khách hàng</h3>
 
       <div class="field">
@@ -90,7 +90,7 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
 
       <div class="field">
         <label for={`${uid}-vehicle`}>Lựa chọn mẫu xe <span class="req">*</span></label>
-        <select id={`${uid}-vehicle`} name="vehicleSlug" required data-td-vehicle>
+        <select id={`${uid}-vehicle`} name="vehicleSlug" required data-booking-vehicle>
           {cars.map((vehicle) => (
             <option value={vehicle.slug} data-image={url(vehicle.images[0])} data-name={vehicle.name} data-price={formatVnd(vehicle.price)}>
               {vehicle.name}
@@ -167,7 +167,7 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
         <div class="field-error" data-error-for="consent">Vui lòng đồng ý trước khi gửi.</div>
       </div>
 
-      <button class="btn btn--block td-submit" type="submit">Đăng ký lái thử</button>
+      <button class="btn btn--block booking-submit" type="submit">Đăng ký lái thử</button>
       <div class="form-status" role="status" aria-live="polite"></div>
     </form>
   </div>
