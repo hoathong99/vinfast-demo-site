@@ -1,0 +1,18 @@
+---
+import { site } from "../data/site";
+---
+
+<a
+  class="zalo-bubble"
+  href={site.zaloUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label={`Chat Zalo với ${site.name}`}
+  data-track="zalo_open"
+>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.1A8.5 8.5 0 1 1 21 11.5Z" />
+    <path d="M8.2 9.3h5.2l-5.2 5.2h5.2" />
+  </svg>
+  <span class="zalo-tooltip">Chat Zalo</span>
+</a>

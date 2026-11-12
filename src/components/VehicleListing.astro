@@ -1,0 +1,82 @@
+---
+import VehicleCard from "../components/VehicleCard.astro";
+import LeadForm from "../components/LeadForm.astro";
+import type { Vehicle } from "../data/vehicles";
+import { url } from "../lib/format";
+
+interface Range {
+  label: string;
+  min: number;
+  max: number | null;
+}
+
+interface Props {
+  title: string;
+  eyebrow: string;
+  description: string;
+  vehicles: Vehicle[];
+  ranges?: Range[];
+  contactTitle?: string;
+}
+
+const { title, eyebrow, description, vehicles, ranges = [], contactTitle = "Nhận báo giá" } = Astro.props;
+---
+
+<div class="page-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href={url("")}>Trang chủ</a>
+      <span>/</span>
+      <span aria-current="page">{eyebrow}</span>
+    </nav>
+    <div class="eyebrow">{eyebrow}</div>
+    <h1>{title}</h1>
+    <p>{description}</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    {ranges.length > 0 && (
+      <div class="filter-bar" data-filter-group role="group" aria-label="Lọc theo giá">
+        <span class="filter-label">Khoảng giá</span>
+        <button class="filter-chip" type="button" data-filter-min="0" data-filter-max="" aria-pressed="true">Tất cả</button>
+        {ranges.map((range) => (
+          <button
+            class="filter-chip"
+            type="button"
+            data-filter-min={range.min}
+            data-filter-max={range.max ?? ""}
+            aria-pressed="false"
+          >
+            {range.label}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <div class="vehicle-grid" data-vehicle-grid>
+      {vehicles.map((vehicle) => <VehicleCard vehicle={vehicle} />)}
+    </div>
+    <div class="empty-state" data-empty-state>Không có mẫu xe phù hợp với bộ lọc.</div>
+  </div>
+</section>
+
+<section class="lead-section section--soft">
+  <div class="container lead-layout">
+    <div class="lead-copy">
+      <div class="eyebrow">Tư vấn</div>
+      <h2>{contactTitle}</h2>
+      <p>
+        Chọn mẫu xe và để lại thông tin. Đội ngũ demo sẽ liên hệ theo khung giờ bạn mong muốn.
+        Đây là dữ liệu mẫu cho mục đích trình diễn.
+      </p>
+      <ul>
+        <li>Báo giá minh họa theo mẫu xe đang chọn.</li>
+        <li>Tư vấn trả góp và thời gian giao xe demo.</li>
+        <li>Đăng ký lái thử tại showroom demo.</li>
+      </ul>
+    </div>
+    <LeadForm formType="quote" />
+  </div>
+</section>

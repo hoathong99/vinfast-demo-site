@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeadForm from "../components/LeadForm.astro";
+import { site } from "../data/site";
+import { url } from "../lib/format";
+---
+
+<BaseLayout
+  title="Đăng ký lái thử — VinFast CarOn Demo"
+  description="Đăng ký lái thử ô tô điện hoặc xe máy điện tại showroom demo."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={url("")}>Trang chủ</a>
+        <span>/</span>
+        <span aria-current="page">Đăng ký lái thử</span>
+      </nav>
+      <div class="eyebrow">Lái thử</div>
+      <h1>Đăng ký lái thử</h1>
+      <p>
+        Chọn mẫu xe, ngày và khung giờ mong muốn. Đây là form demo, không gửi thông tin đến đại lý thật.
+      </p>
+    </div>
+  </div>
+
+  <section class="lead-section">
+    <div class="container lead-layout">
+      <div class="lead-copy">
+        <div class="eyebrow">Trải nghiệm</div>
+        <h2>Lái thử tại showroom demo</h2>
+        <p>
+          Trải nghiệm thực tế là cách tốt nhất để chọn xe. Đội ngũ demo sẽ xác nhận lịch hẹn qua số điện thoại
+          bạn cung cấp.
+        </p>
+        <ul>
+          <li>Chọn mẫu ô tô hoặc xe máy điện.</li>
+          <li>Chọn ngày và khung giờ phù hợp.</li>
+          <li>Xác nhận qua hotline hoặc Zalo.</li>
+          <li>Miễn phí lái thử trong chương trình demo.</li>
+        </ul>
+
+        <div class="contact-card" style="margin-top: 20px">
+          <h2>Thông tin showroom</h2>
+          <ul class="contact-list">
+            <li>
+              <span>Địa chỉ</span>
+              <strong>{site.address}</strong>
+            </li>
+            <li>
+              <span>Hotline bán hàng</span>
+              <a href={site.hotlineSalesHref} data-track="call_click">{site.hotlineSales}</a>
+            </li>
+            <li>
+              <span>Zalo</span>
+              <a href={site.zaloUrl} target="_blank" rel="noopener noreferrer" data-track="zalo_open">Chat Zalo</a>
+            </li>
+            <li>
+              <span>Giờ mở cửa</span>
+              {site.hours.map((item) => <p style="margin:0">{item.label}: {item.value}</p>)}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <LeadForm
+        formType="test_drive"
+        title="Đăng ký lái thử"
+        intro="Điền thông tin bên dưới. Form demo sẽ ghi dữ liệu vào Google Sheet khi bạn cấu hình endpoint."
+      />
+    </div>
+  </section>
+</BaseLayout>

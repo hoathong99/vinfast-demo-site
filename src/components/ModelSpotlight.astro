@@ -1,0 +1,90 @@
+---
+import type { Vehicle } from "../data/vehicles";
+import { formatVnd, url } from "../lib/format";
+
+interface Props {
+  vehicles: Vehicle[];
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  listingHref: string;
+  soft?: boolean;
+  id: string;
+}
+
+const { vehicles, title, eyebrow, description, listingHref, soft = false, id } = Astro.props;
+const typeLabel = (type: Vehicle["type"]) => (type === "car" ? "Ô tô điện" : "Xe máy điện");
+---
+
+<section class:list={["spotlight", { "spotlight--soft": soft }]} aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <div class="section-head">
+      <div>
+        {eyebrow && <div class="eyebrow">{eyebrow}</div>}
+        <h2 id={`${id}-title`}>{title}</h2>
+        {description && <p>{description}</p>}
+      </div>
+      <a class="link-arrow" href={url(listingHref)}>Xem tất cả</a>
+    </div>
+
+    <div data-carousel data-autoplay="8000">
+      <div class="spotlight-track" data-carousel-track>
+        {vehicles.map((vehicle, index) => {
+          const detailHref = url(`${vehicle.type === "car" ? "o-to-dien" : "xe-may-dien"}/${vehicle.slug}/`);
+          return (
+            <article class="spotlight-slide" data-carousel-slide>
+              <div class="spotlight-media">
+                <a href={detailHref} aria-label={`Xem chi tiết ${vehicle.name}`}>
+                  <img
+                    src={url(vehicle.images[0])}
+                    alt={vehicle.name}
+                    width="1200"
+                    height="675"
+                    loading={index === 0 ? "eager" : "lazy"}
+                  />
+                </a>
+              </div>
+              <div class="spotlight-content">
+                <div class="eyebrow">{typeLabel(vehicle.type)}</div>
+                <h3>{vehicle.name}</h3>
+                <p class="spotlight-tagline">{vehicle.tagline}</p>
+                <div class="spec-strip">
+                  {vehicle.quickSpecs.map((spec) => (
+                    <div>
+                      <span>{spec.label}</span>
+                      <strong>{spec.value}</strong>
+                    </div>
+                  ))}
+                </div>
+                <div class="price-line">
+                  <strong>{formatVnd(vehicle.price)}</strong>
+                  <span>{vehicle.priceNote}</span>
+                </div>
+                <div class="spotlight-actions">
+                  <a class="btn" href={detailHref}>Xem chi tiết</a>
+                  <a class="btn btn--outline" href={url(`dang-ky-lai-thu/?model=${vehicle.slug}`)}>Đăng ký lái thử</a>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Xe trước">‹</button>
+        <button class="carousel-arrow" type="button" data-carousel-next aria-label="Xe sau">›</button>
+        <div class="carousel-dots" data-carousel-dots>
+          {vehicles.map((vehicle, index) => (
+            <button
+              class="carousel-dot"
+              type="button"
+              data-carousel-dot
+              aria-label={`Xem ${vehicle.name}`}
+              aria-current={index === 0 ? "true" : "false"}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NewsCard from "../../components/NewsCard.astro";
+import { news } from "../../data/news";
+import { url } from "../../lib/format";
+---
+
+<BaseLayout
+  title="Tin tức — VinFast CarOn Demo"
+  description="Tin tức, ưu đãi và kinh nghiệm sử dụng xe điện tại VinFast CarOn Demo."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={url("")}>Trang chủ</a>
+        <span>/</span>
+        <span aria-current="page">Tin tức</span>
+      </nav>
+      <div class="eyebrow">Tin tức &amp; sự kiện</div>
+      <h1>Tin tức</h1>
+      <p>Nội dung mẫu để kiểm tra bố cục danh sách bài viết và trang chi tiết.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="news-grid">
+        {news.map((item) => <NewsCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Trải nghiệm</div>
+          <h2>Đăng ký lái thử</h2>
+          <p>Kiểm tra luồng chuyển đổi từ nội dung tin tức sang form đăng ký lái thử.</p>
+        </div>
+        <a class="btn" href={url("dang-ky-lai-thu/")}>Đăng ký ngay</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

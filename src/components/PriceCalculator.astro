@@ -1,0 +1,50 @@
+---
+import { formatVnd } from "../lib/format";
+
+interface Props {
+  price: number;
+}
+
+const { price } = Astro.props;
+---
+
+<div class="calculator" data-calculator data-price={price}>
+  <h2>Dự tính trả góp</h2>
+  <div class="calc-row">
+    <label for={`down-${price}`}>Trả trước</label>
+    <strong><span data-calc-down-label>20</span>% · <span data-calc-down-value>{formatVnd(price * 0.2)}</span></strong>
+  </div>
+  <input
+    id={`down-${price}`}
+    type="range"
+    min="10"
+    max="50"
+    step="5"
+    value="20"
+    aria-label="Phần trăm trả trước"
+    data-calc-down
+  />
+
+  <div class="calc-row" style="margin-top: 10px">
+    <label for={`term-${price}`}>Thời hạn vay</label>
+    <strong><span data-calc-term-label>60</span> tháng</strong>
+  </div>
+  <input
+    id={`term-${price}`}
+    type="range"
+    min="12"
+    max="96"
+    step="12"
+    value="60"
+    aria-label="Thời hạn vay theo tháng"
+    data-calc-term
+  />
+
+  <div class="calc-result">
+    <span>Ước tính mỗi tháng</span>
+    <strong data-calc-monthly>—</strong>
+  </div>
+  <p class="small muted" style="margin: 8px 0 0">
+    Con số minh họa, lãi suất giả định 8%/năm. Không phải báo giá chính thức.
+  </p>
+</div>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VehicleDetail from "../../components/VehicleDetail.astro";
+import { cars } from "../../data/vehicles";
+
+export function getStaticPaths() {
+  return cars.map((vehicle) => ({
+    params: { slug: vehicle.slug },
+    props: { vehicle },
+  }));
+}
+
+const { vehicle } = Astro.props;
+const related = cars.filter((item) => item.slug !== vehicle.slug).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${vehicle.name} — VinFast CarOn Demo`}
+  description={`${vehicle.name}: ${vehicle.tagline}. Giá và thông số demo tại VinFast CarOn Demo.`}
+  image={vehicle.images[0]}
+>
+  <VehicleDetail vehicle={vehicle} related={related} />
+</BaseLayout>

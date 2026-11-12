@@ -1,0 +1,44 @@
+---
+import type { Vehicle } from "../data/vehicles";
+import { formatVnd, url } from "../lib/format";
+
+interface Props {
+  vehicle: Vehicle;
+}
+
+const { vehicle } = Astro.props;
+const detailHref = url(`${vehicle.type === "car" ? "o-to-dien" : "xe-may-dien"}/${vehicle.slug}/`);
+const testDriveHref = url(`dang-ky-lai-thu/?model=${vehicle.slug}`);
+---
+
+<article class="vehicle-card" data-vehicle-card data-price={vehicle.price} data-type={vehicle.type}>
+  <div class="vehicle-card-media">
+    <a href={detailHref} aria-label={`Xem chi tiết ${vehicle.name}`}>
+      <img
+        src={url(vehicle.images[0])}
+        alt={vehicle.name}
+        width="1200"
+        height="675"
+        loading="lazy"
+      />
+    </a>
+    {vehicle.badge && <span class="vehicle-card-badge">{vehicle.badge}</span>}
+  </div>
+  <div class="vehicle-card-body">
+    <h3><a href={detailHref}>{vehicle.name}</a></h3>
+    <p class="vehicle-card-tagline">{vehicle.tagline}</p>
+    <div class="vehicle-card-specs">
+      {vehicle.quickSpecs.slice(0, 3).map((spec) => (
+        <span>{spec.label}: <strong>{spec.value}</strong></span>
+      ))}
+    </div>
+    <div class="vehicle-card-price">
+      {formatVnd(vehicle.price)}
+      <small>{vehicle.priceNote}</small>
+    </div>
+    <div class="vehicle-card-actions">
+      <a class="btn btn--sm btn--ghost" href={detailHref}>Chi tiết</a>
+      <a class="btn btn--sm" href={testDriveHref}>Lái thử</a>
+    </div>
+  </div>
+</article>

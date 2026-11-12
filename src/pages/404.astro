@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/format";
+---
+
+<BaseLayout title="Không tìm thấy trang — VinFast CarOn Demo" description="Trang không tồn tại.">
+  <div class="page-hero">
+    <div class="container">
+      <div class="eyebrow">404</div>
+      <h1>Không tìm thấy trang</h1>
+      <p>Đường dẫn bạn truy cập không tồn tại hoặc đã được thay đổi trong bản demo.</p>
+      <p style="margin-top: 20px">
+        <a class="btn" href={url("")}>Về trang chủ</a>
+      </p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="news-grid">
+        <article class="highlight-item">
+          <h3>Ô tô điện</h3>
+          <p><a class="link-arrow" href={url("o-to-dien/")}>Xem danh sách</a></p>
+        </article>
+        <article class="highlight-item">
+          <h3>Xe máy điện</h3>
+          <p><a class="link-arrow" href={url("xe-may-dien/")}>Xem danh sách</a></p>
+        </article>
+        <article class="highlight-item">
+          <h3>Liên hệ</h3>
+          <p><a class="link-arrow" href={url("lien-he/")}>Thông tin showroom</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

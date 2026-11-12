@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VehicleListing from "../../components/VehicleListing.astro";
+import { motorbikes } from "../../data/vehicles";
+---
+
+<BaseLayout
+  title="Xe máy điện — VinFast CarOn Demo"
+  description="Danh sách xe máy điện demo: Evo, Viper với thông số và giá minh họa."
+>
+  <VehicleListing
+    title="Xe máy điện"
+    eyebrow="Xe máy điện"
+    description="Hai mẫu xe máy điện demo. Giá và thông số chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
+    vehicles={motorbikes}
+    ranges={[
+      { label: "Dưới 25 triệu", min: 0, max: 25_000_000 },
+      { label: "25 – 35 triệu", min: 25_000_000, max: 35_000_000 },
+      { label: "Trên 35 triệu", min: 35_000_000, max: null },
+    ]}
+    contactTitle="Nhận báo giá xe máy điện"
+  />
+</BaseLayout>

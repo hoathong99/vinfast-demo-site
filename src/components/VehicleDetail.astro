@@ -1,0 +1,184 @@
+---
+import Gallery from "./Gallery.astro";
+import PriceCalculator from "./PriceCalculator.astro";
+import LeadForm from "./LeadForm.astro";
+import VehicleCard from "./VehicleCard.astro";
+import type { Vehicle } from "../data/vehicles";
+import { site } from "../data/site";
+import { formatVnd, url } from "../lib/format";
+
+interface Props {
+  vehicle: Vehicle;
+  related: Vehicle[];
+}
+
+const { vehicle, related } = Astro.props;
+const typeLabel = vehicle.type === "car" ? "Ô tô điện" : "Xe máy điện";
+const listingHref = url(vehicle.type === "car" ? "o-to-dien/" : "xe-may-dien/");
+const testDriveHref = url(`dang-ky-lai-thu/?model=${vehicle.slug}`);
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: vehicle.name,
+  description: vehicle.description,
+  image: vehicle.images.map((image) => new URL(url(image), Astro.site ?? Astro.url).href),
+  brand: { "@type": "Brand", name: "VinFast" },
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "VND",
+    price: vehicle.price,
+    availability: "https://schema.org/InStock",
+    url: new URL(Astro.url.pathname, Astro.site ?? Astro.url).href,
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
+<span data-vehicle-view={vehicle.slug} hidden></span>
+
+<div class="detail-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href={url("")}>Trang chủ</a>
+      <span>/</span>
+      <a href={listingHref}>{typeLabel}</a>
+      <span>/</span>
+      <span aria-current="page">{vehicle.name}</span>
+    </nav>
+
+    <div class="detail-grid">
+      <Gallery images={vehicle.images} name={vehicle.name} />
+
+      <div class="detail-info">
+        <div class="eyebrow">{typeLabel}</div>
+        <h1>{vehicle.name}</h1>
+        <p class="detail-tagline">{vehicle.tagline}</p>
+
+        <div class="quick-specs">
+          {vehicle.quickSpecs.map((spec) => (
+            <div>
+              <span>{spec.label}</span>
+              <strong>{spec.value}</strong>
+            </div>
+          ))}
+        </div>
+
+        <div class="price-box">
+          <div class="price">{formatVnd(vehicle.price)}</div>
+          <small>{vehicle.priceNote}</small>
+        </div>
+
+        <details class="offer-accordion">
+          <summary>Ưu đãi đang áp dụng (demo)</summary>
+          <ul class="offer-list">
+            {vehicle.offers.map((offer) => (
+              <li>
+                <strong>{offer.title}</strong>
+                <span>{offer.description}</span>
+              </li>
+            ))}
+          </ul>
+        </details>
+
+        <div class="color-list" aria-label="Màu xe demo">
+          {vehicle.colors.map((color) => (
+            <span class="color-swatch">
+              <i style={`background:${color.hex}`}></i>
+              {color.name}
+            </span>
+          ))}
+        </div>
+
+        <div class="detail-actions">
+          <a class="btn" href={testDriveHref} data-track="cta_click" data-label="detail_test_drive">Đăng ký lái thử</a>
+          <a class="btn btn--outline" href="#quote" data-track="cta_click" data-label="detail_quote">Nhận báo giá</a>
+        </div>
+        <div class="detail-actions">
+          <a class="btn btn--zalo" href={site.zaloUrl} target="_blank" rel="noopener noreferrer" data-track="zalo_open">Chat Zalo</a>
+          <a class="btn btn--ghost" href={site.hotlineSalesHref} data-track="call_click">Gọi {site.hotlineSales}</a>
+        </div>
+        <p class="detail-note">
+          Giá và ưu đãi là dữ liệu demo. Vui lòng liên hệ showroom để nhận thông tin chính thức.
+        </p>
+
+        <PriceCalculator price={vehicle.price} />
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="detail-content">
+  <div class="container detail-content-grid">
+    <div>
+      <div class="eyebrow">Tổng quan</div>
+      <h2>Vì sao chọn {vehicle.name}?</h2>
+      <p>{vehicle.description}</p>
+      <div class="highlight-list">
+        {vehicle.highlights.map((highlight) => (
+          <div class="highlight-item">
+            <h3>{highlight.title}</h3>
+            <p>{highlight.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <div class="eyebrow">Thông số</div>
+      <h2>Thông số kỹ thuật</h2>
+      <div class="spec-table">
+        {vehicle.specs.map((group) => (
+          <div class="spec-group">
+            <h3>{group.group}</h3>
+            {group.items.map((item) => (
+              <div class="spec-row">
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <p class="small muted" style="margin-top: 12px">
+        Thông số trên là dữ liệu mẫu, có thể thay đổi theo phiên bản và chương trình của đại lý.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="lead-section" id="quote">
+  <div class="container lead-layout">
+    <div class="lead-copy">
+      <div class="eyebrow">Báo giá</div>
+      <h2>Nhận báo giá {vehicle.name}</h2>
+      <p>
+        Điền thông tin để nhận báo giá minh họa và tư vấn trả góp. Form này dùng để kiểm tra luồng ghi dữ liệu
+        vào Google Sheet.
+      </p>
+      <ul>
+        <li>Giá xe và ưu đãi demo.</li>
+        <li>Phương án trả góp minh họa.</li>
+        <li>Lịch lái thử tại showroom demo.</li>
+      </ul>
+    </div>
+    <LeadForm formType="quote" defaultVehicle={vehicle.slug} title={`Nhận báo giá ${vehicle.name}`} />
+  </div>
+</section>
+
+{related.length > 0 && (
+  <section class="section section--soft">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Xem thêm</div>
+          <h2>Mẫu xe cùng loại</h2>
+        </div>
+        <a class="link-arrow" href={listingHref}>Xem tất cả</a>
+      </div>
+      <div class="vehicle-grid">
+        {related.map((item) => <VehicleCard vehicle={item} />)}
+      </div>
+    </div>
+  </section>
+)}

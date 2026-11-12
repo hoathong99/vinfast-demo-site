@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { site } from "../../data/site";
+import { url } from "../../lib/format";
+---
+
+<BaseLayout
+  title="Chính sách bảo mật — VinFast CarOn Demo"
+  description="Chính sách bảo mật mẫu cho website demo: dữ liệu thu thập, mục đích, thời gian lưu trữ và quyền của người dùng."
+>
+  <div class="container">
+    <article class="article">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={url("")}>Trang chủ</a>
+        <span>/</span>
+        <span aria-current="page">Chính sách bảo mật</span>
+      </nav>
+
+      <header class="article-header">
+        <div class="eyebrow">Chính sách</div>
+        <h1>Chính sách bảo mật</h1>
+        <p class="muted">Bản mẫu cho website demo — cần được tư vấn pháp lý trước khi dùng thật.</p>
+      </header>
+
+      <div class="article-body">
+        <p>
+          Website demo này thu thập thông tin bạn nhập vào các form liên hệ, đăng ký lái thử và đặt lịch dịch vụ.
+          Dữ liệu chỉ dùng để kiểm tra luồng hoạt động của website và không được chuyển cho đại lý thật.
+        </p>
+
+        <h2>1. Thông tin thu thập</h2>
+        <ul>
+          <li>Họ tên, số điện thoại, email (nếu bạn cung cấp).</li>
+          <li>Mẫu xe, ngày giờ mong muốn, hạng mục dịch vụ và ghi chú.</li>
+          <li>Thông tin kỹ thuật: đường dẫn trang, nguồn giới thiệu, UTM, thiết bị và mã phiên.</li>
+          <li>Không thu thập số CMND/CCCD, thông tin tài chính hay dữ liệu nhạy cảm.</li>
+        </ul>
+
+        <h2>2. Mục đích sử dụng</h2>
+        <ul>
+          <li>Liên hệ tư vấn và xác nhận lịch hẹn demo.</li>
+          <li>Đo lường hiệu quả form và các nút liên hệ.</li>
+          <li>Phát hiện spam, lạm dụng form.</li>
+        </ul>
+
+        <h2>3. Chia sẻ dữ liệu</h2>
+        <p>
+          Dữ liệu có thể được lưu trên Google Sheets thông qua Google Apps Script và gửi thông báo nội bộ.
+          Không bán hoặc chia sẻ dữ liệu cho bên thứ ba ngoài các nhà cung cấp hạ tầng cần thiết.
+        </p>
+
+        <h2>4. Thời gian lưu trữ</h2>
+        <p>
+          Dữ liệu form được lưu tối đa 24 tháng kể từ lần liên hệ gần nhất. Dữ liệu sự kiện kỹ thuật được lưu
+          tối đa 90 ngày. Bạn có thể yêu cầu xóa dữ liệu bất kỳ lúc nào.
+        </p>
+
+        <h2>5. Quyền của bạn</h2>
+        <ul>
+          <li>Yêu cầu truy cập, chỉnh sửa hoặc xóa dữ liệu cá nhân.</li>
+          <li>Rút lại sự đồng ý xử lý dữ liệu.</li>
+          <li>Khiếu nại về việc xử lý dữ liệu cá nhân.</li>
+        </ul>
+
+        <h2>6. Liên hệ</h2>
+        <p>
+          Email: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+          Hotline: <a href={site.hotlineSalesHref}>{site.hotlineSales}</a><br />
+          Địa chỉ: {site.address}
+        </p>
+
+        <div class="article-note">
+          Đây là chính sách mẫu cho dự án demo. Trước khi triển khai thật, cần rà soát theo Nghị định
+          13/2023/NĐ-CP và quy định pháp luật hiện hành.
+        </div>
+      </div>
+    </article>
+  </div>
+</BaseLayout>

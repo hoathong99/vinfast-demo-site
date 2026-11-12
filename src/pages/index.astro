@@ -1,0 +1,95 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSlider from "../components/HeroSlider.astro";
+import ModelSpotlight from "../components/ModelSpotlight.astro";
+import ServiceBanner from "../components/ServiceBanner.astro";
+import NewsCard from "../components/NewsCard.astro";
+import LeadForm from "../components/LeadForm.astro";
+import { cars, motorbikes } from "../data/vehicles";
+import { news } from "../data/news";
+import { site } from "../data/site";
+import { url } from "../lib/format";
+
+const slides = [
+  { image: "/images/hero-1.webp", alt: "Ưu đãi thu xăng đổi điện tại đại lý VinFast demo" },
+  { image: "/images/hero-2.webp", alt: "Chương trình chuyển xanh hỗ trợ đến 6 triệu đồng" },
+  { image: "/images/hero-3.webp", alt: "Ưu đãi đặc quyền khi sở hữu VF MPV 7" },
+];
+---
+
+<BaseLayout>
+  <HeroSlider slides={slides} />
+
+  <section class="section section--tight">
+    <div class="container">
+      <h1 class="home-h1">Đại lý VinFast CarOn Demo — Ô tô điện &amp; Xe máy điện</h1>
+      <div class="home-badges" aria-label="Điểm nổi bật">
+        <span>Showroom demo một điểm bán</span>
+        <span>Hỗ trợ trả góp</span>
+        <span>Đặt lịch lái thử online</span>
+        <span>Chat Zalo trực tiếp</span>
+      </div>
+    </div>
+  </section>
+
+  <ModelSpotlight
+    id="car-spotlight"
+    title="Ô tô điện nổi bật"
+    eyebrow="Ô tô điện"
+    description="Bốn mẫu xe demo với thông số và giá minh họa. Thay dữ liệu thật sau khi chốt showroom."
+    vehicles={cars}
+    listingHref="o-to-dien/"
+  />
+
+  <ModelSpotlight
+    id="bike-spotlight"
+    title="Xe máy điện nổi bật"
+    eyebrow="Xe máy điện"
+    description="Mẫu xe máy điện phù hợp nhu cầu di chuyển đô thị."
+    vehicles={motorbikes}
+    listingHref="xe-may-dien/"
+    soft
+  />
+
+  <ServiceBanner />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Tin tức &amp; sự kiện</div>
+          <h2>Cập nhật từ showroom demo</h2>
+          <p>Nội dung mẫu để kiểm tra bố cục tin tức, hình ảnh và liên kết nội bộ.</p>
+        </div>
+        <a class="link-arrow" href={url("tin-tuc/")}>Xem tất cả tin</a>
+      </div>
+      <div class="news-grid">
+        {news.map((item) => <NewsCard item={item} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="lead-section section--soft" id="nhan-bao-gia">
+    <div class="container lead-layout">
+      <div class="lead-copy">
+        <div class="eyebrow">Liên hệ</div>
+        <h2>Nhận tư vấn và báo giá demo</h2>
+        <p>
+          Gửi thông tin để kiểm tra luồng form → Google Sheet. Dữ liệu trên website này là dữ liệu mẫu,
+          không dùng cho giao dịch thật.
+        </p>
+        <ul>
+          <li>Tư vấn chọn xe theo nhu cầu và ngân sách.</li>
+          <li>Hỗ trợ thủ tục trả góp, đăng ký lái thử.</li>
+          <li>Đặt lịch dịch vụ và bảo dưỡng online.</li>
+          <li>Kênh liên hệ: hotline, Zalo và form trực tuyến.</li>
+        </ul>
+        <p class="small muted">
+          Hotline demo: <a href={site.hotlineSalesHref} data-track="call_click">{site.hotlineSales}</a> ·
+          Zalo: <a href={site.zaloUrl} target="_blank" rel="noopener noreferrer" data-track="zalo_open">Chat ngay</a>
+        </p>
+      </div>
+      <LeadForm formType="quote" />
+    </div>
+  </section>
+</BaseLayout>

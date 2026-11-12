@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LeadForm from "../components/LeadForm.astro";
+import { site } from "../data/site";
+import { url } from "../lib/format";
+---
+
+<BaseLayout
+  title="Liên hệ — VinFast CarOn Demo"
+  description="Thông tin showroom demo: địa chỉ, hotline, Zalo, giờ mở cửa và form liên hệ."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={url("")}>Trang chủ</a>
+        <span>/</span>
+        <span aria-current="page">Liên hệ</span>
+      </nav>
+      <div class="eyebrow">Liên hệ</div>
+      <h1>Showroom demo</h1>
+      <p>Một điểm bán duy nhất cho toàn bộ website demo. Thay thông tin showroom thật khi bàn giao.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-card">
+        <h2>Thông tin liên hệ</h2>
+        <ul class="contact-list">
+          <li>
+            <span>Địa chỉ</span>
+            <a href={site.mapUrl} target="_blank" rel="noopener noreferrer">{site.address}</a>
+          </li>
+          <li>
+            <span>Hotline bán hàng</span>
+            <a href={site.hotlineSalesHref} data-track="call_click">{site.hotlineSales}</a>
+          </li>
+          <li>
+            <span>Hotline dịch vụ</span>
+            <a href={site.hotlineServiceHref} data-track="call_click">{site.hotlineService}</a>
+          </li>
+          <li>
+            <span>Email</span>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </li>
+          <li>
+            <span>Zalo</span>
+            <a href={site.zaloUrl} target="_blank" rel="noopener noreferrer" data-track="zalo_open">Chat Zalo</a>
+          </li>
+          <li>
+            <span>Giờ mở cửa</span>
+            {site.hours.map((item) => <p style="margin:0">{item.label}: {item.value}</p>)}
+          </li>
+        </ul>
+        <div class="detail-actions" style="margin-top: 18px">
+          <a class="btn btn--zalo" href={site.zaloUrl} target="_blank" rel="noopener noreferrer" data-track="zalo_open">Chat Zalo</a>
+          <a class="btn btn--ghost" href={site.hotlineSalesHref} data-track="call_click">Gọi hotline</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="map-facade" data-map data-map-src="https://www.google.com/maps?q=Hanoi&output=embed">
+          <div>
+            <h3>Bản đồ showroom demo</h3>
+            <p>Bản đồ được tải khi bạn bấm nút để giữ trang nhẹ.</p>
+            <button class="btn btn--ghost" type="button" data-map-load>Xem bản đồ</button>
+          </div>
+        </div>
+        <p class="small muted" style="margin-top: 10px">
+          Địa chỉ, bản đồ và hotline là dữ liệu mẫu. Cập nhật thông tin thật trước khi triển khai.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lead-section section--soft">
+    <div class="container lead-layout">
+      <div class="lead-copy">
+        <div class="eyebrow">Tư vấn</div>
+        <h2>Gửi yêu cầu liên hệ</h2>
+        <p>
+          Để lại lời nhắn, đội ngũ demo sẽ phản hồi. Form này dùng để kiểm tra luồng ghi dữ liệu vào Google Sheet.
+        </p>
+        <ul>
+          <li>Tư vấn mua xe, lái thử, trả góp.</li>
+          <li>Đặt lịch bảo dưỡng, sửa chữa.</li>
+          <li>Hỗ trợ thông tin showroom và chỉ đường.</li>
+        </ul>
+      </div>
+      <LeadForm formType="contact" />
+    </div>
+  </section>
+</BaseLayout>

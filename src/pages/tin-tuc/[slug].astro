@@ -1,0 +1,67 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { news } from "../../data/news";
+import { formatDate, url } from "../../lib/format";
+
+export function getStaticPaths() {
+  return news.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const related = news.filter((entry) => entry.slug !== item.slug).slice(0, 2);
+---
+
+<BaseLayout
+  title={`${item.title} — VinFast CarOn Demo`}
+  description={item.excerpt}
+  image={item.image}
+>
+  <div class="container">
+    <article class="article">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={url("")}>Trang chủ</a>
+        <span>/</span>
+        <a href={url("tin-tuc/")}>Tin tức</a>
+        <span>/</span>
+        <span aria-current="page">{item.title}</span>
+      </nav>
+
+      <header class="article-header">
+        <div class="news-meta">
+          <span>{item.category}</span>
+          <span>·</span>
+          <time datetime={item.date}>{formatDate(item.date)}</time>
+        </div>
+        <h1>{item.title}</h1>
+      </header>
+
+      <img class="article-cover" src={url(item.image)} alt={item.title} width="800" height="450" loading="eager" />
+
+      <div class="article-body">
+        {item.body.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <div class="article-note">
+        Bài viết và hình ảnh là nội dung mẫu cho website demo. Không sử dụng làm thông tin chính thức.
+      </div>
+
+      {related.length > 0 && (
+        <div style="margin-top: 36px">
+          <h2>Bài viết khác</h2>
+          <ul>
+            {related.map((entry) => (
+              <li><a href={url(`tin-tuc/${entry.slug}/`)}>{entry.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <p style="margin-top: 28px">
+        <a class="btn" href={url("dang-ky-lai-thu/")}>Đăng ký lái thử</a>
+      </p>
+    </article>
+  </div>
+</BaseLayout>

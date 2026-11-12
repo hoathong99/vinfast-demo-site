@@ -1,0 +1,206 @@
+---
+import { vehicles } from "../data/vehicles";
+import { site } from "../data/site";
+import { url } from "../lib/format";
+
+type FormType = "test_drive" | "service" | "contact" | "quote";
+
+interface Props {
+  formType: FormType;
+  title?: string;
+  intro?: string;
+  submitLabel?: string;
+  showVehicle?: boolean;
+  showDateTime?: boolean;
+  showService?: boolean;
+  showLicense?: boolean;
+  showMessage?: boolean;
+  showEmail?: boolean;
+  defaultVehicle?: string;
+}
+
+const {
+  formType,
+  title = formType === "service"
+    ? "Đặt lịch dịch vụ"
+    : formType === "contact"
+      ? "Gửi yêu cầu tư vấn"
+      : formType === "quote"
+        ? "Nhận báo giá"
+        : "Đăng ký lái thử",
+  intro = "Điền thông tin để đội ngũ demo liên hệ tư vấn. Đây là form mẫu, dữ liệu chỉ dùng cho mục đích trình diễn.",
+  submitLabel = formType === "service"
+    ? "Đặt hẹn dịch vụ"
+    : formType === "contact"
+      ? "Gửi yêu cầu"
+      : formType === "quote"
+        ? "Nhận báo giá"
+        : "Đăng ký lái thử",
+  showVehicle = formType !== "contact",
+  showDateTime = formType === "test_drive" || formType === "service",
+  showService = formType === "service",
+  showLicense = formType === "service",
+  showMessage = true,
+  showEmail = formType === "contact",
+  defaultVehicle = "",
+} = Astro.props;
+
+const uid = `${formType}-${Math.random().toString(36).slice(2, 8)}`;
+const cars = vehicles.filter((v) => v.type === "car");
+const bikes = vehicles.filter((v) => v.type === "motorbike");
+const times = ["08:00", "09:00", "10:00", "11:00", "13:00", "14:00", "15:00", "16:00", "17:00", "17:30"];
+const serviceOptions = ["Bảo dưỡng", "Sửa chữa", "Đồng sơn", "Kiểm tra pin", "Khác"];
+---
+
+<form class="lead-form lead-form-js" data-form-type={formType} novalidate>
+  <h2>{title}</h2>
+  <p class="form-intro">{intro}</p>
+
+  <div class="form-grid">
+    <div class="field">
+      <label for={`${uid}-name`}>Họ và tên <span class="req">*</span></label>
+      <input
+        id={`${uid}-name`}
+        name="fullName"
+        type="text"
+        autocomplete="name"
+        placeholder="Nhập họ và tên"
+        maxlength="80"
+        required
+      />
+      <div class="field-error" data-error-for="fullName">Vui lòng nhập họ tên (ít nhất 2 ký tự).</div>
+    </div>
+
+    <div class="field">
+      <label for={`${uid}-phone`}>Số điện thoại <span class="req">*</span></label>
+      <input
+        id={`${uid}-phone`}
+        name="phone"
+        type="tel"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder="Ví dụ: 0900 000 000"
+        maxlength="15"
+        required
+      />
+      <div class="field-error" data-error-for="phone">Số điện thoại chưa hợp lệ (10–11 chữ số).</div>
+    </div>
+
+    {showEmail && (
+      <div class="field field--full">
+        <label for={`${uid}-email`}>Email <span class="muted">(không bắt buộc)</span></label>
+        <input id={`${uid}-email`} name="email" type="email" autocomplete="email" placeholder="email@example.com" maxlength="120" />
+        <div class="field-error" data-error-for="email">Email chưa hợp lệ.</div>
+      </div>
+    )}
+
+    {showVehicle && (
+      <div class="field field--full">
+        <label for={`${uid}-vehicle`}>Mẫu xe quan tâm <span class="req">*</span></label>
+        <select id={`${uid}-vehicle`} name="vehicleSlug" required>
+          <option value="">Chọn mẫu xe</option>
+          <optgroup label="Ô tô điện">
+            {cars.map((vehicle) => <option value={vehicle.slug} selected={vehicle.slug === defaultVehicle}>{vehicle.name}</option>)}
+          </optgroup>
+          <optgroup label="Xe máy điện">
+            {bikes.map((vehicle) => <option value={vehicle.slug} selected={vehicle.slug === defaultVehicle}>{vehicle.name}</option>)}
+          </optgroup>
+        </select>
+        <div class="field-error" data-error-for="vehicleSlug">Vui lòng chọn mẫu xe.</div>
+      </div>
+    )}
+
+    {showDateTime && (
+      <>
+        <div class="field">
+          <label for={`${uid}-date`}>Ngày mong muốn <span class="req">*</span></label>
+          <input id={`${uid}-date`} name="preferredDate" type="date" required data-date-min />
+          <div class="field-error" data-error-for="preferredDate">Vui lòng chọn ngày.</div>
+        </div>
+
+        <div class="field">
+          <label for={`${uid}-time`}>Khung giờ <span class="req">*</span></label>
+          <select id={`${uid}-time`} name="preferredTime" required>
+            <option value="">Chọn khung giờ</option>
+            {times.map((time) => <option value={time}>{time}</option>)}
+          </select>
+          <div class="field-error" data-error-for="preferredTime">Vui lòng chọn khung giờ.</div>
+        </div>
+      </>
+    )}
+
+    {showService && (
+      <div class="field field--full">
+        <label>Hạng mục dịch vụ <span class="req">*</span></label>
+        <div class="check-grid">
+          {serviceOptions.map((option) => (
+            <label class="check-item">
+              <input type="checkbox" name="serviceType" value={option} />
+              <span>{option}</span>
+            </label>
+          ))}
+        </div>
+        <div class="field-error" data-error-for="serviceType">Vui lòng chọn ít nhất một hạng mục.</div>
+      </div>
+    )}
+
+    {showLicense && (
+      <>
+        <div class="field">
+          <label for={`${uid}-plate`}>Biển số xe</label>
+          <input id={`${uid}-plate`} name="licensePlate" type="text" placeholder="Ví dụ: 30A-12345" maxlength="20" />
+        </div>
+        <div class="field">
+          <label for={`${uid}-km`}>Số km hiện tại</label>
+          <input id={`${uid}-km`} name="km" type="number" min="0" step="1" placeholder="Ví dụ: 12000" />
+        </div>
+      </>
+    )}
+
+    {showMessage && (
+      <div class="field field--full">
+        <label for={`${uid}-message`}>Ghi chú</label>
+        <textarea
+          id={`${uid}-message`}
+          name="message"
+          maxlength="1000"
+          placeholder={formType === "service" ? "Mô tả tình trạng xe hoặc yêu cầu thêm" : "Nhu cầu, thời gian liên hệ hoặc câu hỏi của bạn"}
+        />
+      </div>
+    )}
+  </div>
+
+  <div class="hp-field" aria-hidden="true">
+    <label>Website<input name="company_website" type="text" tabindex="-1" autocomplete="off" /></label>
+  </div>
+
+  <input type="hidden" name="formType" value={formType} />
+  <input type="hidden" name="pagePath" value="" data-page-path />
+  <input type="hidden" name="referrer" value="" data-referrer />
+  <input type="hidden" name="utmSource" value="" data-utm-source />
+  <input type="hidden" name="utmMedium" value="" data-utm-medium />
+  <input type="hidden" name="utmCampaign" value="" data-utm-campaign />
+  <input type="hidden" name="utmContent" value="" data-utm-content />
+  <input type="hidden" name="utmTerm" value="" data-utm-term />
+  <input type="hidden" name="clickId" value="" data-click-id />
+  <input type="hidden" name="sessionId" value="" data-session-id />
+  <input type="hidden" name="elapsedMs" value="0" data-elapsed />
+  <input type="hidden" name="consentVersion" value={site.notice ? "demo-2026-11" : "demo"} />
+
+  <div class="field field--full consent-field">
+    <label class="consent">
+      <input type="checkbox" name="consent" required />
+      <span>
+        Tôi đồng ý cho phép website demo xử lý thông tin tôi cung cấp để liên hệ tư vấn.
+        Xem <a href={url("chinh-sach/bao-mat/")}>chính sách bảo mật</a>.
+      </span>
+    </label>
+    <div class="field-error" data-error-for="consent">Vui lòng đồng ý trước khi gửi.</div>
+  </div>
+
+  <button class="btn btn--block" type="submit">{submitLabel}</button>
+  <div class="form-status" role="status" aria-live="polite"></div>
+  <p class="small muted" style="margin: 10px 0 0">
+    Hoặc gọi <a href={site.hotlineSalesHref} data-track="call_click">{site.hotlineSales}</a> / chat Zalo.
+  </p>
+</form>

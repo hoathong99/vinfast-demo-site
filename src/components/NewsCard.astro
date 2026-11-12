@@ -1,0 +1,27 @@
+---
+import type { NewsItem } from "../data/news";
+import { formatDate, url } from "../lib/format";
+
+interface Props {
+  item: NewsItem;
+}
+
+const { item } = Astro.props;
+const href = url(`tin-tuc/${item.slug}/`);
+---
+
+<article class="news-card">
+  <a href={href} aria-label={`Đọc bài ${item.title}`}>
+    <img src={url(item.image)} alt={item.title} width="800" height="450" loading="lazy" />
+  </a>
+  <div class="news-card-body">
+    <div class="news-meta">
+      <span>{item.category}</span>
+      <span>·</span>
+      <time datetime={item.date}>{formatDate(item.date)}</time>
+    </div>
+    <h3><a href={href}>{item.title}</a></h3>
+    <p>{item.excerpt}</p>
+    <a class="link-arrow" href={href}>Xem thêm</a>
+  </div>
+</article>
