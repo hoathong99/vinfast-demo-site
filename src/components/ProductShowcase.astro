@@ -11,7 +11,7 @@ interface Props {
 const { vehicle, content } = Astro.props;
 ---
 
-<section class="product-showcase section" id="thong-tin-san-pham">
+<section class="product-showcase section" id="thong-tin-san-pham" data-product-showcase>
   <div class="container">
     <div class="story-head story-head--center">
       <div class="eyebrow">Thông tin sản phẩm</div>
@@ -20,19 +20,34 @@ const { vehicle, content } = Astro.props;
     </div>
 
     <div class="product-carousel" data-carousel data-carousel-mode="fade">
-      <div class="product-stage" data-carousel-track>
-        {vehicle.images.map((image, index) => (
-          <figure class="product-slide" data-carousel-slide aria-hidden={index === 0 ? "false" : "true"}>
-            <img
-              src={url(image)}
-              alt={`${vehicle.name} — ảnh ${index + 1}`}
-              width="1200"
-              height="675"
-              loading={index === 0 ? "eager" : "lazy"}
-              draggable="false"
-            />
-          </figure>
-        ))}
+      <div class="product-viewport">
+        <div class="product-stage" data-carousel-track>
+          {vehicle.colors.map((color, index) => (
+            <figure
+              class="product-slide"
+              data-carousel-slide
+              data-color-index={index}
+              data-color-name={color.name}
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <img
+                src={url(color.image)}
+                alt={`${vehicle.name} — Màu ${color.name}`}
+                width="1200"
+                height="675"
+                loading={index === 0 ? "eager" : "lazy"}
+                draggable="false"
+              />
+            </figure>
+          ))}
+        </div>
+
+        <button class="product-zoom" type="button" data-image-zoom aria-label={`Phóng to ảnh ${vehicle.name}`}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.6-3.6M8 11h6M11 8v6" />
+          </svg>
+        </button>
       </div>
 
       <button class="product-arrow product-arrow--prev" type="button" data-carousel-prev aria-label="Ảnh trước">
@@ -47,12 +62,12 @@ const { vehicle, content } = Astro.props;
       </button>
 
       <div class="product-dots carousel-dots" data-carousel-dots>
-        {vehicle.images.map((_, index) => (
+        {vehicle.colors.map((color, index) => (
           <button
             class="carousel-dot"
             type="button"
             data-carousel-dot
-            aria-label={`Xem ảnh ${index + 1}`}
+            aria-label={`Xem màu ${color.name}`}
             aria-current={index === 0 ? "true" : "false"}
           />
         ))}
@@ -61,11 +76,17 @@ const { vehicle, content } = Astro.props;
 
     <div class="product-colors" aria-label="Màu sắc minh họa">
       <span class="product-colors-label">Màu sắc</span>
-      {vehicle.colors.map((color) => (
-        <span class="color-swatch">
+      {vehicle.colors.map((color, index) => (
+        <button
+          class="color-swatch color-swatch--button"
+          type="button"
+          data-color-index={index}
+          aria-pressed={index === 0 ? "true" : "false"}
+          aria-label={`Xem màu ${color.name}`}
+        >
           <i style={`background:${color.hex}`}></i>
           {color.name}
-        </span>
+        </button>
       ))}
     </div>
 
@@ -77,5 +98,24 @@ const { vehicle, content } = Astro.props;
         </div>
       ))}
     </div>
+  </div>
+
+  <div
+    class="image-lightbox"
+    data-image-lightbox
+    role="dialog"
+    aria-modal="true"
+    aria-label={`Xem ảnh ${vehicle.name}`}
+    aria-hidden="true"
+  >
+    <button class="image-lightbox-close" type="button" data-lightbox-close aria-label="Đóng ảnh phóng to">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" />
+      </svg>
+    </button>
+    <figure class="image-lightbox-card">
+      <img data-lightbox-image alt="" />
+      <figcaption class="image-lightbox-caption" data-lightbox-caption></figcaption>
+    </figure>
   </div>
 </section>

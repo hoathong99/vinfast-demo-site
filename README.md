@@ -131,7 +131,9 @@ Edit `src/data/site.ts`:
 
 ### Vehicles
 
-Edit `src/data/vehicles.ts`. Each entry controls the listing card, detail page, price, specs, offers, colors, and image paths.
+Edit `src/data/vehicles.json` for vehicle data. The typed exports (`vehicles`, `cars`, `motorbikes`, `getVehicle`) live in `src/data/vehicles.ts`, which imports the JSON file.
+
+Each entry controls the listing card, detail page, price, specs, offers, colors (including the color-specific image used by the product showcase), and image paths.
 
 The demo includes:
 
@@ -141,7 +143,7 @@ The demo includes:
 To add a vehicle:
 
 1. Add images under `public/images/vehicles/<slug>/` (`main.webp`, `gallery-1.webp`, ...).
-2. Add an object to `vehicles` with a unique `slug`, `type`, and `order`.
+2. Add an object to `vehicles.json` with a unique `slug`, `type`, and `order`.
 3. Rebuild. The listing and detail routes are generated automatically.
 
 ### Vehicle detail content

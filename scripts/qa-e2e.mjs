@@ -71,6 +71,29 @@ await page.waitForTimeout(200);
 const compareAfter = await page.locator("[data-compare-value='Quãng đường']").textContent();
 const catalogHref = await page.locator("#thong-so-ky-thuat a[href$='.pdf']").getAttribute("href");
 const catalogStatus = catalogHref ? (await page.request.get(`${base}${catalogHref}`)).status() : null;
+
+// Color switcher + inspect lightbox
+const colorCount = await page.locator("button.color-swatch").count();
+await page.locator("button.color-swatch").nth(0).click();
+await page.waitForTimeout(650);
+const productColorBefore = await page.locator(".product-slide.is-active img").getAttribute("src");
+await page.locator("button.color-swatch").nth(1).click();
+await page.waitForTimeout(650);
+const productColorAfter = await page.locator(".product-slide.is-active img").getAttribute("src");
+const colorPressed = await page.locator("button.color-swatch").evaluateAll((els) =>
+  els.map((el) => el.getAttribute("aria-pressed")),
+);
+await page.locator("[data-image-zoom]").click();
+await page.waitForTimeout(400);
+const lightboxOpened = await page.locator("[data-image-lightbox]").evaluate((el) => ({
+  open: el.classList.contains("is-open"),
+  bodyLocked: document.body.classList.contains("no-scroll"),
+  focusedClose: document.activeElement?.hasAttribute("data-lightbox-close"),
+}));
+await page.locator("[data-lightbox-close]").click();
+await page.waitForTimeout(350);
+const lightboxClosed = await page.locator("[data-image-lightbox]").evaluate((el) => !el.classList.contains("is-open"));
+
 results.detail = {
   detailSections,
   galleryChanged: productBefore !== productAfter,
@@ -79,6 +102,11 @@ results.detail = {
   compareChanged: compareBefore !== compareAfter,
   catalogHref,
   catalogStatus,
+  colorCount,
+  colorChanged: productColorBefore !== productColorAfter,
+  colorPressed,
+  lightboxOpened,
+  lightboxClosed,
 };
 
 // Test drive form: validation then success (demo mode)

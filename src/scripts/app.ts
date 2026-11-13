@@ -151,6 +151,9 @@ function initCarousel(root: HTMLElement): void {
     dots.forEach((dot, dotIndex) => {
       dot.setAttribute("aria-current", dotIndex === active ? "true" : "false");
     });
+    if (isFade) {
+      root.dispatchEvent(new CustomEvent("carousel:change", { detail: { index: active } }));
+    }
   };
 
   const syncFadeSlides = (): void => {
@@ -454,6 +457,95 @@ function initCarousel(root: HTMLElement): void {
   });
 
   start();
+}
+
+/* ---------------- Product showcase ---------------- */
+
+function initProductShowcase(): void {
+  document.querySelectorAll<HTMLElement>("[data-product-showcase]").forEach((section) => {
+    const carousel = section.querySelector<HTMLElement>("[data-carousel]");
+    const buttons = Array.from(section.querySelectorAll<HTMLButtonElement>("button[data-color-index]"));
+    if (!carousel || !buttons.length) return;
+
+    const setActive = (index: number): void => {
+      buttons.forEach((button, buttonIndex) => {
+        const active = buttonIndex === index;
+        button.classList.toggle("is-active", active);
+        button.setAttribute("aria-pressed", String(active));
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const index = Number(button.dataset.colorIndex || 0);
+        const dots = carousel.querySelectorAll<HTMLButtonElement>("[data-carousel-dot]");
+        dots[index]?.click();
+        setActive(index);
+      });
+    });
+
+    carousel.addEventListener("carousel:change", (event) => {
+      const detail = (event as CustomEvent<{ index: number }>).detail;
+      if (typeof detail?.index === "number") setActive(detail.index);
+    });
+
+    const active = carousel.querySelector<HTMLElement>(".product-slide.is-active");
+    setActive(Number(active?.dataset.colorIndex || 0));
+  });
+}
+
+function initImageLightbox(): void {
+  const lightbox = document.querySelector<HTMLElement>("[data-image-lightbox]");
+  if (!lightbox) return;
+
+  const image = lightbox.querySelector<HTMLImageElement>("[data-lightbox-image]");
+  const caption = lightbox.querySelector<HTMLElement>("[data-lightbox-caption]");
+  const closeButton = lightbox.querySelector<HTMLButtonElement>("[data-lightbox-close]");
+  let lastFocus: HTMLElement | null = null;
+
+  const open = (src: string, alt: string): void => {
+    if (!image) return;
+    image.src = src;
+    image.alt = alt;
+    if (caption) caption.textContent = alt;
+    lastFocus = document.activeElement as HTMLElement | null;
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("no-scroll");
+    closeButton?.focus();
+  };
+
+  const close = (): void => {
+    lightbox.classList.remove("is-open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("no-scroll");
+    lastFocus?.focus();
+  };
+
+  document.querySelectorAll<HTMLButtonElement>("[data-image-zoom]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const section = button.closest<HTMLElement>("[data-product-showcase]");
+      const active = section?.querySelector<HTMLElement>(".product-slide.is-active");
+      const img = active?.querySelector<HTMLImageElement>("img");
+      if (!img) return;
+      open(img.currentSrc || img.src, img.alt);
+    });
+  });
+
+  closeButton?.addEventListener("click", close);
+
+  lightbox.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") close();
+    if (event.key === "Tab") {
+      event.preventDefault();
+      closeButton?.focus();
+    }
+  });
+
+  // The dark backdrop is intentionally inert: only the close button exits inspect mode.
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) event.stopPropagation();
+  });
 }
 
 /* ---------------- Gallery ---------------- */
@@ -1156,6 +1248,8 @@ captureUtm();
 initNav();
 initHeaderScroll();
 document.querySelectorAll<HTMLElement>("[data-carousel]").forEach(initCarousel);
+initProductShowcase();
+initImageLightbox();
 initBookingForms();
 initGallery();
 initCalculators();
