@@ -1,9 +1,11 @@
 export type VehicleType = "car" | "motorbike";
+export type VehicleCategory = "mini-suv" | "suv" | "pho-thong" | "the-thao";
 
 export type Vehicle = {
   slug: string;
   name: string;
   type: VehicleType;
+  category: VehicleCategory;
   tagline: string;
   price: number;
   priceNote: string;
@@ -24,6 +26,7 @@ export const vehicles: Vehicle[] = [
     slug: "vinfast-vf-3",
     name: "VinFast VF 3",
     type: "car",
+    category: "mini-suv",
     tagline: "Ô tô điện mini cá tính cho phố thị",
     price: 299_000_000,
     priceNote: "Giá demo — liên hệ để nhận báo giá",
@@ -114,6 +117,7 @@ export const vehicles: Vehicle[] = [
     slug: "vinfast-vf-5",
     name: "VinFast VF 5",
     type: "car",
+    category: "suv",
     tagline: "SUV điện cỡ A rộng rãi cho gia đình trẻ",
     price: 529_000_000,
     priceNote: "Giá demo — liên hệ để nhận báo giá",
@@ -197,6 +201,7 @@ export const vehicles: Vehicle[] = [
     slug: "vinfast-vf-8",
     name: "VinFast VF 8",
     type: "car",
+    category: "suv",
     tagline: "SUV điện hạng D với công nghệ hiện đại",
     price: 1_019_000_000,
     priceNote: "Giá demo — liên hệ để nhận báo giá",
@@ -281,6 +286,7 @@ export const vehicles: Vehicle[] = [
     slug: "vinfast-vf-9",
     name: "VinFast VF 9",
     type: "car",
+    category: "suv",
     tagline: "SUV điện 6 chỗ cao cấp cho gia đình",
     price: 1_499_000_000,
     priceNote: "Giá demo — liên hệ để nhận báo giá",
@@ -364,6 +370,7 @@ export const vehicles: Vehicle[] = [
     slug: "vinfast-evo",
     name: "VinFast Evo",
     type: "motorbike",
+    category: "pho-thong",
     tagline: "Xe máy điện phổ thông cho học sinh, sinh viên",
     price: 22_000_000,
     priceNote: "Giá demo — liên hệ để nhận báo giá",
@@ -446,6 +453,7 @@ export const vehicles: Vehicle[] = [
     slug: "vinfast-viper",
     name: "VinFast Viper",
     type: "motorbike",
+    category: "the-thao",
     tagline: "Xe máy điện thể thao, phong cách năng động",
     price: 35_000_000,
     priceNote: "Giá demo — liên hệ để nhận báo giá",

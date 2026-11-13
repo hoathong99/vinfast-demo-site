@@ -1,4 +1,4 @@
-# VinFast CarOn Demo — static site
+# VinFast Demo — static site
 
 A lightweight, responsive demo of a single-showroom VinFast dealer site. Built with Astro, deployed as static files to GitHub Pages, with an optional Google Sheets backend for form submissions and key events.
 

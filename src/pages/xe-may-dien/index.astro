@@ -5,7 +5,7 @@ import { motorbikes } from "../../data/vehicles";
 ---
 
 <BaseLayout
-  title="Xe máy điện — VinFast CarOn Demo"
+  title="Xe máy điện — VinFast Demo"
   description="Danh sách xe máy điện demo: Evo, Viper với thông số và giá minh họa."
 >
   <VehicleListing
@@ -13,11 +13,11 @@ import { motorbikes } from "../../data/vehicles";
     eyebrow="Xe máy điện"
     description="Hai mẫu xe máy điện demo. Giá và thông số chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
     vehicles={motorbikes}
-    ranges={[
-      { label: "Dưới 25 triệu", min: 0, max: 25_000_000 },
-      { label: "25 – 35 triệu", min: 25_000_000, max: 35_000_000 },
-      { label: "Trên 35 triệu", min: 35_000_000, max: null },
+    types={[
+      { label: "Xe phổ thông", value: "pho-thong" },
+      { label: "Xe thể thao", value: "the-thao" },
     ]}
+    priceRange={{ min: 15_000_000, max: 50_000_000, step: 1_000_000 }}
     contactTitle="Nhận báo giá xe máy điện"
   />
 </BaseLayout>

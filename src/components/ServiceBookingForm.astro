@@ -11,9 +11,9 @@ const times = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "1
 const serviceOptions = ["Bảo dưỡng", "Sửa chữa", "Đồng sơn", "Kiểm tra pin", "Khác"];
 
 const showrooms = [
-  `VinFast CarOn 3S Gia Lâm — ${site.address}`,
-  "VinFast CarOn 3S Sóc Sơn — Số 15 đường 3, Xã Sóc Sơn, Hà Nội",
-  "VinFast CarOn Hải Phòng — Số 42 Phan Đăng Lưu, An Dương, Hải Phòng",
+  `VinFast 3S Gia Lâm — ${site.address}`,
+  "VinFast 3S Sóc Sơn — Số 15 đường 3, Xã Sóc Sơn, Hà Nội",
+  "VinFast Hải Phòng — Số 42 Phan Đăng Lưu, An Dương, Hải Phòng",
 ];
 
 const uid = `service-${Math.random().toString(36).slice(2, 8)}`;
@@ -187,7 +187,7 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
         <label class="consent">
           <input type="checkbox" name="consent" required />
           <span>
-            Tôi đồng ý cho phép VinFast CarOn xử lý dữ liệu cá nhân của tôi và các thông tin khác do tôi cung cấp cho
+            Tôi đồng ý cho phép VinFast xử lý dữ liệu cá nhân của tôi và các thông tin khác do tôi cung cấp cho
             mục đích và theo phương thức được mô tả chi tiết tại
             <a href={url("chinh-sach/bao-mat/")}>Chính sách Bảo vệ Dữ liệu cá nhân</a>.
           </span>

@@ -1,5 +1,5 @@
 /**
- * VinFast CarOn Demo — Google Apps Script backend
+ * VinFast Demo — Google Apps Script backend
  *
  * What it does
  *  - Receives form submissions and tracking events from the static site.
@@ -66,7 +66,7 @@ const EVENT_NAMES = [
 
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu("CarOn Demo")
+    .createMenu("VinFast Demo")
     .addItem("Setup sheet", "setup")
     .addItem("Send test lead", "sendTestLead")
     .addItem("Backup now", "backupNow")
@@ -112,11 +112,11 @@ function setup() {
   leads.getRange("AB2:AB").setDataValidation(statusRule);
 
   if (config.getLastRow() < 2) {
-    config.appendRow(["SHOWROOM_NAME", "VinFast CarOn Demo"]);
+    config.appendRow(["SHOWROOM_NAME", "VinFast Demo"]);
     config.appendRow(["SHOWROOM_ADDRESS", "123 Đường Demo, Hà Nội"]);
   }
 
-  ss.toast("CarOn Demo sheet is ready.", "Setup complete", 5);
+  ss.toast("VinFast Demo sheet is ready.", "Setup complete", 5);
 }
 
 function sendTestLead() {
@@ -306,7 +306,7 @@ function cleanLead_(payload) {
     email: email,
     vehicle: vehicle,
     vehicleSlug: vehicleSlug,
-    showroom: text_(payload.showroom, 120) || getConfigValue_("SHOWROOM_NAME") || "VinFast CarOn Demo",
+    showroom: text_(payload.showroom, 120) || getConfigValue_("SHOWROOM_NAME") || "VinFast Demo",
     preferredDate: preferredDate,
     preferredTime: text_(payload.preferredTime, 10),
     serviceType: serviceType,
@@ -388,7 +388,7 @@ function notify_(lead, leadId) {
     quote: "Yêu cầu báo giá mới",
     contact: "Liên hệ mới",
   };
-  const subject = `[CarOn Demo] ${subjects[lead.formType] || "Lead mới"} — ${lead.fullName}`;
+  const subject = `[VinFast Demo] ${subjects[lead.formType] || "Lead mới"} — ${lead.fullName}`;
   const body = [
     `LeadID: ${leadId}`,
     `Loại: ${lead.formType}`,
@@ -512,7 +512,7 @@ function logError_(context, error) {
 function backupNow() {
   const ss = getSpreadsheet_();
   const file = DriveApp.getFileById(ss.getId());
-  const name = "CarOn-Demo-backup-" + Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "yyyyMMdd-HHmm");
+  const name = "VinFast-Demo-backup-" + Utilities.formatDate(new Date(), "Asia/Ho_Chi_Minh", "yyyyMMdd-HHmm");
   file.makeCopy(name);
   getSpreadsheet_().toast("Backup created: " + name, "Backup", 5);
 }

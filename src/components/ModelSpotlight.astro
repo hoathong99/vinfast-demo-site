@@ -13,7 +13,6 @@ interface Props {
 }
 
 const { vehicles, title, eyebrow, description, listingHref, soft = false, id } = Astro.props;
-const typeLabel = (type: Vehicle["type"]) => (type === "car" ? "Ô tô điện" : "Xe máy điện");
 ---
 
 <section class:list={["spotlight", { "spotlight--soft": soft }]} aria-labelledby={`${id}-title`}>
@@ -27,42 +26,57 @@ const typeLabel = (type: Vehicle["type"]) => (type === "car" ? "Ô tô điện" 
       <a class="link-arrow" href={url(listingHref)}>Xem tất cả</a>
     </div>
 
-    <div data-carousel data-autoplay="8000">
-      <div class="spotlight-track" data-carousel-track>
+    <div class="spotlight-carousel" data-carousel data-carousel-mode="fade" data-autoplay="8000">
+      <div class="spotlight-stage" data-carousel-track>
         {vehicles.map((vehicle, index) => {
           const detailHref = url(`${vehicle.type === "car" ? "o-to-dien" : "xe-may-dien"}/${vehicle.slug}/`);
+          const specs = [
+            ...vehicle.quickSpecs.map((spec) => ({
+              label: spec.label,
+              value: spec.label === "Số chỗ ngồi" ? `${spec.value} chỗ` : spec.value,
+            })),
+            { label: "Giá từ", value: formatVnd(vehicle.price) },
+          ];
           return (
-            <article class="spotlight-slide" data-carousel-slide>
+            <article
+              class:list={["spotlight-slide", { "is-active": index === 0 }]}
+              data-carousel-slide
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <h3 class="sr-only">{vehicle.name} — {vehicle.tagline}</h3>
               <div class="spotlight-media">
-                <a href={detailHref} aria-label={`Xem chi tiết ${vehicle.name}`}>
+                <a
+                  href={detailHref}
+                  aria-label={`Xem chi tiết ${vehicle.name}`}
+                  tabindex={index === 0 ? 0 : -1}
+                  draggable="false"
+                >
                   <img
                     src={url(vehicle.images[0])}
                     alt={vehicle.name}
                     width="1200"
                     height="675"
                     loading={index === 0 ? "eager" : "lazy"}
+                    draggable="false"
                   />
                 </a>
               </div>
               <div class="spotlight-content">
-                <div class="eyebrow">{typeLabel(vehicle.type)}</div>
-                <h3>{vehicle.name}</h3>
-                <p class="spotlight-tagline">{vehicle.tagline}</p>
-                <div class="spec-strip">
-                  {vehicle.quickSpecs.map((spec) => (
+                <dl class="spec-strip">
+                  {specs.map((spec) => (
                     <div>
-                      <span>{spec.label}</span>
-                      <strong>{spec.value}</strong>
+                      <dt>{spec.label}</dt>
+                      <dd>{spec.value}</dd>
                     </div>
                   ))}
-                </div>
-                <div class="price-line">
-                  <strong>{formatVnd(vehicle.price)}</strong>
-                  <span>{vehicle.priceNote}</span>
-                </div>
+                </dl>
                 <div class="spotlight-actions">
-                  <a class="btn" href={detailHref}>Xem chi tiết</a>
-                  <a class="btn btn--outline" href={url(`dang-ky-lai-thu/?model=${vehicle.slug}`)}>Đăng ký lái thử</a>
+                  <a class="btn" href={url(`dang-ky-lai-thu/?model=${vehicle.slug}`)} tabindex={index === 0 ? 0 : -1}>
+                    Đăng ký lái thử
+                  </a>
+                  <a class="btn btn--outline" href={detailHref} tabindex={index === 0 ? 0 : -1}>
+                    Xem chi tiết
+                  </a>
                 </div>
               </div>
             </article>
@@ -71,8 +85,11 @@ const typeLabel = (type: Vehicle["type"]) => (type === "car" ? "Ô tô điện" 
       </div>
 
       <div class="carousel-controls">
-        <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Xe trước">‹</button>
-        <button class="carousel-arrow" type="button" data-carousel-next aria-label="Xe sau">›</button>
+        <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Xe trước">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m15 5-7 7 7 7" />
+          </svg>
+        </button>
         <div class="carousel-dots" data-carousel-dots>
           {vehicles.map((vehicle, index) => (
             <button
@@ -84,6 +101,11 @@ const typeLabel = (type: Vehicle["type"]) => (type === "car" ? "Ô tô điện" 
             />
           ))}
         </div>
+        <button class="carousel-arrow" type="button" data-carousel-next aria-label="Xe sau">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m9 5 7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>

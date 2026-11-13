@@ -11,7 +11,13 @@ const detailHref = url(`${vehicle.type === "car" ? "o-to-dien" : "xe-may-dien"}/
 const testDriveHref = url(`dang-ky-lai-thu/?model=${vehicle.slug}`);
 ---
 
-<article class="vehicle-card" data-vehicle-card data-price={vehicle.price} data-type={vehicle.type}>
+<article
+  class="vehicle-card"
+  data-vehicle-card
+  data-price={vehicle.price}
+  data-type={vehicle.type}
+  data-category={vehicle.category}
+>
   <div class="vehicle-card-media">
     <a href={detailHref} aria-label={`Xem chi tiết ${vehicle.name}`}>
       <img

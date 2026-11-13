@@ -15,8 +15,8 @@ const related = motorbikes.filter((item) => item.slug !== vehicle.slug).slice(0,
 ---
 
 <BaseLayout
-  title={`${vehicle.name} — VinFast CarOn Demo`}
-  description={`${vehicle.name}: ${vehicle.tagline}. Giá và thông số demo tại VinFast CarOn Demo.`}
+  title={`${vehicle.name} — VinFast Demo`}
+  description={`${vehicle.name}: ${vehicle.tagline}. Giá và thông số demo tại VinFast Demo.`}
   image={vehicle.images[0]}
 >
   <VehicleDetail vehicle={vehicle} related={related} />

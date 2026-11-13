@@ -10,12 +10,14 @@ page.on("pageerror", (e) => errors.push(e.message));
 
 const results = {};
 
-// Home: mobile drawer
+// Home: mobile nav is always visible in the header (no drawer needed)
 await page.goto(`${base}/`, { waitUntil: "networkidle" });
-await page.click("[data-drawer-open]");
-results.drawerOpened = await page.locator("#mobile-drawer").evaluate((el) => el.classList.contains("is-open"));
-await page.click(".drawer-close");
-results.drawerClosed = await page.locator("#mobile-drawer").evaluate((el) => !el.classList.contains("is-open"));
+results.mobileNav = {
+  visible: await page.locator(".main-nav").isVisible(),
+  items: await page.locator(".main-nav .nav-link").count(),
+  drawerButtons: await page.locator("[data-drawer-open]").count(),
+  headerPosition: await page.locator(".site-header").evaluate((el) => getComputedStyle(el).position),
+};
 
 // Home: hero carousel next
 const heroTrack = page.locator(".hero-track");
@@ -25,14 +27,23 @@ await page.waitForTimeout(700);
 const after = await heroTrack.evaluate((el) => el.scrollLeft);
 results.heroAdvanced = after > before;
 
-// Listing filter
+// Listing filters: vehicle type + price range
 await page.goto(`${base}/o-to-dien/`, { waitUntil: "networkidle" });
 const initialCards = await page.locator("[data-vehicle-card]:visible").count();
-await page.click('[data-filter-min="0"][data-filter-max="500000000"]');
-const filteredCards = await page.locator("[data-vehicle-card]:visible").count();
-await page.click('[data-filter-min="0"][data-filter-max=""]');
+await page.click('[data-filter-type="mini-suv"]');
+const typeFiltered = await page.locator("[data-vehicle-card]:visible").count();
+await page.click('[data-filter-type=""]');
+const typeReset = await page.locator("[data-vehicle-card]:visible").count();
+await page.evaluate(() => {
+  const input = document.querySelector("[data-price-max-input]");
+  input.value = "500000000";
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+});
+const priceFiltered = await page.locator("[data-vehicle-card]:visible").count();
+const priceReadout = (await page.locator("[data-price-readout]").textContent())?.trim();
+await page.click("[data-filter-reset]");
 const resetCards = await page.locator("[data-vehicle-card]:visible").count();
-results.filter = { initialCards, filteredCards, resetCards };
+results.filter = { initialCards, typeFiltered, typeReset, priceFiltered, priceReadout, resetCards };
 
 // Detail gallery + calculator
 await page.goto(`${base}/o-to-dien/vinfast-vf-3/`, { waitUntil: "networkidle" });

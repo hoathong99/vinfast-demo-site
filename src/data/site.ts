@@ -1,10 +1,10 @@
 export const site = {
-  name: "VinFast CarOn Demo",
-  shortName: "CarOn Demo",
+  name: "VinFast Demo",
+  shortName: "VinFast Demo",
   tagline: "Ô tô điện & Xe máy điện chính hãng",
   description:
-    "Website demo đại lý VinFast CarOn — ô tô điện, xe máy điện, đăng ký lái thử và đặt lịch dịch vụ.",
-  legalName: "Công ty TNHH Demo VinFast CarOn",
+    "Website demo đại lý VinFast — ô tô điện, xe máy điện, đăng ký lái thử và đặt lịch dịch vụ.",
+  legalName: "Công ty TNHH Demo VinFast",
   taxId: "0100000000",
   hotlineSales: "0900 000 000",
   hotlineService: "0900 000 001",

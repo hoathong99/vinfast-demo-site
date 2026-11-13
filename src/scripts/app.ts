@@ -102,56 +102,72 @@ function formatVnd(value: number): string {
   return `${new Intl.NumberFormat("vi-VN").format(Math.round(value))} VNĐ`;
 }
 
-/* ---------------- Mobile drawer ---------------- */
-
-function initDrawer(): void {
-  const drawer = document.querySelector<HTMLElement>("#mobile-drawer");
-  const openButton = document.querySelector<HTMLButtonElement>("[data-drawer-open]");
-  if (!drawer || !openButton) return;
-
-  const panel = drawer.querySelector<HTMLElement>(".drawer-panel");
-  const closeButtons = drawer.querySelectorAll<HTMLElement>("[data-drawer-close]");
-  let lastFocus: HTMLElement | null = null;
-
-  const open = () => {
-    lastFocus = document.activeElement as HTMLElement | null;
-    drawer.classList.add("is-open");
-    drawer.setAttribute("aria-hidden", "false");
-    openButton.setAttribute("aria-expanded", "true");
-    document.body.classList.add("no-scroll");
-    panel?.querySelector<HTMLElement>("a, button")?.focus();
-  };
-
-  const close = () => {
-    drawer.classList.remove("is-open");
-    drawer.setAttribute("aria-hidden", "true");
-    openButton.setAttribute("aria-expanded", "false");
-    document.body.classList.remove("no-scroll");
-    lastFocus?.focus();
-  };
-
-  openButton.addEventListener("click", open);
-  closeButtons.forEach((button) => button.addEventListener("click", close));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && drawer.classList.contains("is-open")) close();
-  });
-}
-
 /* ---------------- Carousels ---------------- */
 
 function initCarousel(root: HTMLElement): void {
   const track = root.querySelector<HTMLElement>("[data-carousel-track]");
   if (!track) return;
-  const slides = Array.from(track.querySelectorAll<HTMLElement>("[data-carousel-slide]"));
-  if (slides.length < 2) return;
+  const originals = Array.from(track.querySelectorAll<HTMLElement>("[data-carousel-slide]"));
+  if (originals.length < 2) return;
 
+  const isFade = root.dataset.carouselMode === "fade";
+  const count = originals.length;
   const prev = root.querySelector<HTMLButtonElement>("[data-carousel-prev]");
   const next = root.querySelector<HTMLButtonElement>("[data-carousel-next]");
   const dots = Array.from(root.querySelectorAll<HTMLButtonElement>("[data-carousel-dot]"));
   const autoplayMs = Number(root.dataset.autoplay || 0);
+
+  let slides = originals;
   let index = 0;
   let timer: number | undefined;
   let paused = false;
+  let ignoreClick = false;
+
+  /*
+   * Scroll carousels get a clone on each side. Wrapping from the last slide to
+   * the first (or the other way round) keeps scrolling in the same direction
+   * instead of animating backwards through every slide.
+   */
+  if (!isFade) {
+    const leadClone = originals[count - 1].cloneNode(true) as HTMLElement;
+    const tailClone = originals[0].cloneNode(true) as HTMLElement;
+    for (const clone of [leadClone, tailClone]) {
+      clone.dataset.carouselClone = "true";
+      clone.setAttribute("aria-hidden", "true");
+      clone.querySelectorAll<HTMLElement>("a, button, [tabindex]").forEach((node) => {
+        node.setAttribute("tabindex", "-1");
+      });
+    }
+    track.prepend(leadClone);
+    track.append(tailClone);
+    slides = [leadClone, ...originals, tailClone];
+    index = 1;
+  }
+
+  const realIndex = (): number => (isFade ? index : (index - 1 + count) % count);
+
+  const syncDots = (): void => {
+    const active = realIndex();
+    dots.forEach((dot, dotIndex) => {
+      dot.setAttribute("aria-current", dotIndex === active ? "true" : "false");
+    });
+  };
+
+  const syncFadeSlides = (): void => {
+    const previousSlot = (index - 1 + count) % count;
+    const nextSlot = (index + 1) % count;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === index;
+      slide.classList.toggle("is-active", active);
+      slide.classList.toggle("is-prev", !active && count > 2 && slideIndex === previousSlot);
+      slide.classList.toggle("is-next", !active && count > 2 && slideIndex === nextSlot);
+      slide.setAttribute("aria-hidden", active ? "false" : "true");
+      slide.querySelectorAll<HTMLElement>("a, button").forEach((node) => {
+        node.tabIndex = active ? 0 : -1;
+      });
+    });
+    syncDots();
+  };
 
   const slideOffset = (slide: HTMLElement): number => {
     const trackRect = track.getBoundingClientRect();
@@ -159,18 +175,56 @@ function initCarousel(root: HTMLElement): void {
     return slideRect.left - trackRect.left + track.scrollLeft;
   };
 
-  const render = (nextIndex: number, smooth = true): void => {
-    index = (nextIndex + slides.length) % slides.length;
-    track.scrollTo({
-      left: slideOffset(slides[index]),
-      behavior: smooth && !reducedMotion ? "smooth" : "auto",
-    });
-    dots.forEach((dot, dotIndex) => {
-      dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
-    });
+  const scrollToSlide = (target: number, smooth = true): void => {
+    index = target;
+    if (!smooth) {
+      const previous = track.style.scrollBehavior;
+      track.style.scrollBehavior = "auto";
+      track.scrollTo({ left: slideOffset(slides[target]), behavior: "auto" });
+      track.style.scrollBehavior = previous;
+    } else {
+      track.scrollTo({
+        left: slideOffset(slides[target]),
+        behavior: reducedMotion ? "auto" : "smooth",
+      });
+    }
+    syncDots();
   };
 
+  let wrapTimer: number | undefined;
+
+  const settleLoop = (): void => {
+    if (isFade) return;
+    if (index === 0) scrollToSlide(count, false);
+    else if (index === count + 1) scrollToSlide(1, false);
+  };
+
+  const scheduleLoop = (): void => {
+    if (isFade) return;
+    window.clearTimeout(wrapTimer);
+    if (index === 0 || index === count + 1) {
+      wrapTimer = window.setTimeout(settleLoop, 900);
+    }
+  };
+
+  const render = (target: number, smooth = true): void => {
+    if (isFade) {
+      index = ((target % count) + count) % count;
+      syncFadeSlides();
+      return;
+    }
+    scrollToSlide(Math.max(0, Math.min(count + 1, target)), smooth);
+    scheduleLoop();
+  };
+
+  if (isFade) {
+    syncFadeSlides();
+  } else {
+    scrollToSlide(1, false);
+  }
+
   const syncFromScroll = (): void => {
+    if (isFade) return;
     let nearest = 0;
     let distance = Number.POSITIVE_INFINITY;
     slides.forEach((slide, slideIndex) => {
@@ -181,44 +235,107 @@ function initCarousel(root: HTMLElement): void {
       }
     });
     index = nearest;
-    dots.forEach((dot, dotIndex) => {
-      dot.setAttribute("aria-current", dotIndex === index ? "true" : "false");
-    });
+    syncDots();
   };
 
   prev?.addEventListener("click", () => render(index - 1));
   next?.addEventListener("click", () => render(index + 1));
-  dots.forEach((dot, dotIndex) => dot.addEventListener("click", () => render(dotIndex)));
+  dots.forEach((dot, dotIndex) =>
+    dot.addEventListener("click", () => render(isFade ? dotIndex : dotIndex + 1)),
+  );
 
   /* Drag / swipe horizontally */
-  let drag: { id: number; startX: number; startScroll: number; moved: boolean } | null = null;
+  let drag: {
+    id: number;
+    startX: number;
+    startY: number;
+    startScroll: number;
+    startIndex: number;
+    distance: number;
+    moved: boolean;
+  } | null = null;
   let settleTimer: number | undefined;
+
+  const clearFadeDrag = (): void => {
+    slides.forEach((slide) => {
+      slide.style.removeProperty("opacity");
+      slide.style.removeProperty("transform");
+      slide.style.removeProperty("visibility");
+    });
+  };
+
+  const paintFadeDrag = (distance: number): void => {
+    const direction = distance < 0 ? 1 : -1;
+    const target = (index + direction + count) % count;
+    const progress = Math.min(1, Math.abs(distance) / 160);
+    const active = slides[index];
+    const incoming = slides[target];
+    active.style.opacity = String(1 - progress * 0.7);
+    active.style.transform = `translateX(${distance * 0.12}px)`;
+    incoming.style.visibility = "visible";
+    incoming.style.opacity = String(progress * 0.7);
+    incoming.style.transform = `translateX(${direction * (1 - progress) * 48}px)`;
+  };
 
   track.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "mouse" && event.button !== 0) return;
-    drag = { id: event.pointerId, startX: event.clientX, startScroll: track.scrollLeft, moved: false };
+    drag = {
+      id: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      startScroll: track.scrollLeft,
+      startIndex: index,
+      distance: 0,
+      moved: false,
+    };
     root.classList.add("is-dragging");
     paused = true;
     stop();
-    try {
-      track.setPointerCapture(event.pointerId);
-    } catch {
-      /* pointer capture is optional */
+    if (!isFade) {
+      try {
+        track.setPointerCapture(event.pointerId);
+      } catch {
+        /* pointer capture is optional */
+      }
     }
   });
 
   track.addEventListener("pointermove", (event) => {
     if (!drag || event.pointerId !== drag.id) return;
-    const delta = event.clientX - drag.startX;
-    if (Math.abs(delta) > 4) drag.moved = true;
-    if (!drag.moved) return;
-    track.scrollLeft = drag.startScroll - delta;
+    const distance = event.clientX - drag.startX;
+    const vertical = event.clientY - drag.startY;
+    if (!drag.moved) {
+      if (Math.abs(distance) < 5) return;
+      if (Math.abs(vertical) > Math.abs(distance) * 1.15) {
+        // Vertical intent: let the page scroll instead of hijacking the gesture.
+        drag = null;
+        root.classList.remove("is-dragging");
+        clearFadeDrag();
+        paused = false;
+        start();
+        return;
+      }
+      drag.moved = true;
+      if (isFade) {
+        try {
+          track.setPointerCapture(event.pointerId);
+        } catch {
+          /* pointer capture is optional */
+        }
+      }
+    }
+    drag.distance = distance;
+    if (isFade) {
+      paintFadeDrag(distance);
+    } else {
+      track.scrollLeft = drag.startScroll - distance;
+    }
     event.preventDefault();
   });
 
   const endDrag = (event: PointerEvent): void => {
     if (!drag || event.pointerId !== drag.id) return;
-    const { moved, startScroll } = drag;
+    const { moved, startIndex, startScroll, distance } = drag;
     drag = null;
     try {
       track.releasePointerCapture(event.pointerId);
@@ -226,22 +343,38 @@ function initCarousel(root: HTMLElement): void {
       /* pointer capture is optional */
     }
     if (moved) {
-      const width = track.clientWidth || 1;
-      // Positive when the content moved forward (next slide).
-      const delta = track.scrollLeft - startScroll;
-      const startIndex = Math.round(startScroll / width);
-      // Treat short flicks as one slide, longer drags as however many slides they span.
-      const steps =
-        Math.abs(delta) < 60 ? 0 : Math.sign(delta) * Math.max(1, Math.round(Math.abs(delta) / width));
-      /*
-       * Keep scroll-snap disabled while the slide animates into place.
-       * Re-enabling it straight away makes the browser snap back to the
-       * nearest slide (often the one the drag started from) and cancels
-       * the programmatic scroll.
-       */
-      window.clearTimeout(settleTimer);
-      render(startIndex + steps);
-      settleTimer = window.setTimeout(() => root.classList.remove("is-dragging"), 450);
+      ignoreClick = true;
+      window.setTimeout(() => {
+        ignoreClick = false;
+      }, 80);
+
+      if (isFade) {
+        if (Math.abs(distance) >= 60) {
+          const direction = distance < 0 ? 1 : -1;
+          render(startIndex + direction);
+        } else {
+          syncFadeSlides();
+        }
+        requestAnimationFrame(() => {
+          root.classList.remove("is-dragging");
+          clearFadeDrag();
+        });
+      } else {
+        const width = track.clientWidth || 1;
+        // Positive when the content moved forward (next slide).
+        const delta = track.scrollLeft - startScroll;
+        // Treat short flicks as one slide, longer drags as however many slides they span.
+        const steps =
+          Math.abs(delta) < 60 ? 0 : Math.sign(delta) * Math.max(1, Math.round(Math.abs(delta) / width));
+        /*
+         * Keep scroll-snap disabled while the slide animates into place.
+         * Re-enabling it straight away makes the browser snap back to the
+         * nearest slide and cancels the programmatic scroll.
+         */
+        window.clearTimeout(settleTimer);
+        render(startIndex + steps);
+        settleTimer = window.setTimeout(() => root.classList.remove("is-dragging"), 800);
+      }
     } else {
       root.classList.remove("is-dragging");
     }
@@ -252,11 +385,22 @@ function initCarousel(root: HTMLElement): void {
   track.addEventListener("pointerup", endDrag);
   track.addEventListener("pointercancel", endDrag);
 
+  root.addEventListener(
+    "click",
+    (event) => {
+      if (!ignoreClick) return;
+      ignoreClick = false;
+      event.preventDefault();
+      event.stopPropagation();
+    },
+    true,
+  );
+
   let frame = 0;
   track.addEventListener(
     "scroll",
     () => {
-      if (frame) return;
+      if (isFade || frame) return;
       frame = requestAnimationFrame(() => {
         syncFromScroll();
         frame = 0;
@@ -264,6 +408,18 @@ function initCarousel(root: HTMLElement): void {
     },
     { passive: true },
   );
+
+  if (!isFade) {
+    if ("onscrollend" in track) track.addEventListener("scrollend", settleLoop);
+
+    let resizeTimer: number | undefined;
+    window.addEventListener("resize", () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        scrollToSlide(Math.max(0, Math.min(count + 1, index)), false);
+      }, 150);
+    });
+  }
 
   const start = () => {
     if (!autoplayMs || reducedMotion || paused) return;
@@ -364,31 +520,126 @@ function initCalculators(): void {
 /* ---------------- Filter ---------------- */
 
 function initFilters(): void {
-  document.querySelectorAll<HTMLElement>("[data-filter-group]").forEach((group) => {
-    const grid = document.querySelector<HTMLElement>("[data-vehicle-grid]");
-    const empty = document.querySelector<HTMLElement>("[data-empty-state]");
-    if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-vehicle-card]"));
+  const panel = document.querySelector<HTMLElement>("[data-filter-panel]");
+  const grid = document.querySelector<HTMLElement>("[data-vehicle-grid]");
+  if (!panel || !grid) return;
 
-    group.querySelectorAll<HTMLButtonElement>("[data-filter-min]").forEach((button) => {
-      button.addEventListener("click", () => {
-        group.querySelectorAll<HTMLButtonElement>("[data-filter-min]").forEach((item) => {
-          item.setAttribute("aria-pressed", item === button ? "true" : "false");
-        });
-        const min = Number(button.dataset.filterMin || 0);
-        const max = button.dataset.filterMax ? Number(button.dataset.filterMax) : Number.POSITIVE_INFINITY;
-        let visible = 0;
-        cards.forEach((card) => {
-          const price = Number(card.dataset.price || 0);
-          const show = price >= min && price <= max;
-          card.hidden = !show;
-          if (show) visible += 1;
-        });
-        if (empty) empty.style.display = visible === 0 ? "block" : "none";
-        track("filter_use", { min, max: Number.isFinite(max) ? max : null });
+  const empty = document.querySelector<HTMLElement>("[data-empty-state]");
+  const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-vehicle-card]"));
+  const count = panel.querySelector<HTMLElement>("[data-filter-count]");
+  const typeButtons = Array.from(panel.querySelectorAll<HTMLButtonElement>("[data-filter-type]"));
+  const minInput = panel.querySelector<HTMLInputElement>("[data-price-min-input]");
+  const maxInput = panel.querySelector<HTMLInputElement>("[data-price-max-input]");
+  const fill = panel.querySelector<HTMLElement>("[data-price-fill]");
+  const readout = panel.querySelector<HTMLElement>("[data-price-readout]");
+  const resetButton = panel.querySelector<HTMLButtonElement>("[data-filter-reset]");
+  const priceToggle = panel.querySelector<HTMLButtonElement>("[data-price-toggle]");
+  const priceBody = panel.querySelector<HTMLElement>("[data-price-body]");
+
+  const sliderMin = Number(panel.dataset.priceMin || 0);
+  const sliderMax = Number(panel.dataset.priceMax || 0);
+  const hasPrice = Boolean(minInput && maxInput && sliderMax > sliderMin);
+
+  let category = "";
+  let minValue = sliderMin;
+  let maxValue = sliderMax;
+
+  const formatPrice = (value: number): string => `${new Intl.NumberFormat("vi-VN").format(value)} VNĐ`;
+
+  const apply = (): void => {
+    let visible = 0;
+    cards.forEach((card) => {
+      const price = Number(card.dataset.price || 0);
+      const matchesType = !category || card.dataset.category === category;
+      const matchesPrice = !hasPrice || (price >= minValue && price <= maxValue);
+      const show = matchesType && matchesPrice;
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+    if (empty) empty.style.display = visible === 0 ? "block" : "none";
+    if (count) count.textContent = `${visible} mẫu xe`;
+  };
+
+  const paintSlider = (): void => {
+    if (!hasPrice || !minInput || !maxInput) return;
+    const span = sliderMax - sliderMin;
+    const start = span > 0 ? ((minValue - sliderMin) / span) * 100 : 0;
+    const end = span > 0 ? ((maxValue - sliderMin) / span) * 100 : 100;
+    if (fill) {
+      fill.style.setProperty("--fill-start", String(start / 100));
+      fill.style.setProperty("--fill-end", String((100 - end) / 100));
+    }
+    if (readout) readout.textContent = `Từ ${formatPrice(minValue)} — Đến ${formatPrice(maxValue)}`;
+    minInput.value = String(minValue);
+    maxInput.value = String(maxValue);
+    // When both thumbs meet, the lower one has to stay on top so it can be dragged back.
+    minInput.style.zIndex = minValue >= maxValue ? "4" : "2";
+    maxInput.style.zIndex = maxValue <= minValue ? "2" : "3";
+  };
+
+  const trackPrice = (): void => {
+    track("filter_use", {
+      type: category || "all",
+      min: hasPrice ? minValue : null,
+      max: hasPrice ? maxValue : null,
+    });
+  };
+
+  const handleInput = (changed: "min" | "max"): void => {
+    if (!minInput || !maxInput) return;
+    let low = Number(minInput.value);
+    let high = Number(maxInput.value);
+    if (low > high) {
+      if (changed === "min") {
+        low = high;
+        minInput.value = String(low);
+      } else {
+        high = low;
+        maxInput.value = String(high);
+      }
+    }
+    minValue = low;
+    maxValue = high;
+    paintSlider();
+    apply();
+  };
+
+  minInput?.addEventListener("input", () => handleInput("min"));
+  maxInput?.addEventListener("input", () => handleInput("max"));
+  minInput?.addEventListener("change", trackPrice);
+  maxInput?.addEventListener("change", trackPrice);
+
+  typeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      category = button.dataset.filterType || "";
+      typeButtons.forEach((item) => {
+        item.setAttribute("aria-pressed", item === button ? "true" : "false");
       });
+      apply();
+      trackPrice();
     });
   });
+
+  resetButton?.addEventListener("click", () => {
+    category = "";
+    minValue = sliderMin;
+    maxValue = sliderMax;
+    typeButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", button.dataset.filterType === "" ? "true" : "false");
+    });
+    paintSlider();
+    apply();
+    track("filter_use", { reset: true });
+  });
+
+  priceToggle?.addEventListener("click", () => {
+    const expanded = priceToggle.getAttribute("aria-expanded") === "true";
+    priceToggle.setAttribute("aria-expanded", String(!expanded));
+    if (priceBody) priceBody.hidden = expanded;
+  });
+
+  paintSlider();
+  apply();
 }
 
 /* ---------------- Map facade ---------------- */
@@ -752,10 +1003,18 @@ function initHeaderScroll(): void {
     header.classList.toggle("is-hidden", value);
   };
 
+  const compactHeader = window.matchMedia("(max-width: 1080px)");
+
   window.addEventListener(
     "scroll",
     () => {
       const y = window.scrollY;
+      if (compactHeader.matches) {
+        // Keep the visible menu row on phones/tablets instead of auto-hiding it.
+        setHidden(false);
+        lastY = y;
+        return;
+      }
       if (document.body.classList.contains("no-scroll")) return;
       if (document.querySelector(".nav-item.is-open")) return;
       if (y <= 120) {
@@ -867,7 +1126,6 @@ captureUtm();
 initNav();
 initHeaderScroll();
 document.querySelectorAll<HTMLElement>("[data-carousel]").forEach(initCarousel);
-initDrawer();
 initBookingForms();
 initGallery();
 initCalculators();

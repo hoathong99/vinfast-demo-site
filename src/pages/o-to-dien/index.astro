@@ -5,7 +5,7 @@ import { cars } from "../../data/vehicles";
 ---
 
 <BaseLayout
-  title="Ô tô điện — VinFast CarOn Demo"
+  title="Ô tô điện — VinFast Demo"
   description="Danh sách ô tô điện demo: VF 3, VF 5, VF 8, VF 9 với thông số và giá minh họa."
 >
   <VehicleListing
@@ -13,11 +13,11 @@ import { cars } from "../../data/vehicles";
     eyebrow="Ô tô điện"
     description="Bốn mẫu ô tô điện demo. Giá và thông số chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
     vehicles={cars}
-    ranges={[
-      { label: "Dưới 500 triệu", min: 0, max: 500_000_000 },
-      { label: "500 – 1 tỷ", min: 500_000_000, max: 1_000_000_000 },
-      { label: "Trên 1 tỷ", min: 1_000_000_000, max: null },
+    types={[
+      { label: "Mini SUV", value: "mini-suv" },
+      { label: "SUV", value: "suv" },
     ]}
+    priceRange={{ min: 200_000_000, max: 1_500_000_000, step: 10_000_000 }}
     contactTitle="Nhận báo giá ô tô điện"
   />
 </BaseLayout>

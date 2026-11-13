@@ -2,12 +2,17 @@
 import VehicleCard from "../components/VehicleCard.astro";
 import LeadForm from "../components/LeadForm.astro";
 import type { Vehicle } from "../data/vehicles";
-import { url } from "../lib/format";
+import { formatVnd, url } from "../lib/format";
 
-interface Range {
+interface FilterOption {
   label: string;
+  value: string;
+}
+
+interface PriceRange {
   min: number;
-  max: number | null;
+  max: number;
+  step: number;
 }
 
 interface Props {
@@ -15,11 +20,27 @@ interface Props {
   eyebrow: string;
   description: string;
   vehicles: Vehicle[];
-  ranges?: Range[];
+  types?: FilterOption[];
+  priceRange?: PriceRange;
   contactTitle?: string;
 }
 
-const { title, eyebrow, description, vehicles, ranges = [], contactTitle = "Nhận báo giá" } = Astro.props;
+const {
+  title,
+  eyebrow,
+  description,
+  vehicles,
+  types = [],
+  priceRange,
+  contactTitle = "Nhận báo giá",
+} = Astro.props;
+
+const compactPrice = (value: number): string => {
+  if (value >= 1_000_000_000) {
+    return `${new Intl.NumberFormat("vi-VN", { maximumFractionDigits: 1 }).format(value / 1_000_000_000)} tỷ`;
+  }
+  return `${new Intl.NumberFormat("vi-VN").format(value / 1_000_000)} triệu`;
+};
 ---
 
 <div class="page-hero">
@@ -37,21 +58,89 @@ const { title, eyebrow, description, vehicles, ranges = [], contactTitle = "Nh�
 
 <section class="section">
   <div class="container">
-    {ranges.length > 0 && (
-      <div class="filter-bar" data-filter-group role="group" aria-label="Lọc theo giá">
-        <span class="filter-label">Khoảng giá</span>
-        <button class="filter-chip" type="button" data-filter-min="0" data-filter-max="" aria-pressed="true">Tất cả</button>
-        {ranges.map((range) => (
-          <button
-            class="filter-chip"
-            type="button"
-            data-filter-min={range.min}
-            data-filter-max={range.max ?? ""}
-            aria-pressed="false"
-          >
-            {range.label}
-          </button>
-        ))}
+    {(types.length > 0 || priceRange) && (
+      <div
+        class="filter-panel"
+        data-filter-panel
+        data-price-min={priceRange?.min}
+        data-price-max={priceRange?.max}
+        data-price-step={priceRange?.step}
+      >
+        {types.length > 0 && (
+          <div class="filter-block">
+            <span class="filter-label" id="filter-type-label">Loại xe</span>
+            <div class="filter-options" role="group" aria-labelledby="filter-type-label" data-filter-types>
+              <button class="filter-chip" type="button" data-filter-type="" aria-pressed="true">
+                Tất cả
+              </button>
+              {types.map((item) => (
+                <button class="filter-chip" type="button" data-filter-type={item.value} aria-pressed="false">
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {priceRange && (
+          <div class="filter-block filter-block--price">
+            <button
+              class="filter-price-toggle"
+              type="button"
+              aria-expanded="true"
+              aria-controls="filter-price-body"
+              data-price-toggle
+            >
+              <span class="filter-label">Giá xe</span>
+              <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 15 6-6 6 6" />
+              </svg>
+            </button>
+
+            <div class="filter-price-body" id="filter-price-body" data-price-body>
+              <div class="price-readout" data-price-readout>
+                Từ {formatVnd(priceRange.min)} — Đến {formatVnd(priceRange.max)}
+              </div>
+
+              <div class="price-slider" data-price-slider>
+                <div class="price-slider-track">
+                  <div class="price-slider-rail"></div>
+                  <div class="price-slider-fill" data-price-fill></div>
+                  <input
+                    class="price-range price-range--min"
+                    type="range"
+                    min={priceRange.min}
+                    max={priceRange.max}
+                    step={priceRange.step}
+                    value={priceRange.min}
+                    aria-label="Giá xe thấp nhất"
+                    data-price-min-input
+                  />
+                  <input
+                    class="price-range price-range--max"
+                    type="range"
+                    min={priceRange.min}
+                    max={priceRange.max}
+                    step={priceRange.step}
+                    value={priceRange.max}
+                    aria-label="Giá xe cao nhất"
+                    data-price-max-input
+                  />
+                </div>
+                <div class="price-ticks" aria-hidden="true"></div>
+                <div class="price-scale">
+                  <span>{compactPrice(priceRange.min)}</span>
+                  <span>{compactPrice(priceRange.max)}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div class="filter-footer">
+          <span class="filter-count" data-filter-count aria-live="polite">{vehicles.length} mẫu xe</span>
+          <button class="filter-reset" type="button" data-filter-reset>Đặt lại</button>
+        </div>
       </div>
     )}
 

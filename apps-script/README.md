@@ -4,10 +4,10 @@ This folder contains the Apps Script backend for the demo site. The static site 
 
 ## 1. Create the Sheet
 
-1. Create a new Google Sheet, e.g. `VinFast CarOn Demo — Leads`.
+1. Create a new Google Sheet, e.g. `VinFast Demo — Leads`.
 2. Open **Extensions → Apps Script**.
 3. Replace `Code.gs` with the content of `Code.gs` in this folder.
-4. Save the project as `CarOn Demo Backend`.
+4. Save the project as `VinFast Demo Backend`.
 
 ## 2. Initialize tabs
 
@@ -19,7 +19,7 @@ This folder contains the Apps Script backend for the demo site. The static site 
    - `Errors` — backend errors
    - `Config` — showroom name/address
 
-You can also run **CarOn Demo → Setup sheet** from the Sheet menu.
+You can also run **VinFast Demo → Setup sheet** from the Sheet menu.
 
 ## 3. Configure notifications (optional)
 
@@ -39,7 +39,7 @@ If you set `SHARED_SECRET`, every request must include a matching `secret` field
 
 1. **Deploy → New deployment**.
 2. Select type **Web app**.
-3. Description: `CarOn demo form endpoint`.
+3. Description: `VinFast demo form endpoint`.
 4. **Execute as:** `Me`.
 5. **Who has access:** `Anyone`.
 6. Click **Deploy** and copy the URL ending in `/exec`.
@@ -112,7 +112,7 @@ Events are for a demo/light funnel view. For real analytics at scale, use GA4 or
 
 ## 8. Maintenance
 
-- **Backup:** run **CarOn Demo → Backup now**, or add a weekly time-driven trigger for `backupNow`.
+- **Backup:** run **VinFast Demo → Backup now**, or add a weekly time-driven trigger for `backupNow`.
 - **Cleanup:** run `cleanupEvents` on a daily trigger. It deletes event rows older than 90 days.
 - **Retention:** archive/delete leads according to your privacy policy (default 24 months).
 - **Access:** keep the Sheet private. Share only with named staff. Use 2FA on the Google account.
