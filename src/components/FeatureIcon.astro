@@ -1,0 +1,119 @@
+---
+import type { DetailIcon } from "../data/vehicle-details";
+
+interface Props {
+  name: DetailIcon;
+}
+
+const { name } = Astro.props;
+
+const paths: Record<DetailIcon, string[]> = {
+  front: [
+    "M4 15h16",
+    "M5.5 15 7 10h10l1.5 5",
+    "M7 15v3M17 15v3",
+    "M9 10V7h6v3",
+    "M8 12h8",
+  ],
+  side: [
+    "M3 16h18",
+    "M5 16l2-6h7l3 6",
+    "M8 16v3M18 16v3",
+    "M9 10V7h4l1.5 3",
+    "M8 13h9",
+  ],
+  wheel: [
+    "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z",
+    "M12 7v10",
+    "M7.5 9.5l9 5",
+    "M16.5 9.5l-9 5",
+  ],
+  rear: [
+    "M4 15h16",
+    "M5.5 15 7 10h10l1.5 5",
+    "M7 15v3M17 15v3",
+    "M8 11h8",
+    "M9 8h6v2H9z",
+  ],
+  steering: [
+    "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z",
+    "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z",
+    "M12 3v5M4 12h4M16 12h4",
+  ],
+  seat: [
+    "M7 4v8h10",
+    "M17 4v8",
+    "M7 12h10l1 8H6l1-8Z",
+    "M5 20h14",
+    "M9 15h6",
+  ],
+  screen: [
+    "M4 5h16v11H4z",
+    "M9 20h6",
+    "M12 16v4",
+    "M8 9h8",
+  ],
+  battery: [
+    "M4 8h13v8H4z",
+    "M17 10h3v4h-3",
+    "M7 11v2M10 11v2M13 11v2",
+  ],
+  motor: [
+    "M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12Z",
+    "M12 9v6M9 12h6",
+    "M12 3v3M12 18v3M3 12h3M18 12h3",
+  ],
+  plug: [
+    "M8 7V3M16 7V3",
+    "M7 7h10v4a5 5 0 0 1-10 0V7Z",
+    "M12 16v5",
+  ],
+  shield: [
+    "M12 3 5 6v5c0 4.5 3 7.5 7 10 4-2.5 7-5.5 7-10V6l-7-3Z",
+    "m9 12 2 2 4-4",
+  ],
+  airbag: [
+    "M12 4a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z",
+    "M7 20v-2a5 5 0 0 1 10 0v2",
+    "M4 13c2-4 4-4 6-2M20 13c-2-4-4-4-6-2",
+  ],
+  cruise: [
+    "M4 17a8 8 0 0 1 16 0",
+    "M12 17l4-5",
+    "M6 17h2M16 17h2",
+  ],
+  light: [
+    "M4 8h7a5 5 0 0 1 0 10H4z",
+    "M14 8l4-3M14 18l4 3",
+    "M15 13h4",
+  ],
+  brake: [
+    "M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z",
+    "M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z",
+    "M18 9l3-2M18 15l3 2",
+  ],
+  tire: [
+    "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z",
+    "M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z",
+    "M12 7V4M12 20v-3M7 12H4M20 12h-3",
+  ],
+  storage: [
+    "M4 8h16v11H4z",
+    "M4 8l2-4h12l2 4",
+    "M9 12h6",
+  ],
+};
+---
+
+<svg
+  class="feature-icon-svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  {paths[name].map((path) => <path d={path} />)}
+</svg>

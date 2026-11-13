@@ -57,6 +57,30 @@ await page.locator("[data-calc-down]").evaluate((el) => { el.value = "50"; el.di
 const monthlyAfter = await page.locator("[data-calc-monthly]").textContent();
 results.calculatorChanged = monthlyBefore !== monthlyAfter;
 
+// Detail content sections, product gallery, comparison table and catalog
+const detailSections = await page
+  .locator("#thong-tin-san-pham, #thiet-ke, #thiet-ke-noi-that, #van-hanh, #an-toan, #so-sanh, #thong-so-ky-thuat")
+  .count();
+const productBefore = await page.locator(".product-slide.is-active img").getAttribute("src");
+await page.locator(".product-arrow--next").click();
+await page.waitForTimeout(700);
+const productAfter = await page.locator(".product-slide.is-active img").getAttribute("src");
+const compareBefore = await page.locator("[data-compare-value='Quãng đường']").textContent();
+await page.selectOption("[data-compare-select]", { index: 1 });
+await page.waitForTimeout(200);
+const compareAfter = await page.locator("[data-compare-value='Quãng đường']").textContent();
+const catalogHref = await page.locator("#thong-so-ky-thuat a[href$='.pdf']").getAttribute("href");
+const catalogStatus = catalogHref ? (await page.request.get(`${base}${catalogHref}`)).status() : null;
+results.detail = {
+  detailSections,
+  galleryChanged: productBefore !== productAfter,
+  compareBefore: compareBefore?.trim(),
+  compareAfter: compareAfter?.trim(),
+  compareChanged: compareBefore !== compareAfter,
+  catalogHref,
+  catalogStatus,
+};
+
 // Test drive form: validation then success (demo mode)
 await page.goto(`${base}/dang-ky-lai-thu/?model=vinfast-vf-5`, { waitUntil: "networkidle" });
 await page.click('form.lead-form-js button[type="submit"]');

@@ -3,16 +3,23 @@ import Gallery from "./Gallery.astro";
 import PriceCalculator from "./PriceCalculator.astro";
 import LeadForm from "./LeadForm.astro";
 import VehicleCard from "./VehicleCard.astro";
+import ProductShowcase from "./ProductShowcase.astro";
+import VehicleStory from "./VehicleStory.astro";
+import CompareTable from "./CompareTable.astro";
+import TechSpecs from "./TechSpecs.astro";
 import type { Vehicle } from "../data/vehicles";
+import { vehicleDetailContent } from "../data/vehicle-details";
 import { site } from "../data/site";
 import { formatVnd, url } from "../lib/format";
 
 interface Props {
   vehicle: Vehicle;
   related: Vehicle[];
+  compareVehicles: Vehicle[];
 }
 
-const { vehicle, related } = Astro.props;
+const { vehicle, related, compareVehicles } = Astro.props;
+const content = vehicleDetailContent[vehicle.slug];
 const typeLabel = vehicle.type === "car" ? "Ô tô điện" : "Xe máy điện";
 const listingHref = url(vehicle.type === "car" ? "o-to-dien/" : "xe-may-dien/");
 const testDriveHref = url(`dang-ky-lai-thu/?model=${vehicle.slug}`);
@@ -81,15 +88,6 @@ const productSchema = {
           </ul>
         </details>
 
-        <div class="color-list" aria-label="Màu xe demo">
-          {vehicle.colors.map((color) => (
-            <span class="color-swatch">
-              <i style={`background:${color.hex}`}></i>
-              {color.name}
-            </span>
-          ))}
-        </div>
-
         <div class="detail-actions">
           <a class="btn" href={testDriveHref} data-track="cta_click" data-label="detail_test_drive">Đăng ký lái thử</a>
           <a class="btn btn--outline" href="#quote" data-track="cta_click" data-label="detail_quote">Nhận báo giá</a>
@@ -108,44 +106,48 @@ const productSchema = {
   </div>
 </div>
 
-<section class="detail-content">
-  <div class="container detail-content-grid">
-    <div>
-      <div class="eyebrow">Tổng quan</div>
-      <h2>Vì sao chọn {vehicle.name}?</h2>
-      <p>{vehicle.description}</p>
-      <div class="highlight-list">
-        {vehicle.highlights.map((highlight) => (
-          <div class="highlight-item">
-            <h3>{highlight.title}</h3>
-            <p>{highlight.text}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+{content && (
+  <>
+    <ProductShowcase vehicle={vehicle} content={content} />
 
-    <div>
-      <div class="eyebrow">Thông số</div>
-      <h2>Thông số kỹ thuật</h2>
-      <div class="spec-table">
-        {vehicle.specs.map((group) => (
-          <div class="spec-group">
-            <h3>{group.group}</h3>
-            {group.items.map((item) => (
-              <div class="spec-row">
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <p class="small muted" style="margin-top: 12px">
-        Thông số trên là dữ liệu mẫu, có thể thay đổi theo phiên bản và chương trình của đại lý.
-      </p>
-    </div>
-  </div>
-</section>
+    <VehicleStory
+      vehicle={vehicle}
+      section={content.exterior}
+      id="thiet-ke"
+      eyebrow="Thiết kế"
+      soft
+      columns={4}
+    />
+
+    <VehicleStory
+      vehicle={vehicle}
+      section={content.interior}
+      id="thiet-ke-noi-that"
+      eyebrow={vehicle.type === "car" ? "Thiết kế" : "Tiện ích"}
+    />
+
+    <VehicleStory
+      vehicle={vehicle}
+      section={content.performance}
+      id="van-hanh"
+      eyebrow="Vận hành"
+      soft
+    />
+
+    {content.safety && (
+      <VehicleStory
+        vehicle={vehicle}
+        section={content.safety}
+        id="an-toan"
+        eyebrow="An toàn"
+      />
+    )}
+
+    <CompareTable vehicle={vehicle} candidates={compareVehicles} />
+
+    <TechSpecs vehicle={vehicle} content={content} />
+  </>
+)}
 
 <section class="lead-section" id="quote">
   <div class="container lead-layout">

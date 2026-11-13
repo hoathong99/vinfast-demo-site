@@ -1,0 +1,52 @@
+---
+import FeatureIcon from "./FeatureIcon.astro";
+import type { Vehicle } from "../data/vehicles";
+import type { DetailSection } from "../data/vehicle-details";
+import { url } from "../lib/format";
+
+interface Props {
+  vehicle: Vehicle;
+  section: DetailSection;
+  id: string;
+  eyebrow: string;
+  soft?: boolean;
+  columns?: number;
+}
+
+const { vehicle, section, id, eyebrow, soft = false, columns = 3 } = Astro.props;
+---
+
+<section class:list={["story-section", "section", { "section--soft": soft }]} id={id}>
+  <div class="container">
+    <div class="story-head">
+      <div class="eyebrow">{eyebrow}</div>
+      <h2>{section.title}</h2>
+      <p class="story-subtitle">{section.subtitle}</p>
+      <p class="story-intro">{section.intro}</p>
+    </div>
+
+    <div class:list={["story-cards", `story-cards--${columns}`]}>
+      {section.cards.map((card) => (
+        <article class:list={["story-card", { "story-card--media": card.imageIndex !== undefined }]}>
+          {card.imageIndex !== undefined ? (
+            <div class="story-card-media">
+              <img
+                src={url(vehicle.images[card.imageIndex] ?? vehicle.images[0])}
+                alt={`${vehicle.name} — ${card.title}`}
+                width="1200"
+                height="675"
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <div class="story-card-icon">
+              <FeatureIcon name={card.icon ?? "shield"} />
+            </div>
+          )}
+          <h3>{card.title}</h3>
+          <p>{card.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

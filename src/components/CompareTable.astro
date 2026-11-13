@@ -1,0 +1,80 @@
+---
+import type { Vehicle } from "../data/vehicles";
+import { formatVnd } from "../lib/format";
+
+interface Props {
+  vehicle: Vehicle;
+  candidates: Vehicle[];
+}
+
+const { vehicle, candidates } = Astro.props;
+
+const flattenSpecs = (item: Vehicle): Record<string, string> =>
+  Object.fromEntries(item.specs.flatMap((group) => group.items.map((spec) => [spec.label, spec.value])));
+
+const currentSpecs = flattenSpecs(vehicle);
+const labels = Array.from(new Set(vehicle.specs.flatMap((group) => group.items.map((spec) => spec.label))));
+const defaultCompare = candidates[0];
+const defaultSpecs = defaultCompare ? flattenSpecs(defaultCompare) : {};
+---
+
+<section class="compare-section section section--soft" id="so-sanh">
+  <div class="container">
+    <div class="story-head">
+      <div class="eyebrow">So sánh</div>
+      <h2>Bảng So Sánh Sản Phẩm</h2>
+      <p class="story-intro">
+        Chọn một mẫu xe {vehicle.type === "car" ? "ô tô" : "xe máy"} cùng loại để so sánh các thông số chính.
+      </p>
+    </div>
+
+    {candidates.length === 0 ? (
+      <p class="muted">Chưa có mẫu xe cùng loại để so sánh.</p>
+    ) : (
+      <div class="compare-card" data-compare>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th scope="col">Tiêu chí</th>
+                <th scope="col">
+                  <span class="compare-name">{vehicle.name}</span>
+                  <span class="compare-price">{formatVnd(vehicle.price)}</span>
+                </th>
+                <th scope="col">
+                  <label class="compare-select-label">
+                    <span class="sr-only">Chọn xe để so sánh</span>
+                    <select class="compare-select" data-compare-select>
+                      {candidates.map((candidate) => (
+                        <option
+                          value={candidate.slug}
+                          data-name={candidate.name}
+                          data-price={formatVnd(candidate.price)}
+                          data-specs={JSON.stringify(flattenSpecs(candidate))}
+                        >
+                          {candidate.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <span class="compare-price" data-compare-price>
+                    {defaultCompare ? formatVnd(defaultCompare.price) : ""}
+                  </span>
+                </th>
+              </tr>
+            </thead>
+            <tbody data-compare-body>
+              {labels.map((label) => (
+                <tr>
+                  <th scope="row">{label}</th>
+                  <td>{currentSpecs[label] ?? "—"}</td>
+                  <td data-compare-value={label}>{defaultSpecs[label] ?? "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )}
+  </div>
+</section>

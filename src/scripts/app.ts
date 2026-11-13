@@ -642,6 +642,36 @@ function initFilters(): void {
   apply();
 }
 
+/* ---------------- Compare table ---------------- */
+
+function initCompare(): void {
+  document.querySelectorAll<HTMLElement>("[data-compare]").forEach((root) => {
+    const select = root.querySelector<HTMLSelectElement>("[data-compare-select]");
+    const body = root.querySelector<HTMLElement>("[data-compare-body]");
+    const price = root.querySelector<HTMLElement>("[data-compare-price]");
+    if (!select || !body) return;
+
+    const update = (): void => {
+      const option = select.selectedOptions[0];
+      if (!option) return;
+      let specs: Record<string, string> = {};
+      try {
+        specs = JSON.parse(option.dataset.specs || "{}") as Record<string, string>;
+      } catch {
+        specs = {};
+      }
+      if (price) price.textContent = option.dataset.price || "";
+      body.querySelectorAll<HTMLElement>("[data-compare-value]").forEach((cell) => {
+        const label = cell.dataset.compareValue || "";
+        cell.textContent = specs[label] || "—";
+      });
+      track("compare_use", { model: option.value });
+    };
+
+    select.addEventListener("change", update);
+  });
+}
+
 /* ---------------- Map facade ---------------- */
 
 function initMap(): void {
@@ -1130,6 +1160,7 @@ initBookingForms();
 initGallery();
 initCalculators();
 initFilters();
+initCompare();
 initMap();
 initForms();
 initBackTop();

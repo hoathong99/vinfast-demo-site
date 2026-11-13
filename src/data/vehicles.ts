@@ -132,6 +132,7 @@ export const vehicles: Vehicle[] = [
       {
         group: "Vận hành",
         items: [
+          { label: "Động cơ", value: "01 Motor điện" },
           { label: "Công suất tối đa", value: "100 kW" },
           { label: "Mô men xoắn cực đại", value: "260 Nm" },
           { label: "Tăng tốc 0–100 km/h", value: "10,3 giây" },
@@ -217,6 +218,7 @@ export const vehicles: Vehicle[] = [
       {
         group: "Vận hành",
         items: [
+          { label: "Động cơ", value: "02 Motor điện" },
           { label: "Công suất tối đa", value: "300 kW" },
           { label: "Mô men xoắn cực đại", value: "620 Nm" },
           { label: "Tăng tốc 0–100 km/h", value: "5,8 giây" },
@@ -301,6 +303,7 @@ export const vehicles: Vehicle[] = [
       {
         group: "Vận hành",
         items: [
+          { label: "Động cơ", value: "02 Motor điện" },
           { label: "Công suất tối đa", value: "300 kW" },
           { label: "Mô men xoắn cực đại", value: "620 Nm" },
           { label: "Tăng tốc 0–100 km/h", value: "6,5 giây" },

@@ -12,6 +12,7 @@ export function getStaticPaths() {
 
 const { vehicle } = Astro.props;
 const related = motorbikes.filter((item) => item.slug !== vehicle.slug).slice(0, 3);
+const compareVehicles = motorbikes.filter((item) => item.slug !== vehicle.slug);
 ---
 
 <BaseLayout
@@ -19,5 +20,5 @@ const related = motorbikes.filter((item) => item.slug !== vehicle.slug).slice(0,
   description={`${vehicle.name}: ${vehicle.tagline}. Giá và thông số demo tại VinFast Demo.`}
   image={vehicle.images[0]}
 >
-  <VehicleDetail vehicle={vehicle} related={related} />
+  <VehicleDetail vehicle={vehicle} related={related} compareVehicles={compareVehicles} />
 </BaseLayout>

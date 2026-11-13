@@ -1,0 +1,73 @@
+---
+import type { Vehicle } from "../data/vehicles";
+import type { VehicleDetailContent } from "../data/vehicle-details";
+import { url } from "../lib/format";
+
+interface Props {
+  vehicle: Vehicle;
+  content: VehicleDetailContent;
+}
+
+const { vehicle, content } = Astro.props;
+---
+
+<section class="tech-section section" id="thong-so-ky-thuat">
+  <div class="container">
+    <div class="story-head">
+      <div class="eyebrow">Thông số</div>
+      <h2>Thông Số Kỹ Thuật</h2>
+      <p class="story-intro">Các chỉ số nổi bật của {vehicle.name} và catalog chính thức để xem chi tiết.</p>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-highlights">
+        {content.tech.map((item) => (
+          <div class="tech-row">
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </div>
+        ))}
+      </div>
+
+      <aside class="tech-catalog">
+        <div class="tech-catalog-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Z" />
+            <path d="M14 3v5h5" />
+            <path d="M8.5 13h7M8.5 16h7" />
+          </svg>
+        </div>
+        <h3>Catalog {vehicle.name}</h3>
+        <p>Tải brochure chính thức để xem đầy đủ thông số, trang bị và hình ảnh chi tiết.</p>
+        <a
+          class="btn"
+          href={url(content.catalog)}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="catalog_open"
+          data-label={vehicle.slug}
+        >
+          Xem catalog PDF
+        </a>
+        {content.catalogNote && <p class="tech-catalog-note">{content.catalogNote}</p>}
+      </aside>
+    </div>
+
+    <details class="tech-more">
+      <summary>Xem tất cả thông số</summary>
+      <div class="spec-table">
+        {vehicle.specs.map((group) => (
+          <div class="spec-group">
+            <h3>{group.group}</h3>
+            {group.items.map((item) => (
+              <div class="spec-row">
+                <span>{item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </details>
+  </div>
+</section>

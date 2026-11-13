@@ -144,6 +144,13 @@ To add a vehicle:
 2. Add an object to `vehicles` with a unique `slug`, `type`, and `order`.
 3. Rebuild. The listing and detail routes are generated automatically.
 
+### Vehicle detail content
+
+The extra detail-page sections (Thông tin sản phẩm, Thiết kế, Khả năng vận hành, Trang bị an toàn, Thông số kỹ thuật) are stored separately from the base vehicle data in `src/data/vehicle-details.ts`. Each entry is keyed by vehicle slug and is the single source for that page's copy, feature cards, key specs, and catalog link.
+
+- Catalog PDFs live in `public/catalogs/`. VF 3 / VF 5 / VF 8 / VF 9 use the supplied VinFast brochures; Evo and Viper currently use demo placeholder PDFs, so replace them with official files before launch.
+- The comparison table is generated from `specs` in `src/data/vehicles.ts` and only offers vehicles of the same type (car ↔ car, motorbike ↔ motorbike).
+
 ### News
 
 Edit `src/data/news.ts`. Add an article object with a unique slug; the detail route is generated automatically.
