@@ -10,6 +10,9 @@ import { news } from "../data/news";
 import { site } from "../data/site";
 import { url } from "../lib/format";
 
+const featuredCars = cars.filter((vehicle) => vehicle.featured);
+const featuredMotorbikes = motorbikes.filter((vehicle) => vehicle.featured);
+
 const slides = [
   { image: "/images/hero-1.webp", alt: "Ưu đãi thu xăng đổi điện tại đại lý VinFast demo" },
   { image: "/images/hero-2.webp", alt: "Chương trình chuyển xanh hỗ trợ đến 6 triệu đồng" },
@@ -36,8 +39,8 @@ const slides = [
     id="car-spotlight"
     title="Ô tô điện nổi bật"
     eyebrow="Ô tô điện"
-    description="Bốn mẫu xe demo với thông số và giá minh họa. Thay dữ liệu thật sau khi chốt showroom."
-    vehicles={cars}
+    description="Các mẫu ô tô điện nổi bật trong danh mục 14 xe, kèm thông số và giá tham khảo."
+    vehicles={featuredCars}
     listingHref="o-to-dien/"
   />
 
@@ -45,8 +48,8 @@ const slides = [
     id="bike-spotlight"
     title="Xe máy điện nổi bật"
     eyebrow="Xe máy điện"
-    description="Mẫu xe máy điện phù hợp nhu cầu di chuyển đô thị."
-    vehicles={motorbikes}
+    description="Các mẫu xe máy điện nổi bật trong danh mục 10 xe, phù hợp nhu cầu di chuyển đô thị."
+    vehicles={featuredMotorbikes}
     listingHref="xe-may-dien/"
     soft
   />

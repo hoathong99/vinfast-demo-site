@@ -6,18 +6,18 @@ import { motorbikes } from "../../data/vehicles";
 
 <BaseLayout
   title="Xe máy điện — VinFast Demo"
-  description="Danh sách xe máy điện demo: Evo, Viper với thông số và giá minh họa."
+  description="Danh sách 10 mẫu xe máy điện: Amio, Evo, Evo Lite, Evo Grand, Evo Grand Lite, Feliz 2025, Feliz II, Flazz, ZGoo và Viper."
 >
   <VehicleListing
     title="Xe máy điện"
     eyebrow="Xe máy điện"
-    description="Hai mẫu xe máy điện demo. Giá và thông số chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
+    description="10 mẫu xe máy điện với giá và thông số tham khảo từ dữ liệu VinFast CarOn. Thông tin chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
     vehicles={motorbikes}
     types={[
       { label: "Xe phổ thông", value: "pho-thong" },
       { label: "Xe thể thao", value: "the-thao" },
     ]}
-    priceRange={{ min: 15_000_000, max: 50_000_000, step: 1_000_000 }}
+    priceRange={{ min: 10_000_000, max: 40_000_000, step: 1_000_000 }}
     contactTitle="Nhận báo giá xe máy điện"
   />
 </BaseLayout>

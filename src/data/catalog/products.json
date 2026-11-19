@@ -1,6 +1,227 @@
 {
   "products": [
     {
+      "slug": "vinfast-vf-2",
+      "name": "VinFast VF 2",
+      "type": "car",
+      "category": "mini-suv",
+      "tagline": "VF 2 – ô tô điện mini cá tính, nhỏ gọn, dễ di chuyển trong đô thị và phù hợp với phong cách sống năng động.",
+      "price": 178600000,
+      "priceNote": "Giá niêm yết",
+      "badge": "Mới",
+      "featured": true,
+      "order": 1,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "4"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "210 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "134 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "01 Motor"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "30"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "110"
+            },
+            {
+              "label": "Tăng tốc",
+              "value": "5,3s (0 - 50 km/h)"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "RWD/Cầu sau"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "210 km"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-vf-2/main.webp",
+        "/images/vehicles/vinfast-vf-2/gallery-1.webp",
+        "/images/vehicles/vinfast-vf-2/gallery-2.webp",
+        "/images/vehicles/vinfast-vf-2/gallery-3.webp",
+        "/images/vehicles/vinfast-vf-2/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VF 2 – ô tô điện mini cá tính, nhỏ gọn, dễ di chuyển trong đô thị và phù hợp với phong cách sống năng động. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "4"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "210 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "134 hp"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-evo",
+      "name": "VinFast Evo",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "Xe máy điện phổ thông cho học sinh, sinh viên",
+      "price": 18800000,
+      "priceNote": "Giá demo — liên hệ để nhận báo giá",
+      "badge": "Bán chạy",
+      "featured": true,
+      "order": 1,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "80 km"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "50 km/h"
+        },
+        {
+          "label": "Số chỗ ngồi",
+          "value": "2"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Công suất",
+              "value": "1,2 kW"
+            },
+            {
+              "label": "Tốc độ tối đa",
+              "value": "50 km/h"
+            },
+            {
+              "label": "Quãng đường",
+              "value": "80 km / lần sạc"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Loại pin",
+              "value": "Pin Lithium-ion"
+            },
+            {
+              "label": "Thời gian sạc",
+              "value": "4–5 giờ"
+            },
+            {
+              "label": "Sạc tại nhà",
+              "value": "Có"
+            }
+          ]
+        },
+        {
+          "group": "Tiện ích",
+          "items": [
+            {
+              "label": "Cốp xe",
+              "value": "Có"
+            },
+            {
+              "label": "Màn hình",
+              "value": "LCD"
+            },
+            {
+              "label": "Đèn LED",
+              "value": "Có"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/evo/main.webp",
+        "/images/vehicles/evo/gallery-1.webp",
+        "/images/vehicles/evo/gallery-2.webp",
+        "/images/vehicles/evo/gallery-3.webp",
+        "/images/vehicles/evo/gallery-4.webp"
+      ],
+      "colors": [
+        {
+          "name": "Đỏ",
+          "hex": "#c8102e",
+          "image": "/images/vehicles/evo/gallery-1.webp"
+        },
+        {
+          "name": "Xanh lá",
+          "hex": "#7f8c72",
+          "image": "/images/vehicles/evo/gallery-2.webp"
+        },
+        {
+          "name": "Đen",
+          "hex": "#1c1c1c",
+          "image": "/images/vehicles/evo/gallery-3.webp"
+        },
+        {
+          "name": "Trắng",
+          "hex": "#f5f5f5",
+          "image": "/images/vehicles/evo/gallery-4.webp"
+        }
+      ],
+      "offers": [
+        {
+          "title": "Tặng mũ bảo hiểm demo",
+          "description": "Quà tặng mẫu khi mua xe tại đại lý.",
+          "validUntil": "2026-12-31"
+        },
+        {
+          "title": "Trả góp 0% demo",
+          "description": "Chương trình demo áp dụng cho một số dòng xe.",
+          "validUntil": "2026-12-31"
+        }
+      ],
+      "description": "Evo là mẫu xe máy điện phổ thông với thiết kế gọn nhẹ, dễ sử dụng và chi phí vận hành thấp. Xe phù hợp cho học sinh, sinh viên và nhu cầu di chuyển trong đô thị.",
+      "highlights": [
+        {
+          "title": "Dễ sử dụng",
+          "text": "Thiết kế nhẹ, yên thấp, phù hợp nhiều đối tượng người dùng."
+        },
+        {
+          "title": "Chi phí thấp",
+          "text": "Sạc điện tại nhà với chi phí thấp hơn nhiều so với xăng."
+        },
+        {
+          "title": "An toàn",
+          "text": "Hệ thống phanh, đèn chiếu sáng và lốp bám đường."
+        }
+      ]
+    },
+    {
       "slug": "vinfast-vf-3",
       "name": "VinFast VF 3",
       "type": "car",
@@ -10,7 +231,7 @@
       "priceNote": "Giá demo — liên hệ để nhận báo giá",
       "badge": "Bán chạy",
       "featured": true,
-      "order": 1,
+      "order": 2,
       "quickSpecs": [
         {
           "label": "Số chỗ ngồi",
@@ -149,6 +370,132 @@
       ]
     },
     {
+      "slug": "vinfast-evo-lite",
+      "name": "VinFast Evo Lite",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "VinFast Evo Lite — phiên bản gọn nhẹ của Evo, tối ưu chi phí và linh hoạt trong đô thị.",
+      "price": 14300000,
+      "priceNote": "Giá đã bao gồm pin",
+      "featured": false,
+      "order": 2,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "Khoảng 85 km ( + 80 km khi lắp thêm pin phụ)"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "49 km/h"
+        },
+        {
+          "label": "Công suất",
+          "value": "2300W"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Xanh oliu, Đỏ tươi, Đen nhám, Trắng ngọc trai"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "Sạc 400W Khoảng 4h30p từ 0% đến 100%"
+            },
+            {
+              "label": "PIN",
+              "value": "01 pin LFP (Tùy chọn lắp 02 pin)"
+            },
+            {
+              "label": "Dung lượng PIN",
+              "value": "1.5 kWh"
+            },
+            {
+              "label": "Quãng đường đi 1 lần sạc",
+              "value": "Khoảng 85 km"
+            }
+          ]
+        },
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Loại động cơ",
+              "value": "Inhub"
+            },
+            {
+              "label": "Công suất danh định",
+              "value": "1500W"
+            },
+            {
+              "label": "Công suất tối đa",
+              "value": "2300W"
+            },
+            {
+              "label": "Giảm xóc",
+              "value": "Ống lồng-giảm chấn thủy lực; giảm xóc đôi, giảm chấn thủy lực"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65kg)",
+              "value": "49 km/h"
+            },
+            {
+              "label": "Phanh trước và sau",
+              "value": "Phanh đĩa/cơ"
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Kích thước lốp trước – sau",
+              "value": "90/90-12 | 90/90-12"
+            },
+            {
+              "label": "Trọng lượng",
+              "value": "86 kg (bao gồm 1 pin)"
+            },
+            {
+              "label": "Dài x Rộng x Cao",
+              "value": "1856 x 683 x 1133mm"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-evo-lite/main.webp",
+        "/images/vehicles/vinfast-evo-lite/gallery-1.webp",
+        "/images/vehicles/vinfast-evo-lite/gallery-2.webp",
+        "/images/vehicles/vinfast-evo-lite/gallery-3.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VinFast Evo Lite — phiên bản gọn nhẹ của Evo, tối ưu chi phí và linh hoạt trong đô thị.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "Khoảng 85 km ( + 80 km khi lắp thêm pin phụ)"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "49 km/h"
+        },
+        {
+          "title": "Công suất",
+          "text": "2300W"
+        }
+      ]
+    },
+    {
       "slug": "vinfast-vf-5",
       "name": "VinFast VF 5",
       "type": "car",
@@ -156,8 +503,8 @@
       "tagline": "SUV điện cỡ A rộng rãi cho gia đình trẻ",
       "price": 529000000,
       "priceNote": "Giá demo — liên hệ để nhận báo giá",
-      "featured": true,
-      "order": 2,
+      "featured": false,
+      "order": 3,
       "quickSpecs": [
         {
           "label": "Số chỗ ngồi",
@@ -291,6 +638,550 @@
       ]
     },
     {
+      "slug": "vinfast-evo-grand",
+      "name": "VinFast Evo Grand",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "Tầm di chuyển ấn tượng, kiểu dáng hiện đại, tiện nghi vượt trội.",
+      "price": 22500000,
+      "priceNote": "Giá đã bao gồm pin",
+      "featured": false,
+      "order": 3,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "~134 km (+128 km khi lắp thêm pin phụ)"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "70 km/h"
+        },
+        {
+          "label": "Công suất",
+          "value": "2250 W"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Trắng ngọc trai, Đen nhám, Xanh Oliu, Đỏ tươi, Vàng cát"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "~6 giờ 30 phút (0–100%)"
+            },
+            {
+              "label": "Quãng đường 1 lần sạc",
+              "value": "~134 km"
+            },
+            {
+              "label": "Pin",
+              "value": "LFP"
+            }
+          ]
+        },
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "Inhub – Công suất 2250 W"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người ~65 kg)",
+              "value": "70 km/h"
+            },
+            {
+              "label": "Giảm xóc",
+              "value": "Trước: Ống lồng – giảm chấn thủy lực/ Sau: Giảm xóc đôi – giảm chấn thủy lực"
+            },
+            {
+              "label": "Phanh",
+              "value": "Trước phanh đĩa / Sau phanh cơ"
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Trọng lượng",
+              "value": "~92 kg (110 kg khi lắp thêm pin phụ)"
+            },
+            {
+              "label": "Khoảng sáng gầm xe",
+              "value": "135 mm"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-evo-grand/main.webp",
+        "/images/vehicles/vinfast-evo-grand/gallery-1.webp",
+        "/images/vehicles/vinfast-evo-grand/gallery-2.webp",
+        "/images/vehicles/vinfast-evo-grand/gallery-3.webp",
+        "/images/vehicles/vinfast-evo-grand/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "Tầm di chuyển ấn tượng, kiểu dáng hiện đại, tiện nghi vượt trội.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "~134 km (+128 km khi lắp thêm pin phụ)"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "70 km/h"
+        },
+        {
+          "title": "Công suất",
+          "text": "2250 W"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-vf-6",
+      "name": "VinFast VF 6",
+      "type": "car",
+      "category": "suv",
+      "tagline": "VF 6 – nhỏ gọn cho đô thị, thiết kế trẻ trung, khoang lái tiện nghi và khả năng vận hành linh hoạt.",
+      "price": 689000000,
+      "priceNote": "Từ giá niêm yết",
+      "badge": "Mới",
+      "featured": false,
+      "order": 4,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "5"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "381 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "201 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "Điện"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "150"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "310 Nm"
+            },
+            {
+              "label": "Tăng tốc",
+              "value": "8-10s"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD/Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "381 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "24,19 phút"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-vf-6/main.webp",
+        "/images/vehicles/vinfast-vf-6/gallery-1.webp",
+        "/images/vehicles/vinfast-vf-6/gallery-2.webp",
+        "/images/vehicles/vinfast-vf-6/gallery-3.webp",
+        "/images/vehicles/vinfast-vf-6/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VF 6 – nhỏ gọn cho đô thị, thiết kế trẻ trung, khoang lái tiện nghi và khả năng vận hành linh hoạt. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "5"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "381 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "201 hp"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-evo-grand-lite",
+      "name": "VinFast Evo Grand Lite",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "Kiểu dáng năng động, pin bền bỉ, phù hợp di chuyển hằng ngày.",
+      "price": 16500000,
+      "priceNote": "Giá đã bao gồm pin",
+      "featured": false,
+      "order": 4,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "~70 km (+128 km khi lắp thêm pin phụ)"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "48 km/h"
+        },
+        {
+          "label": "Công suất",
+          "value": "1900 W"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Trắng ngọc trai, Đen nhám, Lavender Sữa, Vàng"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "~6 giờ 30 phút (0–100%)"
+            },
+            {
+              "label": "Quãng đường 1 lần sạc",
+              "value": "~70 km"
+            },
+            {
+              "label": "Pin",
+              "value": "LFP"
+            }
+          ]
+        },
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "Inhub – Công suất 1900 W"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người ~65 kg)",
+              "value": "48 km/h"
+            },
+            {
+              "label": "Giảm xóc",
+              "value": "Trước: Ống lồng – giảm chấn thủy lực/ Sau: Giảm xóc đôi – giảm chấn thủy lực"
+            },
+            {
+              "label": "Phanh",
+              "value": "Trước phanh đĩa / Sau phanh cơ"
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Trọng lượng",
+              "value": "~82 kg (100 kg khi lắp thêm pin phụ)"
+            },
+            {
+              "label": "Khoảng sáng gầm xe",
+              "value": "133 mm"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-evo-grand-lite/main.webp",
+        "/images/vehicles/vinfast-evo-grand-lite/gallery-1.webp",
+        "/images/vehicles/vinfast-evo-grand-lite/gallery-2.webp",
+        "/images/vehicles/vinfast-evo-grand-lite/gallery-3.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "Kiểu dáng năng động, pin bền bỉ, phù hợp di chuyển hằng ngày.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "~70 km (+128 km khi lắp thêm pin phụ)"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "48 km/h"
+        },
+        {
+          "title": "Công suất",
+          "text": "1900 W"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-vf-7",
+      "name": "VinFast VF 7",
+      "type": "car",
+      "category": "suv",
+      "tagline": "VF 7 – thiết kế thể thao cá tính, vận hành linh hoạt và nhiều công nghệ hỗ trợ thông minh.",
+      "price": 799000000,
+      "priceNote": "Từ giá niêm yết",
+      "featured": false,
+      "order": 5,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "5"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "496 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "260 kW"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "2 động cơ điện"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "260"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "500 Nm"
+            },
+            {
+              "label": "Tăng tốc",
+              "value": "0 - 100 km/h trong 5,8s"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD - Dẫn động cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "496 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "~26 phút"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-vf-7/main.webp",
+        "/images/vehicles/vinfast-vf-7/gallery-1.webp",
+        "/images/vehicles/vinfast-vf-7/gallery-2.webp",
+        "/images/vehicles/vinfast-vf-7/gallery-3.webp",
+        "/images/vehicles/vinfast-vf-7/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VF 7 – thiết kế thể thao cá tính, vận hành linh hoạt và nhiều công nghệ hỗ trợ thông minh. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "5"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "496 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "260 kW"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-amio",
+      "name": "VinFast Amio",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "VinFast Amio sở hữu thiết kế trẻ trung, nhỏ gọn và dễ điều khiển, phù hợp với học sinh, sinh viên hoặc người dùng cần…",
+      "price": 11600000,
+      "priceNote": "Giá đã bao gồm pin",
+      "badge": "Mới",
+      "featured": false,
+      "order": 5,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "Khoảng 65 km"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "30 km/h"
+        },
+        {
+          "label": "Công suất",
+          "value": "~800W"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Đỏ, Trắng, Xám, Đen, Xanh"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "Khoảng 6 giờ từ 0% đến 100%"
+            },
+            {
+              "label": "PIN",
+              "value": "Pin LFP"
+            },
+            {
+              "label": "Dung lượng PIN",
+              "value": "1,024 kWh"
+            },
+            {
+              "label": "Quãng đường đi 1 lần sạc",
+              "value": "Khoảng 65 km"
+            },
+            {
+              "label": "Trọng lượng pin",
+              "value": "10 ±1 kg"
+            }
+          ]
+        },
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Loại động cơ",
+              "value": "Inhub"
+            },
+            {
+              "label": "Công suất danh định",
+              "value": "~400W"
+            },
+            {
+              "label": "Công suất tối đa",
+              "value": "~800W"
+            },
+            {
+              "label": "Giảm xóc",
+              "value": "Ống lồng – giảm chấn thủy lực; giảm xóc đôi – giảm chấn thủy lực"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65kg)",
+              "value": "30 km/h"
+            },
+            {
+              "label": "Phanh trước và sau",
+              "value": "Phanh cơ"
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Kích thước lốp trước – sau",
+              "value": "10 x 3.0"
+            },
+            {
+              "label": "Khoảng cách trục bánh Trước-Sau",
+              "value": "1168 mm"
+            },
+            {
+              "label": "Dài x Rộng x Cao",
+              "value": "1715 x 690 x 1050 mm"
+            },
+            {
+              "label": "Khoảng sáng gầm",
+              "value": "130 mm"
+            },
+            {
+              "label": "Chiều cao yên",
+              "value": "750 mm"
+            },
+            {
+              "label": "Thể tích cốp",
+              "value": "12L"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-amio/main.webp",
+        "/images/vehicles/vinfast-amio/gallery-1.webp",
+        "/images/vehicles/vinfast-amio/gallery-2.webp",
+        "/images/vehicles/vinfast-amio/gallery-3.webp",
+        "/images/vehicles/vinfast-amio/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VinFast Amio sở hữu thiết kế trẻ trung, nhỏ gọn và dễ điều khiển, phù hợp với học sinh, sinh viên hoặc người dùng cần phương tiện di chuyển hằng ngày trong đô thị. Xe được trang bị pin LFP hiện đại, an toàn và bền bỉ, kết hợp khả năng vận hành ổn định cùng chi phí sử dụng tiết kiệm. Với kiểu dáng thời trang cùng nhiều tiện ích thông minh, VinFast Amio là lựa chọn lý tưởng cho nhu cầu đi học, đi chơi và di chuyển ngắn mỗi ngày.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "Khoảng 65 km"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "30 km/h"
+        },
+        {
+          "title": "Công suất",
+          "text": "~800W"
+        }
+      ]
+    },
+    {
       "slug": "vinfast-vf-8",
       "name": "VinFast VF 8",
       "type": "car",
@@ -300,7 +1191,7 @@
       "priceNote": "Giá demo — liên hệ để nhận báo giá",
       "badge": "Nổi bật",
       "featured": true,
-      "order": 3,
+      "order": 6,
       "quickSpecs": [
         {
           "label": "Số chỗ ngồi",
@@ -434,6 +1325,347 @@
       ]
     },
     {
+      "slug": "vinfast-feliz-2025",
+      "name": "VinFast Feliz 2025",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "Thiết kế thanh lịch, pin LFP bền bỉ, di chuyển linh hoạt.",
+      "price": 26000000,
+      "priceNote": "Giá đã bao gồm pin",
+      "badge": "Mới",
+      "featured": true,
+      "order": 6,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "134 km (1 pin) / 262 km (2 pin)"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "70 km/h"
+        },
+        {
+          "label": "Số chỗ ngồi",
+          "value": "2"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "In-hub; tốc độ tối đa 70 km/h ."
+            }
+          ]
+        },
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Chống nước",
+              "value": "IP67 (động cơ)."
+            },
+            {
+              "label": "Kích thước cơ bản (D×R×C)",
+              "value": "1920 × 694 × 1140 mm ; khoảng sáng gầm 141 mm ; chiều cao yên 780 mm ."
+            },
+            {
+              "label": "Tải trọng tối đa",
+              "value": "130 kg ."
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Cốp",
+              "value": "34 L (còn 15 L khi gắn thêm pin phụ)."
+            },
+            {
+              "label": "Lốp trước/sau",
+              "value": "90/90-14 và 120/70-14 ."
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Bộ pin",
+              "value": "LFP 2.4 kWh (tùy chọn 1 pin hoặc 2 pin)."
+            },
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "6,5 giờ với sạc 400 W ."
+            },
+            {
+              "label": "Quãng đường/lần sạc (ĐK tiêu chuẩn)",
+              "value": "134 km (1 pin) / 262 km"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-feliz-2025/main.webp",
+        "/images/vehicles/vinfast-feliz-2025/gallery-1.webp",
+        "/images/vehicles/vinfast-feliz-2025/gallery-2.webp",
+        "/images/vehicles/vinfast-feliz-2025/gallery-3.webp",
+        "/images/vehicles/vinfast-feliz-2025/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "Thiết kế thanh lịch, pin LFP bền bỉ, di chuyển linh hoạt.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "134 km (1 pin) / 262 km (2 pin)"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "70 km/h"
+        },
+        {
+          "title": "Số chỗ ngồi",
+          "text": "2"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-vf-8-all-new",
+      "name": "VinFast VF 8 All New",
+      "type": "car",
+      "category": "suv",
+      "tagline": "VF 8 All New – thiết kế mạnh mẽ và công nghệ thông minh, phù hợp cho cả đi làm hằng ngày lẫn hành trình gia đình.",
+      "price": 899000000,
+      "priceNote": "Giá niêm yết",
+      "badge": "Mới",
+      "featured": false,
+      "order": 7,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "5"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "500 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "150 - 300 kW"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "Điện 2 Motor"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "150 - 300 kW"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "330 Nm"
+            },
+            {
+              "label": "Tăng tốc",
+              "value": "5,5s"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "500 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "30 phút (từ 10 - 70%)"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-vf-8-all-new/main.webp",
+        "/images/vehicles/vinfast-vf-8-all-new/gallery-1.webp",
+        "/images/vehicles/vinfast-vf-8-all-new/gallery-2.webp",
+        "/images/vehicles/vinfast-vf-8-all-new/gallery-3.webp",
+        "/images/vehicles/vinfast-vf-8-all-new/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VF 8 All New – thiết kế mạnh mẽ và công nghệ thông minh, phù hợp cho cả đi làm hằng ngày lẫn hành trình gia đình. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "5"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "500 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "150 - 300 kW"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-feliz-ii",
+      "name": "VinFast Feliz II",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "Kiểu dáng thanh lịch, khả năng vận hành êm ái.",
+      "price": 30000000,
+      "priceNote": "Giá đã bao gồm pin",
+      "featured": false,
+      "order": 7,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "Khoảng 160 km (khi lắp 2 pin)"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "70 km/h"
+        },
+        {
+          "label": "Công suất",
+          "value": "~3000W"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Đen Bóng; Xanh Oliu; Đỏ; Trắng Ngọc Trai; Nâu Ánh Kim"
+            },
+            {
+              "label": "Khóa xe",
+              "value": "Khóa thông minh (Smart key)"
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Khoảng cách trục bánh Trước-Sau",
+              "value": "1360 mm"
+            },
+            {
+              "label": "Thể tích cốp",
+              "value": "21L"
+            },
+            {
+              "label": "Dài x Rộng x Cao",
+              "value": "1999 x 694 x 1130 mm"
+            },
+            {
+              "label": "Khoảng sáng gầm",
+              "value": "160 mm"
+            },
+            {
+              "label": "Chiều cao yên",
+              "value": "785 mm"
+            },
+            {
+              "label": "Kích thước lốp Trước-Sau",
+              "value": "Trước: 90/90-14 | Sau: 120/70-14"
+            }
+          ]
+        },
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Giảm xóc trước và sau",
+              "value": "Ống lồng-giảm chấn thủy lực; Giảm xóc đôi-giảm chấn thủy lực"
+            },
+            {
+              "label": "Công suất danh định",
+              "value": "1800W"
+            },
+            {
+              "label": "Công suất tối đa",
+              "value": "~3000W"
+            },
+            {
+              "label": "Loại động cơ",
+              "value": "Inhub"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65 kg)",
+              "value": "70 km/h"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Dung lượng pin",
+              "value": "1,5 kWh (Tùy chọn lắp thêm 1 pin)"
+            },
+            {
+              "label": "Loại pin",
+              "value": "LFP"
+            },
+            {
+              "label": "Trọng lượng pin",
+              "value": "12 kg"
+            },
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "Khoảng 4 giờ 30 phút từ 0-100%"
+            },
+            {
+              "label": "Quãng đường đi 1 lần sạc",
+              "value": "Khoảng 160 km"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-feliz-ii/main.webp",
+        "/images/vehicles/vinfast-feliz-ii/gallery-1.webp",
+        "/images/vehicles/vinfast-feliz-ii/gallery-2.webp",
+        "/images/vehicles/vinfast-feliz-ii/gallery-3.webp",
+        "/images/vehicles/vinfast-feliz-ii/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "Kiểu dáng thanh lịch, khả năng vận hành êm ái.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "Khoảng 160 km (khi lắp 2 pin)"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "70 km/h"
+        },
+        {
+          "title": "Công suất",
+          "text": "~3000W"
+        }
+      ]
+    },
+    {
       "slug": "vinfast-vf-9",
       "name": "VinFast VF 9",
       "type": "car",
@@ -441,8 +1673,8 @@
       "tagline": "SUV điện 6 chỗ cao cấp cho gia đình",
       "price": 1499000000,
       "priceNote": "Giá demo — liên hệ để nhận báo giá",
-      "featured": true,
-      "order": 4,
+      "featured": false,
+      "order": 8,
       "quickSpecs": [
         {
           "label": "Số chỗ ngồi",
@@ -576,45 +1808,89 @@
       ]
     },
     {
-      "slug": "vinfast-evo",
-      "name": "VinFast Evo",
+      "slug": "vinfast-flazz",
+      "name": "VinFast Flazz",
       "type": "motorbike",
       "category": "pho-thong",
-      "tagline": "Xe máy điện phổ thông cho học sinh, sinh viên",
-      "price": 22000000,
-      "priceNote": "Giá demo — liên hệ để nhận báo giá",
-      "badge": "Giá tốt",
-      "featured": true,
-      "order": 5,
+      "tagline": "Diện mạo trẻ trung, vận hành linh hoạt, tích hợp nhiều tiện ích.",
+      "price": 14200000,
+      "priceNote": "Giá đã bao gồm pin",
+      "featured": false,
+      "order": 8,
       "quickSpecs": [
         {
           "label": "Quãng đường",
-          "value": "80 km"
+          "value": "Khoảng 70 km (+65 km khi lắp pin phụ)"
         },
         {
           "label": "Tốc độ tối đa",
-          "value": "50 km/h"
+          "value": "39km/h"
         },
         {
-          "label": "Số chỗ ngồi",
-          "value": "2"
+          "label": "Công suất",
+          "value": "1100W"
         }
       ],
       "specs": [
         {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Đỏ tươi – Đen nhám, Đen bóng,Xanh rêu, Trắng ngọc trai"
+            },
+            {
+              "label": "Tải trọng",
+              "value": "130kg"
+            },
+            {
+              "label": "Khả năng leo dốc, 20% 1 người 65Kg",
+              "value": "4-5km/h"
+            },
+            {
+              "label": "Khoá xe",
+              "value": "Khoá cơ"
+            }
+          ]
+        },
+        {
           "group": "Vận hành",
           "items": [
             {
-              "label": "Công suất",
-              "value": "1,2 kW"
+              "label": "Công suất danh định",
+              "value": "600W"
             },
             {
-              "label": "Tốc độ tối đa",
-              "value": "50 km/h"
+              "label": "Công suất tối đa",
+              "value": "1100W"
             },
             {
-              "label": "Quãng đường",
-              "value": "80 km / lần sạc"
+              "label": "Loại động cơ",
+              "value": "Inhub"
+            },
+            {
+              "label": "Tiêu chuẩn chống nước động cơ",
+              "value": "IP67"
+            },
+            {
+              "label": "Giảm xóc trước và sau",
+              "value": "Ống lồng-giảm chấn thủy lực; giảm xóc đôi, giảm chấn thủy lực"
+            },
+            {
+              "label": "Phanh trước và sau",
+              "value": "Phanh Cơ/ Cơ"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65Kg), chế độ SPORT",
+              "value": "39km/h"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65Kg), chế độ ECO",
+              "value": "30km/h"
+            },
+            {
+              "label": "Gia tốc tăng tốc 0-40km/h (1 người 65Kg)",
+              "value": "Dưới 16 giây"
             }
           ]
         },
@@ -622,91 +1898,415 @@
           "group": "Pin & sạc",
           "items": [
             {
-              "label": "Loại pin",
-              "value": "Pin Lithium-ion"
+              "label": "Công suất/Dung lượng",
+              "value": "1,2 kWh (tùy chọn lắp thêm pin phụ 1.2kWh)"
             },
             {
-              "label": "Thời gian sạc",
-              "value": "4–5 giờ"
+              "label": "Trọng lượng Pin/Ắc quy",
+              "value": "10 +/-1 kg"
             },
             {
-              "label": "Sạc tại nhà",
-              "value": "Có"
+              "label": "Loại sạc",
+              "value": "210W"
+            },
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "Khoảng 6h30 phút (từ 0% đến 100%)"
+            },
+            {
+              "label": "Vị trí lắp pin",
+              "value": "Dưới sàn để chân"
+            },
+            {
+              "label": "Quãng đường đi được 1 lần sạc (Theo điều kiện kiểm thử của VinFast tại 30 km/h)",
+              "value": "Khoảng 70 km"
             }
           ]
         },
         {
-          "group": "Tiện ích",
+          "group": "Kích thước",
           "items": [
             {
-              "label": "Cốp xe",
-              "value": "Có"
+              "label": "Khoảng cách trục bánh Trước-Sau",
+              "value": "1230mm"
             },
             {
-              "label": "Màn hình",
-              "value": "LCD"
+              "label": "Thể tích cốp",
+              "value": "14L (8L khi lắp pin phụ)"
             },
             {
-              "label": "Đèn LED",
-              "value": "Có"
+              "label": "Dài x Rộng x Cao",
+              "value": "1745 x 700 x 1050 mm"
+            },
+            {
+              "label": "Khoảng sáng gầm",
+              "value": "137mm"
+            },
+            {
+              "label": "Kích thước lốp Trước – Sau",
+              "value": "10×3.0"
             }
           ]
         }
       ],
       "images": [
-        "/images/vehicles/evo/main.webp",
-        "/images/vehicles/evo/gallery-1.webp",
-        "/images/vehicles/evo/gallery-2.webp",
-        "/images/vehicles/evo/gallery-3.webp",
-        "/images/vehicles/evo/gallery-4.webp"
+        "/images/vehicles/vinfast-flazz/main.webp",
+        "/images/vehicles/vinfast-flazz/gallery-1.webp",
+        "/images/vehicles/vinfast-flazz/gallery-2.webp",
+        "/images/vehicles/vinfast-flazz/gallery-3.webp"
       ],
-      "colors": [
-        {
-          "name": "Đỏ",
-          "hex": "#c8102e",
-          "image": "/images/vehicles/evo/gallery-1.webp"
-        },
-        {
-          "name": "Xanh lá",
-          "hex": "#7f8c72",
-          "image": "/images/vehicles/evo/gallery-2.webp"
-        },
-        {
-          "name": "Đen",
-          "hex": "#1c1c1c",
-          "image": "/images/vehicles/evo/gallery-3.webp"
-        },
-        {
-          "name": "Trắng",
-          "hex": "#f5f5f5",
-          "image": "/images/vehicles/evo/gallery-4.webp"
-        }
-      ],
-      "offers": [
-        {
-          "title": "Tặng mũ bảo hiểm demo",
-          "description": "Quà tặng mẫu khi mua xe tại đại lý.",
-          "validUntil": "2026-12-31"
-        },
-        {
-          "title": "Trả góp 0% demo",
-          "description": "Chương trình demo áp dụng cho một số dòng xe.",
-          "validUntil": "2026-12-31"
-        }
-      ],
-      "description": "Evo là mẫu xe máy điện phổ thông với thiết kế gọn nhẹ, dễ sử dụng và chi phí vận hành thấp. Xe phù hợp cho học sinh, sinh viên và nhu cầu di chuyển trong đô thị.",
+      "colors": [],
+      "offers": [],
+      "description": "Diện mạo trẻ trung, vận hành linh hoạt, tích hợp nhiều tiện ích.",
       "highlights": [
         {
-          "title": "Dễ sử dụng",
-          "text": "Thiết kế nhẹ, yên thấp, phù hợp nhiều đối tượng người dùng."
+          "title": "Quãng đường",
+          "text": "Khoảng 70 km (+65 km khi lắp pin phụ)"
         },
         {
-          "title": "Chi phí thấp",
-          "text": "Sạc điện tại nhà với chi phí thấp hơn nhiều so với xăng."
+          "title": "Tốc độ tối đa",
+          "text": "39km/h"
         },
         {
-          "title": "An toàn",
-          "text": "Hệ thống phanh, đèn chiếu sáng và lốp bám đường."
+          "title": "Công suất",
+          "text": "1100W"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-vf-mpv-7",
+      "name": "VinFast VF MPV 7",
+      "type": "car",
+      "category": "mpv",
+      "tagline": "VF MPV 7 – mẫu MPV nổi bật cho gia đình với thiết kế rộng rãi, trang bị vượt trội và trải nghiệm tiện nghi.",
+      "price": 819000000,
+      "priceNote": "Từ giá niêm yết",
+      "badge": "Gia đình",
+      "featured": true,
+      "order": 9,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "7"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "450 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "204 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "01 Motor Điện 204 Hp"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "150 kW"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "280 Nm"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD/Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "450 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "30 phút (10%-70%)"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-vf-mpv-7/main.webp",
+        "/images/vehicles/vinfast-vf-mpv-7/gallery-1.webp",
+        "/images/vehicles/vinfast-vf-mpv-7/gallery-2.webp",
+        "/images/vehicles/vinfast-vf-mpv-7/gallery-3.webp",
+        "/images/vehicles/vinfast-vf-mpv-7/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VF MPV 7 – mẫu MPV nổi bật cho gia đình với thiết kế rộng rãi, trang bị vượt trội và trải nghiệm tiện nghi. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "7"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "450 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "204 hp"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-zgoo",
+      "name": "VinFast ZGoo",
+      "type": "motorbike",
+      "category": "pho-thong",
+      "tagline": "Thiết kế nhỏ gọn, dễ điều khiển, phù hợp học sinh và người dùng trẻ.",
+      "price": 13300000,
+      "priceNote": "Giá đã bao gồm pin",
+      "featured": false,
+      "order": 9,
+      "quickSpecs": [
+        {
+          "label": "Quãng đường",
+          "value": "Khoảng 70 km"
+        },
+        {
+          "label": "Tốc độ tối đa",
+          "value": "39km/h"
+        },
+        {
+          "label": "Công suất",
+          "value": "1100W"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Tiện ích & an toàn",
+          "items": [
+            {
+              "label": "Màu sắc",
+              "value": "Đỏ tươi – Đen nhám, Đen bóng,Xanh rêu, Trắng ngọc trai"
+            },
+            {
+              "label": "Tải trọng",
+              "value": "130kg"
+            },
+            {
+              "label": "Đèn xi nhan trước",
+              "value": "LED Projector"
+            },
+            {
+              "label": "Khả năng leo dốc, 20% 1 người 65Kg",
+              "value": "4-5km/h"
+            }
+          ]
+        },
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Công suất danh định",
+              "value": "600W"
+            },
+            {
+              "label": "Công suất tối đa",
+              "value": "1100W"
+            },
+            {
+              "label": "Loại động cơ",
+              "value": "Inhub"
+            },
+            {
+              "label": "Tiêu chuẩn chống nước động cơ",
+              "value": "IP67"
+            },
+            {
+              "label": "Giảm xóc trước và sau",
+              "value": "Ống lồng-giảm chấn thủy lực; giảm xóc đôi, giảm chấn thủy lực"
+            },
+            {
+              "label": "Phanh trước và sau",
+              "value": "Phanh Cơ/ Cơ"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65Kg), chế độ SPORT",
+              "value": "39km/h"
+            },
+            {
+              "label": "Tốc độ tối đa (1 người 65Kg), chế độ ECO",
+              "value": "30km/h"
+            },
+            {
+              "label": "Gia tốc tăng tốc 0-40km/h (1 người 65Kg)",
+              "value": "Dưới 16 giây"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Loại Pin",
+              "value": "LFP"
+            },
+            {
+              "label": "Công suất/Dung lượng",
+              "value": "1,2 kWh"
+            },
+            {
+              "label": "Trọng lượng Pin/Ắc quy",
+              "value": "10 +/-1 kg"
+            },
+            {
+              "label": "Loại sạc",
+              "value": "210W"
+            },
+            {
+              "label": "Thời gian sạc tiêu chuẩn",
+              "value": "Khoảng 6h30 phút (từ 0% đến 100%)"
+            },
+            {
+              "label": "Vị trí lắp pin",
+              "value": "Dưới sàn để chân"
+            },
+            {
+              "label": "Quãng đường đi được 1 lần sạc (Theo điều kiện kiểm thử của VinFast tại 30 km/h)",
+              "value": "Khoảng 70 km"
+            }
+          ]
+        },
+        {
+          "group": "Kích thước",
+          "items": [
+            {
+              "label": "Khoảng cách trục bánh Trước-Sau",
+              "value": "1230mm"
+            },
+            {
+              "label": "Thể tích cốp",
+              "value": "14L"
+            },
+            {
+              "label": "Dài x Rộng x Cao",
+              "value": "1720 x 700 x 1050 mm"
+            },
+            {
+              "label": "Khoảng sáng gầm",
+              "value": "137mm"
+            },
+            {
+              "label": "Kích thước lốp Trước – Sau",
+              "value": "10×3.0"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-zgoo/main.webp",
+        "/images/vehicles/vinfast-zgoo/gallery-1.webp",
+        "/images/vehicles/vinfast-zgoo/gallery-2.webp",
+        "/images/vehicles/vinfast-zgoo/gallery-3.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "Thiết kế nhỏ gọn, dễ điều khiển, phù hợp học sinh và người dùng trẻ.",
+      "highlights": [
+        {
+          "title": "Quãng đường",
+          "text": "Khoảng 70 km"
+        },
+        {
+          "title": "Tốc độ tối đa",
+          "text": "39km/h"
+        },
+        {
+          "title": "Công suất",
+          "text": "1100W"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-minio-green",
+      "name": "VinFast Minio Green",
+      "type": "car",
+      "category": "mini-suv",
+      "tagline": "Minio Green – linh hoạt trong phố, phù hợp cho cá nhân hoặc mô hình dịch vụ cần chi phí vận hành tối ưu.",
+      "price": 269000000,
+      "priceNote": "Giá niêm yết",
+      "featured": false,
+      "order": 10,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "4"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "170 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "20 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "01 Motor Điện 27 Hp"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "20 kW"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "65 Nm"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD/Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "170 km"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-minio-green/main.webp",
+        "/images/vehicles/vinfast-minio-green/gallery-1.webp",
+        "/images/vehicles/vinfast-minio-green/gallery-2.webp",
+        "/images/vehicles/vinfast-minio-green/gallery-3.webp",
+        "/images/vehicles/vinfast-minio-green/gallery-4.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "Minio Green – linh hoạt trong phố, phù hợp cho cá nhân hoặc mô hình dịch vụ cần chi phí vận hành tối ưu. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "4"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "170 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "20 hp"
         }
       ]
     },
@@ -719,7 +2319,7 @@
       "price": 35000000,
       "priceNote": "Giá demo — liên hệ để nhận báo giá",
       "featured": true,
-      "order": 6,
+      "order": 10,
       "quickSpecs": [
         {
           "label": "Quãng đường",
@@ -841,6 +2441,344 @@
         {
           "title": "Trang bị tiện ích",
           "text": "Cốp chứa đồ, đèn LED và màn hình hiển thị thông tin."
+        }
+      ],
+      "badge": "Thể thao"
+    },
+    {
+      "slug": "vinfast-herio-green",
+      "name": "VinFast Herio Green",
+      "type": "car",
+      "category": "suv",
+      "tagline": "VinFast Herio Green — SUV điện 5 chỗ với thiết kế hiện đại, vận hành tiết kiệm và nhiều tiện ích.",
+      "price": 499000000,
+      "priceNote": "Giá niêm yết",
+      "featured": false,
+      "order": 11,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "5"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "326 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "134 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "01 Motor Điện 136 Hp"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "100"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "135 Nm"
+            },
+            {
+              "label": "Tăng tốc",
+              "value": "15s"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD/Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "326 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "33 phút (10%-70%)"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-herio-green/main.webp",
+        "/images/vehicles/vinfast-herio-green/gallery-1.webp",
+        "/images/vehicles/vinfast-herio-green/gallery-2.webp",
+        "/images/vehicles/vinfast-herio-green/gallery-3.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VinFast Herio Green — SUV điện 5 chỗ với thiết kế hiện đại, vận hành tiết kiệm và nhiều tiện ích.",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "5"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "326 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "134 hp"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-nerio-green",
+      "name": "VinFast Nerio Green",
+      "type": "car",
+      "category": "suv",
+      "tagline": "VinFast Nerio Green — C-SUV thuần điện với thiết kế hiện đại, công nghệ tiên tiến và vận hành tiết kiệm.",
+      "price": 668000000,
+      "priceNote": "Giá niêm yết",
+      "featured": false,
+      "order": 12,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "5"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "318,6 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "148 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "01 Motor Điện 149 Hp"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "110"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "242 Nm"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD / Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "318,6 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "27 phút (10-70%)"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-nerio-green/main.webp",
+        "/images/vehicles/vinfast-nerio-green/gallery-1.webp",
+        "/images/vehicles/vinfast-nerio-green/gallery-2.webp",
+        "/images/vehicles/vinfast-nerio-green/gallery-3.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VinFast Nerio Green — C-SUV thuần điện với thiết kế hiện đại, công nghệ tiên tiến và vận hành tiết kiệm.",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "5"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "318,6 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "148 hp"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-limo-green",
+      "name": "VinFast Limo Green",
+      "type": "car",
+      "category": "mpv",
+      "tagline": "VinFast Limo Green là mẫu xe MPV 7 chỗ mới nhất của VinFast, được ra mắt với mức giá hấp dẫn.",
+      "price": 749000000,
+      "priceNote": "Giá niêm yết",
+      "featured": false,
+      "order": 13,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "7"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "450 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "201 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "01 Motor Điện 204 Hp"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "150"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "280 Nm"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "FWD/Cầu trước"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "450 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "30 phút (10 - 70%)"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-limo-green/main.webp",
+        "/images/vehicles/vinfast-limo-green/gallery-1.webp",
+        "/images/vehicles/vinfast-limo-green/gallery-2.webp",
+        "/images/vehicles/vinfast-limo-green/gallery-3.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "VinFast Limo Green là mẫu xe MPV 7 chỗ mới nhất của VinFast, được ra mắt với mức giá hấp dẫn. Mẫu xe này không chỉ hướng đến khách hàng kinh doanh dịch vụ mà còn phục vụ nhu cầu di chuyển hàng ngày của các gia đình. VinFast Limo Green được trang bị công nghệ điện hoàn toàn,...",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "7"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "450 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "201 hp"
+        }
+      ]
+    },
+    {
+      "slug": "vinfast-ec-van",
+      "name": "VinFast EC Van",
+      "type": "car",
+      "category": "thuong-mai",
+      "tagline": "EC Van – chuyên chở hàng hóa, tối ưu cho giao nhận nội đô với khoang chứa tiện dụng và chi phí vận hành tiết kiệm.",
+      "price": 285000000,
+      "priceNote": "Từ giá niêm yết",
+      "featured": false,
+      "order": 14,
+      "quickSpecs": [
+        {
+          "label": "Số chỗ ngồi",
+          "value": "2"
+        },
+        {
+          "label": "Quãng đường tối đa",
+          "value": "150 km"
+        },
+        {
+          "label": "Công suất",
+          "value": "30 hp"
+        }
+      ],
+      "specs": [
+        {
+          "group": "Vận hành",
+          "items": [
+            {
+              "label": "Động cơ",
+              "value": "Động cơ điện 30 kW"
+            },
+            {
+              "label": "Công suất tối đa (kW)",
+              "value": "30"
+            },
+            {
+              "label": "Mô men xoắn cực đại",
+              "value": "110 Nm"
+            },
+            {
+              "label": "Dẫn động",
+              "value": "RWD/Cầu sau"
+            }
+          ]
+        },
+        {
+          "group": "Pin & sạc",
+          "items": [
+            {
+              "label": "Quãng đường chạy 1 lần sạc đầy (km)",
+              "value": "150 km"
+            },
+            {
+              "label": "Thời gian nạp pin nhanh nhất",
+              "value": "42 phút (10% - 70%)"
+            }
+          ]
+        }
+      ],
+      "images": [
+        "/images/vehicles/vinfast-ec-van/main.webp"
+      ],
+      "colors": [],
+      "offers": [],
+      "description": "EC Van – chuyên chở hàng hóa, tối ưu cho giao nhận nội đô với khoang chứa tiện dụng và chi phí vận hành tiết kiệm. Đăng ký tư vấn ngay để nhận ưu đãi!",
+      "highlights": [
+        {
+          "title": "Số chỗ ngồi",
+          "text": "2"
+        },
+        {
+          "title": "Quãng đường tối đa",
+          "text": "150 km"
+        },
+        {
+          "title": "Công suất",
+          "text": "30 hp"
         }
       ]
     }

@@ -38,18 +38,24 @@ const { vehicle, content } = Astro.props;
           </svg>
         </div>
         <h3>Catalog {vehicle.name}</h3>
-        <p>Tải brochure chính thức để xem đầy đủ thông số, trang bị và hình ảnh chi tiết.</p>
-        <a
-          class="btn"
-          href={url(content.catalog)}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-track="catalog_open"
-          data-label={vehicle.slug}
-        >
-          Xem catalog PDF
-        </a>
-        {content.catalogNote && <p class="tech-catalog-note">{content.catalogNote}</p>}
+        <p>
+          {content.catalog
+            ? "Tải brochure chính thức để xem đầy đủ thông số, trang bị và hình ảnh chi tiết."
+            : "Brochure cho mẫu xe này đang được cập nhật."}
+        </p>
+        {content.catalog && (
+          <a
+            class="btn"
+            href={url(content.catalog)}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-track="catalog_open"
+            data-label={vehicle.slug}
+          >
+            Xem catalog PDF
+          </a>
+        )}
+        {content.catalog && content.catalogNote && <p class="tech-catalog-note">{content.catalogNote}</p>}
       </aside>
     </div>
 

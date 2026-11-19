@@ -9,6 +9,7 @@ import VehicleStory from "./VehicleStory.astro";
 import CompareTable from "./CompareTable.astro";
 import TechSpecs from "./TechSpecs.astro";
 import type { Vehicle } from "../data/vehicles";
+import type { DetailSection, VehicleDetailContent } from "../data/vehicle-details";
 import { vehicleDetailContent } from "../data/vehicle-details";
 import { getSaleProgram } from "../data/sale-programs";
 import { site } from "../data/site";
@@ -22,6 +23,21 @@ interface Props {
 
 const { vehicle, related, compareVehicles } = Astro.props;
 const content = vehicleDetailContent[vehicle.slug];
+const emptySection: DetailSection = { title: "", subtitle: "", intro: "", cards: [] };
+const techContent: VehicleDetailContent = content ?? {
+  infoIntro: vehicle.description,
+  exterior: emptySection,
+  interior: emptySection,
+  performance: emptySection,
+  tech: [
+    ...vehicle.quickSpecs,
+    ...vehicle.specs
+      .flatMap((group) => group.items)
+      .filter((item) => !vehicle.quickSpecs.some((spec) => spec.label === item.label))
+      .slice(0, 3),
+  ].slice(0, 6),
+  catalog: "",
+};
 const typeLabel = vehicle.type === "car" ? "Ô tô điện" : "Xe máy điện";
 const listingHref = url(vehicle.type === "car" ? "o-to-dien/" : "xe-may-dien/");
 const testDriveHref = url(`dang-ky-lai-thu/?model=${vehicle.slug}`);
@@ -134,12 +150,12 @@ const productSchema = {
         eyebrow="An toàn"
       />
     )}
-
-    <CompareTable vehicle={vehicle} candidates={compareVehicles} />
-
-    <TechSpecs vehicle={vehicle} content={content} />
   </>
 )}
+
+<CompareTable vehicle={vehicle} candidates={compareVehicles} />
+
+<TechSpecs vehicle={vehicle} content={techContent} />
 
 <section class="lead-section" id="quote">
   <div class="container lead-layout">

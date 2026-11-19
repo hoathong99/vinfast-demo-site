@@ -1,5 +1,5 @@
 export type ProductType = "car" | "motorbike";
-export type ProductCategory = "mini-suv" | "suv" | "pho-thong" | "the-thao";
+export type ProductCategory = "mini-suv" | "suv" | "mpv" | "thuong-mai" | "pho-thong" | "the-thao";
 
 export type ProductColor = {
   name: string;

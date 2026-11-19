@@ -146,10 +146,12 @@ The JSON implementations are adapters. To integrate a DB later, replace those ad
 
 Each product entry controls the listing card, detail page, price, specs, colors (including the color-specific image used by the product showcase), and image paths.
 
-The demo includes:
+The demo includes all 24 models imported from the VinFast CarOn sample:
 
-- Cars: VF 3, VF 5, VF 8, VF 9
-- Motorbikes: Evo, Viper
+- Cars (14): VF 2, VF 3, VF 5, VF 6, VF 7, VF 8, VF 8 All New, VF 9, VF MPV 7, Minio Green, Herio Green, Nerio Green, Limo Green, EC Van.
+- Motorbikes (10): Amio, Evo, Evo Lite, Evo Grand, Evo Grand Lite, Feliz 2025, Feliz II, Flazz, ZGoo, Viper.
+
+Prices, quick specs, technical specs, and car images come from the sample pages. Existing models keep their curated detail content; new models automatically show the hero, sale program, comparison table, and technical specs. Add a matching entry in `src/data/vehicle-details.ts` if you want the full story sections and catalog link for a new model.
 
 To add a vehicle:
 
@@ -163,7 +165,9 @@ A sale program references one product and any number of shared sale items. The e
 
 ### Vehicle detail content
 
-The extra detail-page sections (Thông tin sản phẩm, Thiết kế, Khả năng vận hành, Trang bị an toàn, Thông số kỹ thuật) are stored separately from the base vehicle data in `src/data/vehicle-details.ts`. Each entry is keyed by vehicle slug and is the single source for that page's copy, feature cards, key specs, and catalog link.
+The extra detail-page sections (Thông tin sản phẩm, Thiết kế, Khả năng vận hành, Trang bị an toàn) are stored separately from the base vehicle data in `src/data/vehicle-details.ts`. Each entry is keyed by vehicle slug and is the single source for that page's copy, feature cards, key specs, and catalog link.
+
+Models without an entry still render the comparison table and full technical specs; the catalog card shows "Brochure cho mẫu xe này đang được cập nhật" instead of a PDF link.
 
 - Catalog PDFs live in `public/catalogs/`. VF 3 / VF 5 / VF 8 / VF 9 use the supplied VinFast brochures; Evo and Viper currently use demo placeholder PDFs, so replace them with official files before launch.
 - The comparison table is generated from `specs` in `src/data/catalog/products.json` and only offers vehicles of the same type (car ↔ car, motorbike ↔ motorbike).

@@ -6,18 +6,20 @@ import { cars } from "../../data/vehicles";
 
 <BaseLayout
   title="Ô tô điện — VinFast Demo"
-  description="Danh sách ô tô điện demo: VF 3, VF 5, VF 8, VF 9 với thông số và giá minh họa."
+  description="Danh sách 14 mẫu ô tô điện: VF 2, VF 3, VF 5, VF 6, VF 7, VF 8, VF 8 All New, VF 9, VF MPV 7, Minio Green, Herio Green, Nerio Green, Limo Green và EC Van."
 >
   <VehicleListing
     title="Ô tô điện"
     eyebrow="Ô tô điện"
-    description="Bốn mẫu ô tô điện demo. Giá và thông số chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
+    description="14 mẫu ô tô điện với giá và thông số tham khảo từ dữ liệu VinFast CarOn. Thông tin chỉ dùng để kiểm tra giao diện, không phải báo giá chính thức."
     vehicles={cars}
     types={[
       { label: "Mini SUV", value: "mini-suv" },
       { label: "SUV", value: "suv" },
+      { label: "MPV", value: "mpv" },
+      { label: "Xe thương mại", value: "thuong-mai" },
     ]}
-    priceRange={{ min: 200_000_000, max: 1_500_000_000, step: 10_000_000 }}
+    priceRange={{ min: 150_000_000, max: 1_800_000_000, step: 10_000_000 }}
     contactTitle="Nhận báo giá ô tô điện"
   />
 </BaseLayout>

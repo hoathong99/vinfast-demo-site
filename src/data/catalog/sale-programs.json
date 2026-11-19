@@ -143,6 +143,460 @@
           "text": "Chính sách demo áp dụng theo điều kiện của đại lý."
         }
       ]
+    },
+    {
+      "productId": "vinfast-amio",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 2.000.000 VNĐ cho Amio, Amio S, Amio S2, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-evo-grand",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 3.000.000 VNĐ cho Evo Grand, Evo Grand II, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-evo-grand-lite",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 2.000.000 VNĐ cho Evo Grand Lite, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-evo-lite",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 1.500.000 VNĐ (bản kèm pin) / 2.000.000 VNĐ (bản thuê pin) cho Evo Lite, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-feliz-2025",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 3.000.000 VNĐ cho Feliz 2025, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-feliz-ii",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 3.500.000 VNĐ (bản kèm pin) / 5.000.000 VNĐ (bản thuê pin) cho Kyo, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-flazz",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 2.000.000 VNĐ cho Flazz (Flazz Max: 1.500.000 VNĐ bản kèm pin / 2.000.000 VNĐ bản thuê pin), áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-zgoo",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2: ưu đãi 2.000.000 VNĐ cho ZGoo, áp dụng cho khách hàng hoàn tất mua xe từ 19/09/2026 đến hết 19/12/2026. Áp dụng cho khách hàng đang sở hữu xe máy hoặc ô tô xăng, xe máy điện ắc quy chì hãng khác, xe máy điện hoặc ô tô điện VinFast; ưu đãi có thể chuyển cho tứ thân phụ mẫu, vợ/chồng, con, anh chị em ruột. Mỗi số VIN chỉ tham gia 1 lần."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chương trình 0% chiết khấu (chia sẻ 100% doanh thu) GSM, từ 19/09/2026 đến hết 19/12/2026, áp dụng cho các dòng xe đăng ký được platform: – Tài xế nhận 100% tiền cuốc xe, không mất phí app – Voucher ưu đãi 1.000.000 VNĐ – Trả góp 0 đồng, lãi suất 0% – Đăng ký platform miễn phí – Nhận đồng phục miễn phí – 0% chia sẻ lợi nhuận với GSM"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Sạc miễn phí XMĐ VinFast 2 năm áp dụng với các dòng xe sạc pin, từ 01/05/2025 đến hết 31/05/2027."
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn phí đổi pin 20 lần/tháng áp dụng với các dòng xe đổi pin, đến hết 30/06/2028."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-ec-van",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 5% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; ưu đãi 7% cho cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-herio-green",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 9% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-limo-green",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 9% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-minio-green",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 3% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; ưu đãi 6% cho cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-nerio-green",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 9% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-2",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 3% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; ưu đãi 6% cho cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng đến hết 31/12/2026"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng đến hết 10/02/2029"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-6",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 9% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-7",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 5% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; ưu đãi 7% cho cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-8-all-new",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 5% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; ưu đãi 7% cho cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-mpv-7",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [],
+      "details": [
+        {
+          "title": "Ưu đãi 1",
+          "text": "Chính sách Vì Tương Lai Xanh 2 (từ 19/09/2026 đến hết 19/12/2026): ưu đãi 9% giá bán lẻ đề xuất cho khách hàng đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast; cán bộ, chiến sĩ Quân đội nhân dân, Công an nhân dân (và người thân) và nhân sự Tổng công ty Bưu điện Việt Nam – VNPost. Không áp dụng đồng thời với chương trình Tri ân khách hàng xe xăng VinFast chuyển đổi xanh và chính sách Khách hàng thân thiết VinClub."
+        },
+        {
+          "title": "Ưu đãi 2",
+          "text": "Tặng Camera 360 và công lắp đặt, áp dụng từ 04/08/2026 đến khi có thông báo mới*"
+        },
+        {
+          "title": "Ưu đãi 3",
+          "text": "Chính sách mua xe 0 đồng"
+        },
+        {
+          "title": "Ưu đãi 4",
+          "text": "Miễn 100% lệ phí trước bạ"
+        },
+        {
+          "title": "Ưu đãi 5",
+          "text": "Sạc pin 0 đồng"
+        }
+      ]
     }
   ]
 }
