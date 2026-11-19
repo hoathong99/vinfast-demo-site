@@ -1,0 +1,191 @@
+---
+import type { SaleProgram } from "../data/sale-programs";
+import { saleItems } from "../data/sale-programs";
+import { hasSaleDiscount, salePrice, createSaleItemIndex, resolveSaleItems } from "../lib/sale";
+import { formatVnd } from "../lib/format";
+
+interface Props {
+  productId: string;
+  price: number;
+  program?: SaleProgram;
+}
+
+const { productId, price, program } = Astro.props;
+
+const enabled = program?.enabled ?? false;
+const percent = program?.percentDiscount ?? 0;
+const flat = program?.flatDiscount ?? 0;
+const additionalItems = resolveSaleItems(
+  program?.items ?? [],
+  createSaleItemIndex(saleItems),
+);
+const details = program?.details ?? [];
+
+const finalPrice = salePrice(price, program);
+const discounted = hasSaleDiscount(price, program);
+const visible = enabled;
+const isEmpty =
+  !program || !enabled || (additionalItems.length === 0 && details.length === 0 && !discounted);
+---
+
+<section
+  class="sale-program"
+  data-sale-program
+  data-product-id={productId}
+  data-base-price={price}
+  data-sale-json={JSON.stringify(program ?? null)}
+  data-sale-items={JSON.stringify(saleItems)}
+>
+  <button class="sale-program-edit" type="button" data-sale-edit aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+    </svg>
+    Sửa ưu đãi
+  </button>
+
+  <details class="offer-accordion sale-program-accordion" open>
+    <summary>{enabled ? "Ưu đãi đang áp dụng (demo)" : "Ưu đãi đang tạm ẩn (demo)"}</summary>
+
+    <div class="sale-program-body" data-sale-body>
+      <div class="sale-program-deal" data-sale-deal hidden={!visible || !discounted}>
+        <span class="sale-program-deal-label">Giá sau ưu đãi</span>
+        <strong data-sale-deal-price>{formatVnd(finalPrice)}</strong>
+        <s data-sale-deal-base>{formatVnd(price)}</s>
+      </div>
+
+      <div class="sale-program-discounts" data-sale-discounts hidden={!visible || !discounted}>
+        <span class="sale-program-chip" data-sale-chip-percent hidden={!visible || percent <= 0}>-{percent}%</span>
+        <span class="sale-program-chip" data-sale-chip-flat hidden={!visible || flat <= 0}>-{formatVnd(flat)}</span>
+      </div>
+
+      <ul class="sale-gift-list" data-sale-gifts hidden={!visible || additionalItems.length === 0}>
+        {additionalItems.map((item) => (
+          <li>
+            <strong>{item.name}</strong>
+            {item.note && <span>{item.note}</span>}
+          </li>
+        ))}
+      </ul>
+
+      <ul class="offer-list" data-sale-details hidden={!visible || details.length === 0}>
+        {details.map((detail) => (
+          <li>
+            <strong>{detail.title}</strong>
+            <span>{detail.text}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p class="sale-program-empty" data-sale-empty hidden={!isEmpty}>
+        Chưa có chương trình ưu đãi đang áp dụng.
+      </p>
+    </div>
+  </details>
+
+  <dialog class="sale-editor" data-sale-editor aria-labelledby={`sale-editor-title-${productId}`}>
+    <form class="sale-editor-form" data-sale-editor-form>
+      <header class="sale-editor-head">
+        <div>
+          <div class="eyebrow">Demo editor</div>
+          <h3 id={`sale-editor-title-${productId}`}>Chương trình ưu đãi</h3>
+          <p class="sale-editor-sub">{productId} · Giá gốc {formatVnd(price)}</p>
+        </div>
+        <button class="sale-editor-close" type="button" data-sale-close aria-label="Đóng">
+          <span aria-hidden="true">×</span>
+        </button>
+      </header>
+
+      <label class="sale-toggle">
+        <input type="checkbox" data-sale-enabled checked={enabled} />
+        <span>Đang áp dụng chương trình ưu đãi</span>
+      </label>
+
+      <div class="sale-editor-grid">
+        <label class="field">
+          <span>Giảm theo %</span>
+          <input
+            type="number"
+            min="0"
+            max="100"
+            step="0.1"
+            inputmode="decimal"
+            value={percent}
+            data-sale-percent
+          />
+        </label>
+        <label class="field">
+          <span>Giảm số tiền (VNĐ)</span>
+          <input type="number" min="0" step="1000" inputmode="numeric" value={flat} data-sale-flat />
+        </label>
+      </div>
+      <p class="sale-editor-hint">
+        Nếu nhập cả hai, giá sẽ giảm theo % trước rồi trừ tiếp số tiền. Giá không xuống dưới 0.
+      </p>
+
+      <section class="sale-editor-section">
+        <div class="sale-editor-section-head">
+          <strong>Item / quà tặng kèm theo</strong>
+          <button type="button" class="sale-editor-add" data-sale-add-item>+ Thêm item</button>
+        </div>
+        <div class="sale-editor-rows" data-sale-items>
+          {additionalItems.map((item) => (
+            <div class="sale-editor-row" data-sale-item-row>
+              <input type="text" value={item.name} placeholder="Tên item" data-sale-item-name />
+              <input type="text" value={item.note} placeholder="Ghi chú" data-sale-item-note />
+              <button type="button" class="sale-editor-remove" data-sale-remove aria-label="Xoá item">
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="sale-editor-section">
+        <div class="sale-editor-section-head">
+          <strong>Chi tiết chương trình</strong>
+          <button type="button" class="sale-editor-add" data-sale-add-detail>+ Thêm dòng</button>
+        </div>
+        <div class="sale-editor-rows" data-sale-details-rows>
+          {details.map((detail) => (
+            <div class="sale-editor-row sale-editor-row--detail" data-sale-detail-row>
+              <input type="text" value={detail.title} placeholder="Tiêu đề" data-sale-detail-title />
+              <textarea rows="2" placeholder="Nội dung ưu đãi" data-sale-detail-text>{detail.text}</textarea>
+              <button type="button" class="sale-editor-remove" data-sale-remove aria-label="Xoá dòng">
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer class="sale-editor-foot">
+        <button type="button" class="btn btn--ghost" data-sale-reset>Khôi phục mặc định</button>
+        <button type="submit" class="btn">Lưu (demo)</button>
+      </footer>
+      <p class="sale-editor-note">
+        Adapter demo lưu trong localStorage; thay adapter là có thể nối DB sau này.
+      </p>
+    </form>
+  </dialog>
+
+  <template data-sale-item-template>
+    <div class="sale-editor-row" data-sale-item-row>
+      <input type="text" placeholder="Tên item" data-sale-item-name />
+      <input type="text" placeholder="Ghi chú" data-sale-item-note />
+      <button type="button" class="sale-editor-remove" data-sale-remove aria-label="Xoá item">×</button>
+    </div>
+  </template>
+
+  <template data-sale-detail-template>
+    <div class="sale-editor-row sale-editor-row--detail" data-sale-detail-row>
+      <input type="text" placeholder="Tiêu đề" data-sale-detail-title />
+      <textarea rows="2" placeholder="Nội dung ưu đãi" data-sale-detail-text></textarea>
+      <button type="button" class="sale-editor-remove" data-sale-remove aria-label="Xoá dòng">×</button>
+    </div>
+  </template>
+</section>
+
+<script>
+  import "../scripts/sale-program";
+</script>

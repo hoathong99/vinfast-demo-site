@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "id": "charger-home",
+      "name": "Bộ sạc tại nhà"
+    },
+    {
+      "id": "floor-mat",
+      "name": "Thảm lót sàn chính hãng"
+    },
+    {
+      "id": "accessory-pack",
+      "name": "Gói phụ kiện demo"
+    },
+    {
+      "id": "portable-charger",
+      "name": "Bộ sạc di động"
+    },
+    {
+      "id": "charging-pass-1y",
+      "name": "Phiếu sạc miễn phí 1 năm"
+    },
+    {
+      "id": "premium-care",
+      "name": "Gói chăm sóc xe cao cấp"
+    },
+    {
+      "id": "helmet",
+      "name": "Mũ bảo hiểm demo"
+    }
+  ]
+}

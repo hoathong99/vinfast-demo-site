@@ -2,6 +2,7 @@
 import Gallery from "./Gallery.astro";
 import PriceCalculator from "./PriceCalculator.astro";
 import LeadForm from "./LeadForm.astro";
+import SaleProgram from "./SaleProgram.astro";
 import VehicleCard from "./VehicleCard.astro";
 import ProductShowcase from "./ProductShowcase.astro";
 import VehicleStory from "./VehicleStory.astro";
@@ -9,6 +10,7 @@ import CompareTable from "./CompareTable.astro";
 import TechSpecs from "./TechSpecs.astro";
 import type { Vehicle } from "../data/vehicles";
 import { vehicleDetailContent } from "../data/vehicle-details";
+import { getSaleProgram } from "../data/sale-programs";
 import { site } from "../data/site";
 import { formatVnd, url } from "../lib/format";
 
@@ -76,17 +78,7 @@ const productSchema = {
           <small>{vehicle.priceNote}</small>
         </div>
 
-        <details class="offer-accordion">
-          <summary>Ưu đãi đang áp dụng (demo)</summary>
-          <ul class="offer-list">
-            {vehicle.offers.map((offer) => (
-              <li>
-                <strong>{offer.title}</strong>
-                <span>{offer.description}</span>
-              </li>
-            ))}
-          </ul>
-        </details>
+        <SaleProgram productId={vehicle.slug} price={vehicle.price} program={getSaleProgram(vehicle.slug)} />
 
         <div class="detail-actions">
           <a class="btn" href={testDriveHref} data-track="cta_click" data-label="detail_test_drive">Đăng ký lái thử</a>

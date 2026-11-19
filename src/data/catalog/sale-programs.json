@@ -1,0 +1,148 @@
+{
+  "programs": [
+    {
+      "productId": "vinfast-vf-3",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 0,
+      "items": [
+        {
+          "itemId": "charger-home",
+          "note": "Tặng kèm theo xe demo"
+        },
+        {
+          "itemId": "floor-mat",
+          "note": "Số lượng 1 bộ"
+        }
+      ],
+      "details": [
+        {
+          "title": "Miễn 100% lệ phí trước bạ",
+          "text": "Ưu đãi demo dành cho khách hàng đăng ký trong tháng."
+        },
+        {
+          "title": "Sạc pin 0 đồng",
+          "text": "Ưu đãi demo áp dụng theo chính sách của đại lý."
+        },
+        {
+          "title": "Hỗ trợ trả góp đến 80%",
+          "text": "Thủ tục demo, thời gian duyệt nhanh trong 24 giờ."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-5",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 10000000,
+      "items": [
+        {
+          "itemId": "accessory-pack",
+          "note": "Gồm thảm lót sàn và camera hành trình"
+        }
+      ],
+      "details": [
+        {
+          "title": "Tặng gói phụ kiện demo",
+          "text": "Gói phụ kiện mẫu dành cho khách hàng đặt xe trong tháng."
+        },
+        {
+          "title": "Hỗ trợ trả góp 80%",
+          "text": "Ưu đãi demo, lãi suất và thời hạn theo ngân hàng liên kết."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-8",
+      "enabled": true,
+      "percentDiscount": 3,
+      "flatDiscount": 0,
+      "items": [
+        {
+          "itemId": "portable-charger",
+          "note": "Tặng kèm theo xe demo"
+        },
+        {
+          "itemId": "charging-pass-1y",
+          "note": "Áp dụng tại trạm sạc demo"
+        }
+      ],
+      "details": [
+        {
+          "title": "Ưu đãi 3% giá bán lẻ",
+          "text": "Chính sách demo cho khách hàng chuyển đổi xe xăng sang xe điện."
+        },
+        {
+          "title": "Miễn phí sạc 1 năm",
+          "text": "Ưu đãi demo áp dụng theo điều kiện của chương trình."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-vf-9",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 50000000,
+      "items": [
+        {
+          "itemId": "premium-care",
+          "note": "01 năm bảo dưỡng demo"
+        }
+      ],
+      "details": [
+        {
+          "title": "Ưu đãi đặc biệt cho khách hàng demo",
+          "text": "Liên hệ đại lý để nhận báo giá và chính sách mới nhất."
+        },
+        {
+          "title": "Hỗ trợ trả góp linh hoạt",
+          "text": "Thời hạn vay đến 8 năm theo ngân hàng liên kết."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-evo",
+      "enabled": true,
+      "percentDiscount": 0,
+      "flatDiscount": 1000000,
+      "items": [
+        {
+          "itemId": "helmet",
+          "note": "Quà tặng khi mua xe tại đại lý"
+        }
+      ],
+      "details": [
+        {
+          "title": "Tặng mũ bảo hiểm demo",
+          "text": "Quà tặng mẫu khi mua xe tại đại lý."
+        },
+        {
+          "title": "Trả góp 0% demo",
+          "text": "Chương trình demo áp dụng cho một số dòng xe."
+        }
+      ]
+    },
+    {
+      "productId": "vinfast-viper",
+      "enabled": true,
+      "percentDiscount": 2,
+      "flatDiscount": 0,
+      "items": [
+        {
+          "itemId": "accessory-pack",
+          "note": "Tặng kèm khi mua xe tại đại lý"
+        }
+      ],
+      "details": [
+        {
+          "title": "Tặng phụ kiện demo",
+          "text": "Gói phụ kiện mẫu khi mua xe tại đại lý."
+        },
+        {
+          "title": "Bảo hành pin mở rộng",
+          "text": "Chính sách demo áp dụng theo điều kiện của đại lý."
+        }
+      ]
+    }
+  ]
+}

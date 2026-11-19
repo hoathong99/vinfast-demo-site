@@ -66,76 +66,81 @@ const compactPrice = (value: number): string => {
         data-price-max={priceRange?.max}
         data-price-step={priceRange?.step}
       >
-        {types.length > 0 && (
-          <div class="filter-block">
-            <span class="filter-label" id="filter-type-label">Loại xe</span>
-            <div class="filter-options" role="group" aria-labelledby="filter-type-label" data-filter-types>
-              <button class="filter-chip" type="button" data-filter-type="" aria-pressed="true">
-                Tất cả
-              </button>
-              {types.map((item) => (
-                <button class="filter-chip" type="button" data-filter-type={item.value} aria-pressed="false">
-                  {item.label}
+        <div class="filter-row">
+          {types.length > 0 && (
+            <div class="filter-block filter-block--types">
+              <span class="filter-label" id="filter-type-label">Loại xe</span>
+              <div class="filter-options" role="group" aria-labelledby="filter-type-label" data-filter-types>
+                <button class="filter-chip" type="button" data-filter-type="" aria-pressed="true">
+                  Tất cả
                 </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {priceRange && (
-          <div class="filter-block filter-block--price">
-            <button
-              class="filter-price-toggle"
-              type="button"
-              aria-expanded="true"
-              aria-controls="filter-price-body"
-              data-price-toggle
-            >
-              <span class="filter-label">Giá xe</span>
-              <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="m6 15 6-6 6 6" />
-              </svg>
-            </button>
-
-            <div class="filter-price-body" id="filter-price-body" data-price-body>
-              <div class="price-readout" data-price-readout>
-                Từ {formatVnd(priceRange.min)} — Đến {formatVnd(priceRange.max)}
-              </div>
-
-              <div class="price-slider" data-price-slider>
-                <div class="price-slider-track">
-                  <div class="price-slider-rail"></div>
-                  <div class="price-slider-fill" data-price-fill></div>
-                  <input
-                    class="price-range price-range--min"
-                    type="range"
-                    min={priceRange.min}
-                    max={priceRange.max}
-                    step={priceRange.step}
-                    value={priceRange.min}
-                    aria-label="Giá xe thấp nhất"
-                    data-price-min-input
-                  />
-                  <input
-                    class="price-range price-range--max"
-                    type="range"
-                    min={priceRange.min}
-                    max={priceRange.max}
-                    step={priceRange.step}
-                    value={priceRange.max}
-                    aria-label="Giá xe cao nhất"
-                    data-price-max-input
-                  />
-                </div>
-                <div class="price-ticks" aria-hidden="true"></div>
-                <div class="price-scale">
-                  <span>{compactPrice(priceRange.min)}</span>
-                  <span>{compactPrice(priceRange.max)}</span>
-                </div>
+                {types.map((item) => (
+                  <button class="filter-chip" type="button" data-filter-type={item.value} aria-pressed="false">
+                    {item.label}
+                  </button>
+                ))}
               </div>
             </div>
-          </div>
-        )}
+          )}
+
+          {priceRange && (
+            <div class="filter-price-cluster">
+              {types.length > 0 && <span class="filter-divider" aria-hidden="true"></span>}
+              <div class="filter-block filter-block--price">
+                <button
+                  class="filter-price-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="filter-price-body"
+                  data-price-toggle
+                >
+                  <span class="filter-label">Giá xe</span>
+                  <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="m6 15 6-6 6 6" />
+                  </svg>
+                </button>
+
+                <div class="filter-price-body" id="filter-price-body" data-price-body hidden>
+                  <div class="price-readout" data-price-readout>
+                    Từ {formatVnd(priceRange.min)} — Đến {formatVnd(priceRange.max)}
+                  </div>
+
+                  <div class="price-slider" data-price-slider>
+                    <div class="price-slider-track">
+                      <div class="price-slider-rail"></div>
+                      <div class="price-slider-fill" data-price-fill></div>
+                      <input
+                        class="price-range price-range--min"
+                        type="range"
+                        min={priceRange.min}
+                        max={priceRange.max}
+                        step={priceRange.step}
+                        value={priceRange.min}
+                        aria-label="Giá xe thấp nhất"
+                        data-price-min-input
+                      />
+                      <input
+                        class="price-range price-range--max"
+                        type="range"
+                        min={priceRange.min}
+                        max={priceRange.max}
+                        step={priceRange.step}
+                        value={priceRange.max}
+                        aria-label="Giá xe cao nhất"
+                        data-price-max-input
+                      />
+                    </div>
+                    <div class="price-ticks" aria-hidden="true"></div>
+                    <div class="price-scale">
+                      <span>{compactPrice(priceRange.min)}</span>
+                      <span>{compactPrice(priceRange.max)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
         <div class="filter-footer">
           <span class="filter-count" data-filter-count aria-live="polite">{vehicles.length} mẫu xe</span>

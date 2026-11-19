@@ -34,6 +34,7 @@ await page.click('[data-filter-type="mini-suv"]');
 const typeFiltered = await page.locator("[data-vehicle-card]:visible").count();
 await page.click('[data-filter-type=""]');
 const typeReset = await page.locator("[data-vehicle-card]:visible").count();
+await page.click("[data-price-toggle]");
 await page.evaluate(() => {
   const input = document.querySelector("[data-price-max-input]");
   input.value = "500000000";

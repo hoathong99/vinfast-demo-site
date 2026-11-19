@@ -724,10 +724,28 @@ function initFilters(): void {
     track("filter_use", { reset: true });
   });
 
+  const setPriceExpanded = (expanded: boolean): void => {
+    if (!priceToggle) return;
+    priceToggle.setAttribute("aria-expanded", String(expanded));
+    if (priceBody) priceBody.hidden = !expanded;
+  };
+
   priceToggle?.addEventListener("click", () => {
-    const expanded = priceToggle.getAttribute("aria-expanded") === "true";
-    priceToggle.setAttribute("aria-expanded", String(!expanded));
-    if (priceBody) priceBody.hidden = expanded;
+    setPriceExpanded(priceToggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!priceToggle || priceToggle.getAttribute("aria-expanded") !== "true") return;
+    const target = event.target as Node;
+    if (priceToggle.contains(target) || priceBody?.contains(target)) return;
+    setPriceExpanded(false);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !priceToggle) return;
+    if (priceToggle.getAttribute("aria-expanded") !== "true") return;
+    setPriceExpanded(false);
+    priceToggle.focus();
   });
 
   paintSlider();

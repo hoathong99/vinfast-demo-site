@@ -129,11 +129,22 @@ Edit `src/data/site.ts`:
 - `email`
 - `notice`
 
-### Vehicles
+### Catalogs and adapters
 
-Edit `src/data/vehicles.json` for vehicle data. The typed exports (`vehicles`, `cars`, `motorbikes`, `getVehicle`) live in `src/data/vehicles.ts`, which imports the JSON file.
+Build-time data is split into external catalog files:
 
-Each entry controls the listing card, detail page, price, specs, offers, colors (including the color-specific image used by the product showcase), and image paths.
+- `src/data/catalog/products.json` — vehicle/product catalog.
+- `src/data/catalog/sale-items.json` — shared add-on / gift catalog (items referenced by sale programs).
+- `src/data/catalog/sale-programs.json` — sale programs keyed by `productId`, with item references (`itemId`) and per-program notes.
+
+Reads go through small repository interfaces in `src/data/repositories/`:
+
+- `productRepository` — used by `src/data/vehicles.ts`.
+- `saleItemRepository` and `saleProgramRepository` — used by `src/data/sale-programs.ts`.
+
+The JSON implementations are adapters. To integrate a DB later, replace those adapters (and the browser-side `SaleProgramStore` in `src/lib/sale-program-store.ts`) without changing components.
+
+Each product entry controls the listing card, detail page, price, specs, colors (including the color-specific image used by the product showcase), and image paths.
 
 The demo includes:
 
@@ -143,15 +154,19 @@ The demo includes:
 To add a vehicle:
 
 1. Add images under `public/images/vehicles/<slug>/` (`main.webp`, `gallery-1.webp`, ...).
-2. Add an object to `vehicles.json` with a unique `slug`, `type`, and `order`.
+2. Add an object to `src/data/catalog/products.json` with a unique `slug`, `type`, and `order`.
 3. Rebuild. The listing and detail routes are generated automatically.
+
+### Sale programs
+
+A sale program references one product and any number of shared sale items. The editor on the detail page writes through `SaleProgramStore` (currently localStorage under `vf_sale_programs_v2`). Older `vf_sale_programs_v1` data is migrated automatically. Existing custom items are kept in the same store, so a DB adapter can map them to `sale_programs` and `sale_items` tables.
 
 ### Vehicle detail content
 
 The extra detail-page sections (Thông tin sản phẩm, Thiết kế, Khả năng vận hành, Trang bị an toàn, Thông số kỹ thuật) are stored separately from the base vehicle data in `src/data/vehicle-details.ts`. Each entry is keyed by vehicle slug and is the single source for that page's copy, feature cards, key specs, and catalog link.
 
 - Catalog PDFs live in `public/catalogs/`. VF 3 / VF 5 / VF 8 / VF 9 use the supplied VinFast brochures; Evo and Viper currently use demo placeholder PDFs, so replace them with official files before launch.
-- The comparison table is generated from `specs` in `src/data/vehicles.ts` and only offers vehicles of the same type (car ↔ car, motorbike ↔ motorbike).
+- The comparison table is generated from `specs` in `src/data/catalog/products.json` and only offers vehicles of the same type (car ↔ car, motorbike ↔ motorbike).
 
 ### News
 
