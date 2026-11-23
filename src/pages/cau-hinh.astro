@@ -1,0 +1,304 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { url } from "../lib/format";
+---
+
+<BaseLayout
+  title="Cấu hình Google Sheet — VinFast Demo"
+  description="Kết nối form đăng ký lái thử với Google Sheet qua Cloudflare Worker."
+>
+  <section class="config-head">
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href={url("")}>Trang chủ</a>
+        <span>/</span>
+        <span aria-current="page">Cấu hình Google Sheet</span>
+      </nav>
+      <h1>Cấu hình Google Sheet</h1>
+      <p>
+        Kết nối form đăng ký lái thử với Google Sheet qua Cloudflare Worker + Google service account. Cấu hình trình
+        duyệt chỉ lưu trên máy này; không ảnh hưởng tới người truy cập khác.
+      </p>
+    </div>
+  </section>
+
+  <section class="config-section">
+    <div class="container config-grid">
+      <div class="config-main">
+        <div class="config-card">
+          <div class="config-card-head">
+            <h2>Kết nối hiện tại</h2>
+            <span class="config-badge" data-config-source-badge data-source="demo">Demo</span>
+          </div>
+
+          <div class="config-active" data-config-active data-mode="demo">
+            <span class="config-dot" aria-hidden="true"></span>
+            <div>
+              <strong data-config-active-label>Đang kiểm tra…</strong>
+              <span class="config-active-endpoint" data-config-active-endpoint></span>
+            </div>
+          </div>
+
+          <dl class="config-meta">
+            <dt>Nguồn</dt>
+            <dd data-config-source>—</dd>
+            <dt>Cập nhật</dt>
+            <dd data-config-updated>—</dd>
+            <dt>Mở</dt>
+            <dd class="config-links">
+              <a data-open-endpoint target="_blank" rel="noopener noreferrer" hidden>Endpoint</a>
+              <a data-open-sheet target="_blank" rel="noopener noreferrer" hidden>Google Sheet</a>
+            </dd>
+          </dl>
+        </div>
+
+        <div class="config-card">
+          <h2>Thông tin triển khai Cloudflare Worker</h2>
+          <p class="config-hint">
+            Các giá trị dưới đây là <strong>ghi chú cấu hình</strong> để tạo Worker URL và chuỗi
+            <code>ALLOWED_ORIGINS</code>. Trang này không thể tự tạo hoặc sửa Worker trên Cloudflare.
+          </p>
+
+          <form data-worker-settings-form novalidate>
+            <div class="field">
+              <label for="worker-name">Worker name <span class="req">*</span></label>
+              <input
+                id="worker-name"
+                name="workerName"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="vinfast-lead-api"
+              />
+              <div class="field-error" data-error-for="workerName">Tên Worker chưa hợp lệ.</div>
+              <p class="config-hint">
+                Tên Worker khi tạo trên Cloudflare. Dùng để gợi ý URL dạng
+                <code>https://&lt;worker-name&gt;.&lt;subdomain&gt;.workers.dev</code>.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="workers-subdomain">Cloudflare workers.dev subdomain (tuỳ chọn)</label>
+              <input
+                id="workers-subdomain"
+                name="workersSubdomain"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="your-subdomain"
+              />
+              <div class="field-error" data-error-for="workersSubdomain">Subdomain chưa hợp lệ.</div>
+              <p class="config-hint">
+                Phần đứng trước <code>.workers.dev</code> trong tài khoản Cloudflare. Bỏ trống nếu bạn dùng custom
+                domain.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="production-origin">Production origin <span class="req">*</span></label>
+              <input
+                id="production-origin"
+                name="productionOrigin"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="https://yourname.github.io"
+              />
+              <div class="field-error" data-error-for="productionOrigin">Production origin chưa hợp lệ.</div>
+              <p class="config-hint">
+                Origin của website khi deploy, chỉ gồm scheme + host + port, không có path. Nhiều origin thì ngăn cách
+                bằng dấu phẩy. Ví dụ: <code>https://yourname.github.io,https://demo.example.com</code>.
+              </p>
+            </div>
+
+            <div class="config-actions">
+              <button class="btn" type="submit">Lưu thông tin Worker</button>
+              <button class="btn btn--outline" type="button" data-copy-allowed-origins>Copy ALLOWED_ORIGINS</button>
+              <button class="btn btn--ghost" type="button" data-copy-worker-config>Copy cấu hình Worker</button>
+              <button class="btn btn--ghost" type="button" data-use-suggested-endpoint>Dùng URL gợi ý</button>
+            </div>
+
+            <div class="form-status" role="status" aria-live="polite" data-worker-status></div>
+          </form>
+
+          <div class="config-result">
+            <p><span>Worker URL gợi ý</span><code data-suggested-endpoint>—</code></p>
+            <p><span>ALLOWED_ORIGINS</span><code data-suggested-origins>—</code></p>
+            <p><span>Worker name</span><code data-suggested-worker-name>—</code></p>
+            <p><span>Origin hiện tại của trình duyệt</span><code data-current-origin>—</code></p>
+          </div>
+
+          <div class="form-status is-info" data-origin-check></div>
+
+          <div class="config-notice">
+            <p>
+              <strong>Worker name</strong> chỉ dùng để đặt tên và gợi ý URL. Nó không tạo Worker, không deploy code và
+              không thay đổi gì trên Cloudflare.
+            </p>
+            <p>
+              <strong>Production origin</strong> được dùng để tạo biến <code>ALLOWED_ORIGINS</code> cho Worker. Origin
+              phải khớp chính xác với origin trình duyệt gửi form; nếu sai, Worker sẽ chặn request bằng CORS.
+            </p>
+            <p>
+              Sau khi đổi các giá trị này, bạn phải tự cập nhật <code>ALLOWED_ORIGINS</code> trong
+              <strong>Cloudflare → Worker → Settings → Variables and Secrets</strong>. Trang này chỉ lưu ghi chú trong
+              trình duyệt hiện tại.
+            </p>
+          </div>
+        </div>
+
+        <form class="config-card config-form" data-sheet-config-form novalidate>
+          <h2>Endpoint lưu dữ liệu</h2>
+          <p class="config-hint">
+            Dán URL endpoint của Cloudflare Worker (kết thúc bằng <code>/lead</code>) hoặc URL Apps Script
+            (<code>/exec</code>) nếu bạn dùng cách cũ.
+          </p>
+
+          <div class="field">
+            <label for="sheet-endpoint">URL endpoint <span class="req">*</span></label>
+            <input
+              id="sheet-endpoint"
+              name="endpoint"
+              type="url"
+              inputmode="url"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="https://vinfast-lead-api.your-subdomain.workers.dev/lead"
+            />
+            <div class="field-error" data-error-for="endpoint">URL endpoint chưa hợp lệ.</div>
+            <p class="config-hint" data-endpoint-hint>
+              URL Cloudflare Worker nên kết thúc bằng <code>/lead</code>.
+            </p>
+          </div>
+
+          <div class="field">
+            <label for="sheet-url">Link Google Sheet (tuỳ chọn)</label>
+            <input
+              id="sheet-url"
+              name="sheetUrl"
+              type="url"
+              inputmode="url"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="https://docs.google.com/spreadsheets/d/.../edit"
+            />
+            <p class="config-hint">Chỉ dùng để mở nhanh Sheet từ trang này, không ảnh hưởng việc gửi dữ liệu.</p>
+          </div>
+
+          <div class="field">
+            <label for="sheet-transport">Kiểu gửi dữ liệu</label>
+            <select id="sheet-transport" name="transport">
+              <option value="api">Cloudflare Worker / API proxy (JSON + CORS) — khuyến nghị</option>
+              <option value="sheet">Apps Script trực tiếp (no-cors) — cách cũ</option>
+            </select>
+          </div>
+
+          <label class="check-item config-check">
+            <input type="checkbox" name="logEvents" checked />
+            Ghi cả events (page_view, form_start…) vào cùng endpoint
+          </label>
+
+          <div class="config-actions">
+            <button class="btn" type="submit">Lưu cấu hình</button>
+            <button class="btn btn--outline" type="button" data-test-connection>Kiểm tra kết nối</button>
+            <button class="btn btn--ghost" type="button" data-test-lead>Gửi lead thử</button>
+            <button class="btn btn--ghost config-danger" type="button" data-clear-config>Xóa cấu hình</button>
+          </div>
+
+          <div class="form-status" role="status" aria-live="polite" data-config-status></div>
+        </form>
+
+        <div class="config-card">
+          <div class="config-card-head">
+            <h2>Lead đã gửi gần đây</h2>
+            <button class="btn btn--ghost btn--sm" type="button" data-clear-log>Xóa log</button>
+          </div>
+          <p class="config-hint">Log chỉ lưu trong trình duyệt này; số điện thoại được ẩn bớt.</p>
+          <div class="config-log" data-submission-log>
+            <p class="config-log-empty">Chưa có lead nào được gửi từ trình duyệt này.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="config-side">
+        <div class="config-card">
+          <h2>Quy trình Cloudflare Worker</h2>
+          <ol class="config-steps">
+            <li>
+              Trong <a href="https://console.cloud.google.com/apis/library/sheets.googleapis.com" target="_blank" rel="noopener noreferrer">Google Cloud</a>:
+              bật <strong>Google Sheets API</strong>, tạo service account <code>vinfast-sheet-writer</code>, tải JSON
+              key.
+            </li>
+            <li>
+              Chia sẻ Google Sheet cho email service account với quyền <strong>Editor</strong>. Lưu JSON vào
+              <code>env/service-account.json</code>, Sheet ID vào <code>env/SHEET_ID</code>.
+            </li>
+            <li>
+              Trong <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener noreferrer">Cloudflare</a>:
+              tạo Worker, dán <code>backend/worker.js</code>, thêm secrets
+              <code>SHEET_ID</code>, <code>GOOGLE_SERVICE_ACCOUNT_JSON_B64</code>, <code>ALLOWED_ORIGINS</code>,
+              <code>IP_HASH_SALT</code>.
+            </li>
+            <li>
+              Copy Worker URL dạng <code>https://.../lead</code> vào form endpoint, chọn
+              <strong>Cloudflare Worker / API proxy</strong>, lưu và kiểm tra kết nối.
+            </li>
+            <li>
+              Gửi lead thử, kiểm tra tab <strong>Leads</strong>, rồi thử form thật tại
+              <a href={url("dang-ky-lai-thu/")}>Đăng ký lái thử</a>.
+            </li>
+          </ol>
+          <p class="config-hint">
+            Hướng dẫn đầy đủ nằm trong <code>docs/GOOGLE-SHEET-CLOUDFLARE.md</code> của repo.
+          </p>
+        </div>
+
+        <div class="config-card">
+          <h2>Biến môi trường</h2>
+          <dl class="config-meta config-meta--env">
+            <dt>PUBLIC_API_ENDPOINT</dt>
+            <dd data-env-api>chưa đặt</dd>
+            <dt>PUBLIC_EVENT_ENDPOINT</dt>
+            <dd data-env-event>chưa đặt</dd>
+            <dt>PUBLIC_WORKER_NAME</dt>
+            <dd data-env-worker-name>chưa đặt</dd>
+            <dt>PUBLIC_WORKERS_SUBDOMAIN</dt>
+            <dd data-env-workers-subdomain>chưa đặt</dd>
+            <dt>PUBLIC_PRODUCTION_ORIGIN</dt>
+            <dd data-env-production-origin>chưa đặt</dd>
+            <dt>PUBLIC_SHEET_ENDPOINT</dt>
+            <dd data-env-sheet>chưa đặt</dd>
+          </dl>
+          <p class="config-hint">
+            Cấu hình trong trình duyệt sẽ ưu tiên hơn <code>env/.env</code>. Để áp dụng cho mọi người, đặt các giá trị
+            trong <code>env/.env</code> (local) hoặc GitHub Actions variables (deploy) rồi build lại.
+          </p>
+        </div>
+
+        <div class="config-card config-warning">
+          <h2>Lưu ý</h2>
+          <ul class="config-steps config-steps--bullets">
+            <li>Trang này là công cụ cấu hình demo, không phải trang quản trị bảo mật.</li>
+            <li>Không dán service account JSON, private key hay secret vào endpoint hoặc bất kỳ ô nào trên trang.</li>
+            <li>
+              Worker name và production origin chỉ lưu trong trình duyệt. Chúng không tự cập nhật Cloudflare; bạn phải
+              copy giá trị sang Dashboard.
+            </li>
+            <li>
+              Worker URL là công khai. CORS chỉ giới hạn trình duyệt, không chặn được <code>curl</code>. Hãy dùng rate
+              limit và xoay key nếu cần.
+            </li>
+            <li>
+              Với Apps Script trực tiếp, UI báo thành công theo hướng lạc quan vì <code>no-cors</code>. Luôn kiểm tra
+              tab <strong>Leads</strong>.
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    import "../scripts/sheet-config";
+  </script>
+</BaseLayout>

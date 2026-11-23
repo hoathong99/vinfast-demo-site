@@ -14,7 +14,8 @@
  *  4. Deploy > New deployment > Web app
  *       Execute as: Me
  *       Who has access: Anyone
- *  5. Copy the /exec URL into PUBLIC_SHEET_ENDPOINT in the site build env.
+ *  5. Copy the /exec URL into PUBLIC_SHEET_ENDPOINT in the site build env,
+ *     or paste it into the site's /cau-hinh/ page for a per-browser demo.
  *
  * Security notes
  *  - Set SHARED_SECRET in Script Properties and send it from a trusted proxy
@@ -144,8 +145,23 @@ function sendTestLead() {
 /* HTTP handlers                                                       */
 /* ------------------------------------------------------------------ */
 
-function doGet() {
-  return json_({ ok: true, service: "vinfast-caron-demo-sheet", time: new Date().toISOString() });
+function doGet(e) {
+  const payload = {
+    ok: true,
+    service: "vinfast-caron-demo-sheet",
+    version: 2,
+    time: new Date().toISOString(),
+  };
+
+  // The config page uses JSONP for a real health check. Apps Script does not
+  // send CORS headers, so a normal cross-origin fetch cannot read this JSON.
+  const callback = e && e.parameter ? String(e.parameter.callback || "") : "";
+  if (callback && /^[A-Za-z_$][A-Za-z0-9_$]{0,63}$/.test(callback)) {
+    return ContentService.createTextOutput(callback + "(" + JSON.stringify(payload) + ");")
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+
+  return json_(payload);
 }
 
 function doPost(e) {

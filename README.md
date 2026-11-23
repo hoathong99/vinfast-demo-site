@@ -10,17 +10,23 @@ A lightweight, responsive demo of a single-showroom VinFast dealer site. Built w
 - One CSS file with design tokens, vanilla TypeScript for interactions.
 - Self-hosted Mulish font (Vietnamese + Latin subsets).
 - GitHub Pages via GitHub Actions.
-- Google Apps Script → Google Sheets for leads and events.
+- Cloudflare Worker + Google Sheets API (service account) for leads and events.
+- Optional Apps Script backend retained as an alternative.
 - Zalo deep link bubble (placeholder); no third-party chat script on first paint.
 
 ## Local development
 
 ```bash
 npm install
+copy env\.env.example env\.env   # Windows (use: cp env/.env.example env/.env on macOS/Linux)
 npm run dev
 ```
 
 Open `http://localhost:4321`.
+
+Astro reads `env/.env` (configured with `vite.envDir`). Fill `PUBLIC_API_ENDPOINT` with your Cloudflare Worker `/lead` URL, or use `/cau-hinh/` to configure it in the browser. Restart the dev server after changing `env/.env`.
+
+For the full Google Cloud + Cloudflare Worker setup, see [`docs/GOOGLE-SHEET-CLOUDFLARE.md`](docs/GOOGLE-SHEET-CLOUDFLARE.md).
 
 Build and preview the static output:
 
@@ -35,33 +41,70 @@ If no endpoint is configured, forms validate normally and save to `localStorage`
 
 This is intentional so the demo works before the Sheet is ready.
 
+## Google Sheet config page
+
+Open `/cau-hinh/` to connect a Google Sheet without rebuilding:
+
+- Paste the Cloudflare Worker endpoint (ends with `/lead`) or an Apps Script `/exec` URL.
+- Choose **Cloudflare Worker / API proxy** for real JSON responses.
+- Enter the Worker name, workers.dev subdomain, and production origin to generate `ALLOWED_ORIGINS` and a suggested Worker URL.
+- **Kiểm tra kết nối** calls the Worker health endpoint.
+- **Gửi lead thử** writes a real test row to the `Leads` tab.
+- **Lưu cấu hình** stores the endpoint in this browser only (`localStorage`). It overrides `env/.env` for the current browser.
+- **Xóa cấu hình** falls back to `env/.env` or demo mode.
+
+Worker name and production origin on this page are local setup notes. They do not create or modify anything on Cloudflare; copy `ALLOWED_ORIGINS` into the Worker’s variables yourself.
+
+The test-drive page (`/dang-ky-lai-thu/`) also shows which destination is active and links to this config page. The page is `noindex` and is not a security boundary: it only changes the current browser's endpoint.
+
 ## Connect Google Sheets
+
+### Option A — Cloudflare Worker + Google service account (current demo)
+
+1. Follow [`docs/GOOGLE-SHEET-CLOUDFLARE.md`](docs/GOOGLE-SHEET-CLOUDFLARE.md).
+2. Put the service account JSON in `env/service-account.json` and the Sheet ID in `env/SHEET_ID`.
+3. Create a Worker, paste `backend/worker.js`, and set the Worker secrets.
+4. Add the Worker URL as a GitHub repository variable:
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `PUBLIC_API_ENDPOINT` | Yes | Worker `/lead` URL |
+| `PUBLIC_EVENT_ENDPOINT` | Optional | Worker `/event` URL; falls back to the API endpoint |
+| `PUBLIC_WORKER_NAME` | Optional | Seeds the `/cau-hinh/` Worker helper |
+| `PUBLIC_WORKERS_SUBDOMAIN` | Optional | Seeds the suggested workers.dev URL |
+| `PUBLIC_PRODUCTION_ORIGIN` | Optional | Seeds the production origin helper |
+
+### Option B — Apps Script Web App (older alternative)
 
 1. Follow [`apps-script/README.md`](apps-script/README.md).
 2. Deploy `apps-script/Code.gs` as a Web App.
-3. Add the `/exec` URL as a GitHub repository variable:
+3. Set `PUBLIC_SHEET_ENDPOINT` to the `/exec` URL.
 
 | Variable | Required | Purpose |
 |---|---|---|
 | `PUBLIC_SHEET_ENDPOINT` | For direct Apps Script | Web App `/exec` URL |
-| `PUBLIC_API_ENDPOINT` | Optional, recommended | Worker/Function proxy with real JSON responses |
-| `PUBLIC_EVENT_ENDPOINT` | Optional | Separate event endpoint; defaults to the Sheet endpoint |
+| `PUBLIC_EVENT_ENDPOINT` | Optional | Separate event endpoint |
 
 The workflow passes these variables into the Astro build. Vite inlines `PUBLIC_*` values into the client bundle, so never put secrets there.
 
-### Direct Apps Script vs proxy
+For local development, put the same values in `env/.env` (copied from `env/.env.example`). For a one-off personal Sheet demo, use the `/cau-hinh/` page instead — it overrides `env/.env` in the current browser without a rebuild.
 
-- **Direct** (`PUBLIC_SHEET_ENDPOINT`): the browser sends `text/plain` JSON with `mode: "no-cors"`. Apps Script writes the row, but the browser cannot read the response. The UI shows an optimistic success message.
-- **Proxy** (`PUBLIC_API_ENDPOINT`): a Cloudflare Worker/Pages Function validates, rate-limits, optionally verifies Turnstile, signs the request, and forwards it to Apps Script. Use this for production.
+### Direct Apps Script vs Worker
+
+- **Worker** (`PUBLIC_API_ENDPOINT`): real JSON responses, validation, CORS allowlist, rate limiting, and the service account key stays server-side. Recommended.
+- **Direct Apps Script** (`PUBLIC_SHEET_ENDPOINT`): the browser sends `text/plain` JSON with `mode: "no-cors"`. Apps Script writes the row, but the browser cannot read the response. The UI shows an optimistic success message.
 
 ## Deploy to GitHub Pages
 
 1. Create a GitHub repository and push the contents of this `site/` folder as the repository root.
 2. In **Settings → Pages**, set **Source** to **GitHub Actions**.
 3. Add repository variables under **Settings → Secrets and variables → Actions → Variables**:
-   - `PUBLIC_SHEET_ENDPOINT` (optional for the demo)
-   - `PUBLIC_API_ENDPOINT` (optional)
+   - `PUBLIC_API_ENDPOINT` (Worker `/lead` URL)
    - `PUBLIC_EVENT_ENDPOINT` (optional)
+   - `PUBLIC_WORKER_NAME` (optional, seeds `/cau-hinh/`)
+   - `PUBLIC_WORKERS_SUBDOMAIN` (optional)
+   - `PUBLIC_PRODUCTION_ORIGIN` (optional)
+   - `PUBLIC_SHEET_ENDPOINT` (only for the Apps Script alternative)
 4. Push to `main`. The workflow `.github/workflows/deploy.yml` builds and deploys.
 5. The site is available at `https://<owner>.github.io/<repo>/`.
 
@@ -91,9 +134,20 @@ For a closed demo with placeholder data, option 3 is often enough. If real custo
 
 ```
 site/
+├── backend/
+│   ├── worker.js               # Cloudflare Worker (single file)
+│   └── README.md               # Worker routes/variables
 ├── apps-script/
-│   ├── Code.gs                 # Sheet backend
-│   └── README.md               # deployment guide
+│   ├── Code.gs                 # older Sheet backend
+│   └── README.md               # Apps Script deployment guide
+├── docs/
+│   └── GOOGLE-SHEET-CLOUDFLARE.md  # full GCP + Worker setup
+├── env/
+│   ├── .env                    # local Astro config (ignored)
+│   ├── SHEET_ID                # real Sheet ID (ignored)
+│   ├── service-account.json    # real GCP key (ignored)
+│   ├── *.example               # safe samples (tracked)
+│   └── README.md
 ├── public/
 │   ├── images/                 # demo images, optimized WebP
 │   ├── robots.txt              # disallow all (closed demo)
@@ -110,7 +164,7 @@ site/
 │   │   └── news.ts             # 3 demo articles
 │   ├── layouts/BaseLayout.astro
 │   ├── lib/format.ts           # URL base helper, VND/date formatting
-│   ├── pages/
+│   ├── pages/                  # includes /cau-hinh/
 │   ├── scripts/app.ts          # nav, carousels, forms, tracking
 │   └── styles/global.css
 └── .github/workflows/deploy.yml
@@ -198,7 +252,7 @@ This script reads the sample folder and writes optimized WebP files to `public/i
 - Quote forms: home, listings, and each detail page
 - All forms share `src/components/LeadForm.astro`
 
-Validation is client-side and server-side (Apps Script). The consent checkbox is required. Hidden fields capture page path, referrer, UTM parameters, click ID, session ID, and time-to-submit.
+Validation is client-side and server-side (Cloudflare Worker or Apps Script). The consent checkbox is required. Hidden fields capture page path, referrer, UTM parameters, click ID, session ID, and time-to-submit.
 
 ### Events
 
@@ -215,7 +269,7 @@ Validation is client-side and server-side (Apps Script). The consent checkbox is
 - `filter_use`
 - `map_load`
 
-Without an endpoint, events are stored in `localStorage` for inspection. With an endpoint, they are sent via `navigator.sendBeacon` as `text/plain` JSON.
+Without an endpoint, events are stored in `localStorage` for inspection. With an endpoint, they are sent via `navigator.sendBeacon` as `text/plain` JSON. If `PUBLIC_EVENT_ENDPOINT` is empty, events fall back to `PUBLIC_API_ENDPOINT`.
 
 Sheets is fine for a demo funnel. For real analytics at scale, use GA4 or Cloudflare Web Analytics and keep only conversions in the Sheet.
 
@@ -223,9 +277,10 @@ Sheets is fine for a demo funnel. For real analytics at scale, use GA4 or Cloudf
 
 - All pages are `noindex, nofollow`.
 - Forms use a honeypot, minimum submit time, client/server validation, and consent.
-- Apps Script deduplicates phone + form type within 10 minutes.
-- The Sheet should stay private; share only with named staff.
-- Direct Apps Script mode cannot rate-limit or return real HTTP errors. Add a Worker proxy for production.
+- The Worker deduplicates phone + form type within 10 minutes.
+- The Sheet should stay private; share it only with the service account (Editor).
+- The service account JSON is stored only in `env/` (gitignored) and as a Cloudflare Worker secret.
+- The Worker enforces a CORS origin allowlist and a basic per-isolate rate limit. For public traffic, add Cloudflare WAF rate limiting.
 - The privacy policy page is a template; have it reviewed before collecting real data.
 - No old `vinfastcaron.vn` links, redirects, or legacy URLs are included.
 
@@ -234,6 +289,7 @@ Sheets is fine for a demo funnel. For real analytics at scale, use GA4 or Cloudf
 With the preview server running on port 4321:
 
 ```bash
+npm run qa:worker            # offline Worker tests with mocked Google APIs
 node scripts/qa-e2e.mjs       # forms, filter, gallery, calculator, drawer, map
 node scripts/qa-links.mjs     # internal links/assets, old-domain scan, noindex
 node scripts/qa-mobile.mjs    # mobile screenshots
@@ -249,11 +305,13 @@ The scripts launch the first Chromium-based browser they find (Chrome, then Edge
 - [ ] Replace demo store name, address, hotlines, Zalo, email, map.
 - [ ] Replace demo prices/specs/offers with approved data.
 - [ ] Replace demo images with authorized assets.
-- [ ] Deploy Apps Script and set `PUBLIC_SHEET_ENDPOINT` (or a proxy).
-- [ ] Set `NOTIFY_EMAIL` / Telegram for lead notifications.
+- [ ] Deploy the Cloudflare Worker and set `PUBLIC_API_ENDPOINT` (or use Apps Script + `PUBLIC_SHEET_ENDPOINT`).
+- [ ] Set Worker secrets: `SHEET_ID`, `GOOGLE_SERVICE_ACCOUNT_JSON_B64`, `ALLOWED_ORIGINS`, `IP_HASH_SALT`.
+- [ ] Share the Sheet with the service account as Editor.
 - [ ] Decide on Cloudflare Access if the demo must be private.
 - [ ] Review the privacy policy for Nghị định 13/2023/NĐ-CP.
 - [ ] Add real analytics only after a consent decision.
 - [ ] Run `node scripts/qa-links.mjs` and `node scripts/qa-e2e.mjs`.
 - [ ] Check mobile at 360/390/414 px and desktop at 1280/1440 px.
 - [ ] Confirm no old URL appears in the built output.
+- [ ] Before making the repo public, run `git rm -r --cached env` and ignore the whole folder.

@@ -3140,6 +3140,12 @@ ol {
   color: var(--danger);
 }
 
+.form-status.is-info {
+  display: block;
+  background: var(--blue-soft);
+  color: #0a5f8c;
+}
+
 .form-status a {
   color: inherit;
   font-weight: 800;
@@ -3301,6 +3307,40 @@ ol {
 .booking-submit {
   text-transform: uppercase;
   letter-spacing: 0.04em;
+}
+
+.booking-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 18px;
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.booking-note a {
+  font-weight: 800;
+}
+
+.booking-note [data-mode="sheet"]::before,
+.booking-note [data-mode="api"]::before,
+.booking-note [data-mode="demo"]::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--blue);
+  vertical-align: 1px;
+}
+
+.booking-note [data-mode="demo"]::before {
+  background: #d18a00;
 }
 
 .highlight-item[id] {
@@ -3642,6 +3682,387 @@ ol {
 .back-top.is-visible {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Google Sheet config page */
+.config-head {
+  padding: 34px 0 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.config-head h1 {
+  color: var(--blue);
+  font-size: clamp(26px, 3.6vw, 42px);
+  margin: 0 0 8px;
+}
+
+.config-head p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.config-section {
+  padding: 30px 0 68px;
+  background: var(--soft);
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.config-main,
+.config-side {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.config-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  min-width: 0;
+}
+
+.config-card h2 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+
+.config-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.config-card-head h2 {
+  margin: 0;
+}
+
+.config-active {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 13px 15px;
+  border-radius: 10px;
+  background: var(--blue-soft);
+  color: var(--ink);
+}
+
+.config-active[data-mode="demo"] {
+  background: #fff7e6;
+}
+
+.config-active[data-mode="api"] {
+  background: #eef7ff;
+}
+
+.config-dot {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 4px rgba(0, 143, 222, 0.14);
+}
+
+.config-active[data-mode="demo"] .config-dot {
+  background: #d18a00;
+  box-shadow: 0 0 0 4px rgba(209, 138, 0, 0.14);
+}
+
+.config-active strong {
+  display: block;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.config-active-endpoint {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.config-meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 14px;
+  margin: 14px 0 0;
+  font-size: 13px;
+}
+
+.config-meta dt {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.config-meta dd {
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.config-meta--env {
+  grid-template-columns: 1fr;
+  gap: 3px;
+}
+
+.config-meta--env dt {
+  margin-top: 8px;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.config-meta--env dd {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  color: var(--body);
+}
+
+.config-meta .is-empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.config-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.config-links a {
+  font-weight: 800;
+}
+
+.config-form .field {
+  margin-bottom: 14px;
+}
+
+.config-form .check-item {
+  margin: 2px 0 14px;
+}
+
+.config-hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.config-hint.is-error {
+  color: var(--danger);
+}
+
+.config-result {
+  display: grid;
+  gap: 9px;
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--soft);
+}
+
+.config-result p {
+  margin: 0;
+  display: grid;
+  gap: 2px;
+  font-size: 12.5px;
+}
+
+.config-result span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.config-result code {
+  background: transparent;
+  padding: 0;
+  color: var(--ink);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.config-notice {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1px solid #f0d9a7;
+  border-radius: 10px;
+  background: #fff9ea;
+  color: #5c4300;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.config-notice p {
+  margin: 0;
+}
+
+.config-notice strong {
+  color: #7a5200;
+}
+
+.config-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.config-danger {
+  color: var(--danger);
+}
+
+.config-danger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.config-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--soft);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.config-badge[data-source="config"] {
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+}
+
+.config-badge[data-source="env"] {
+  background: #eef7ff;
+  color: #0a5f8c;
+}
+
+.config-steps {
+  display: grid;
+  gap: 9px;
+  margin: 0 0 10px;
+  padding-left: 1.25em;
+  font-size: 13.5px;
+}
+
+.config-steps li::marker {
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.config-steps--bullets {
+  list-style: disc;
+}
+
+.config-steps code,
+.config-hint code,
+.config-card code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--soft);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.config-warning {
+  background: #fff9ea;
+  border-color: #f0d9a7;
+}
+
+.config-warning h2 {
+  color: #7a5200;
+}
+
+.config-log {
+  display: grid;
+  gap: 9px;
+}
+
+.config-log-empty {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.config-log-item {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fbfcfd;
+}
+
+.config-log-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.config-log-head strong {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.config-badge[data-mode="sheet"] {
+  background: #e8f8ef;
+  color: var(--success);
+}
+
+.config-badge[data-mode="api"] {
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+}
+
+.config-badge[data-mode="demo"] {
+  background: #fff3d6;
+  color: #8a5a00;
+}
+
+.config-log-meta,
+.config-log-endpoint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.config-log-endpoint {
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 11px;
+}
+
+@media (max-width: 1024px) {
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .config-card {
+    padding: 18px;
+  }
+
+  .config-actions .btn {
+    width: 100%;
+  }
 }
 
 /* Reveal */

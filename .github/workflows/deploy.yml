@@ -37,6 +37,9 @@ jobs:
           PUBLIC_SHEET_ENDPOINT: ${{ vars.PUBLIC_SHEET_ENDPOINT }}
           PUBLIC_API_ENDPOINT: ${{ vars.PUBLIC_API_ENDPOINT }}
           PUBLIC_EVENT_ENDPOINT: ${{ vars.PUBLIC_EVENT_ENDPOINT }}
+          PUBLIC_WORKER_NAME: ${{ vars.PUBLIC_WORKER_NAME }}
+          PUBLIC_WORKERS_SUBDOMAIN: ${{ vars.PUBLIC_WORKERS_SUBDOMAIN }}
+          PUBLIC_PRODUCTION_ORIGIN: ${{ vars.PUBLIC_PRODUCTION_ORIGIN }}
         run: npm run build
 
       - name: Configure Pages

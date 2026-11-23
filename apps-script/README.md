@@ -2,6 +2,26 @@
 
 This folder contains the Apps Script backend for the demo site. The static site stays on GitHub Pages; the Sheet is only the database and notification trigger.
 
+> **Alternative backend.** The current demo uses the Cloudflare Worker + Google service account path in [`../docs/GOOGLE-SHEET-CLOUDFLARE.md`](../docs/GOOGLE-SHEET-CLOUDFLARE.md). Keep this Apps Script path as a fallback or for quick testing.
+
+## Demo nhanh với Google Sheet cá nhân (5 phút)
+
+1. Mở [sheets.new](https://sheets.new), đặt tên ví dụ `VinFast Demo — Leads`.
+2. Trong Sheet: **Extensions → Apps Script**.
+3. Xoá code mặc định, dán toàn bộ file [`Code.gs`](Code.gs), bấm **Save**.
+4. Chọn hàm `setup` → **Run** → cấp quyền (chọn tài khoản → *Advanced* → *Go to project* nếu Google cảnh báo).
+5. **Deploy → New deployment → Web app**:
+   - **Execute as:** `Me`
+   - **Who has access:** `Anyone`
+   - Bấm **Deploy**, copy URL kết thúc bằng `/exec`.
+6. Mở trang cấu hình của site: `http://localhost:4321/cau-hinh/` (hoặc `/cau-hinh/` trên bản deploy).
+7. Dán URL `/exec` vào ô **URL Web App**, bấm **Lưu cấu hình** → **Kiểm tra kết nối** → **Gửi lead thử**.
+8. Mở Google Sheet, kiểm tra tab **Leads**. Sau đó thử form thật tại `/dang-ky-lai-thu/`.
+
+Cấu hình trên trang `/cau-hinh/` chỉ lưu trong trình duyệt hiện tại (localStorage). Muốn áp dụng cho mọi người, đặt `PUBLIC_SHEET_ENDPOINT` trong `.env` hoặc GitHub Actions variable rồi build/deploy lại.
+
+> Nếu bấm **Kiểm tra kết nối** báo lỗi CORS, hãy chắc chắn bạn đã dán bản `Code.gs` mới (có hỗ trợ JSONP). Dù vậy, nút **Gửi lead thử** vẫn hoạt động vì dùng `no-cors`.
+
 ## 1. Create the Sheet
 
 1. Create a new Google Sheet, e.g. `VinFast Demo — Leads`.
@@ -49,8 +69,10 @@ This is your `PUBLIC_SHEET_ENDPOINT`.
 Health check: open the `/exec` URL in a browser. You should see:
 
 ```json
-{"ok":true,"service":"vinfast-caron-demo-sheet","time":"..."}
+{"ok":true,"service":"vinfast-caron-demo-sheet","version":2,"time":"..."}
 ```
+
+The config page uses a JSONP request (`/exec?callback=...`) for a real connection check because Apps Script does not send CORS headers. Opening the plain `/exec` URL still returns JSON for humans.
 
 ## 5. Connect the static site
 
@@ -63,6 +85,8 @@ PUBLIC_SHEET_ENDPOINT = https://script.google.com/macros/s/.../exec
 ```
 
 The site sends `text/plain` JSON with `mode: "no-cors"`. Apps Script receives it and writes to the Sheet. Because the response is opaque, the UI shows an optimistic success message.
+
+For a personal/demo Sheet, you can also skip the build variable and paste the `/exec` URL into the site's **Cấu hình Google Sheet** page (`/cau-hinh/`). That override is stored in `localStorage` and only affects the current browser.
 
 ### Option B — Cloudflare Worker/Pages Function (recommended for production)
 
@@ -88,8 +112,9 @@ This is the only way to get reliable error handling, rate limiting, and IP hashi
 1. Run `sendTestLead` in Apps Script.
 2. Check the `Leads` tab for a row with `LD-...`.
 3. Check your email/Telegram for the notification.
-4. Submit the site form in demo mode (no endpoint) and confirm the browser message.
-5. Submit with the endpoint configured and confirm a new row.
+4. Open `/cau-hinh/`, paste the `/exec` URL, click **Kiểm tra kết nối**, then **Gửi lead thử** and confirm a new row in `Leads`.
+5. Submit the site form in demo mode (no endpoint) and confirm the browser message.
+6. Submit with the endpoint configured and confirm a new row.
 
 ## 7. Sheet tabs and columns
 

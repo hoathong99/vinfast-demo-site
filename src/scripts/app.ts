@@ -1,11 +1,18 @@
+import { submitLead } from "../lib/lead-submit";
+import {
+  SHEET_CONFIG_EVENT,
+  SHEET_CONFIG_KEY,
+  resolveEventEndpoint,
+  resolveLeadTarget,
+  targetLabel,
+} from "../lib/sheet-config";
+
 type Dict = Record<string, unknown>;
 
-const env = import.meta.env as ImportMetaEnv;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const SESSION_KEY = "vf_demo_session";
 const UTM_KEY = "vf_demo_utm";
 const CLICK_KEY = "vf_demo_click_id";
-const LEADS_KEY = "vf_demo_leads";
 const EVENTS_KEY = "vf_demo_events";
 
 function isMobile(): boolean {
@@ -70,7 +77,7 @@ function track(eventName: string, data: Dict = {}): void {
   const dataLayer = (window as unknown as { dataLayer?: Dict[] }).dataLayer;
   if (Array.isArray(dataLayer)) dataLayer.push({ event: eventName, ...data });
 
-  const endpoint = env.PUBLIC_EVENT_ENDPOINT || env.PUBLIC_SHEET_ENDPOINT;
+  const endpoint = resolveEventEndpoint();
   if (endpoint && navigator.sendBeacon) {
     const blob = new Blob([JSON.stringify(payload)], { type: "text/plain;charset=UTF-8" });
     navigator.sendBeacon(endpoint, blob);
@@ -847,37 +854,66 @@ function setStatus(form: HTMLFormElement, html: string, type: "success" | "error
   status.innerHTML = html;
 }
 
-async function submitLead(data: Dict): Promise<"api" | "sheet" | "demo"> {
-  const api = env.PUBLIC_API_ENDPOINT;
-  const sheet = env.PUBLIC_SHEET_ENDPOINT;
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (character) => {
+    switch (character) {
+      case "&":
+        return "&amp;";
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case '"':
+        return "&quot;";
+      default:
+        return "&#39;";
+    }
+  });
+}
 
-  if (api) {
-    const response = await fetch(api, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+function fillTrackingFields(form: HTMLFormElement): void {
+  const utm = getUtm();
+  const pagePath = form.querySelector<HTMLInputElement>("[data-page-path]");
+  const referrer = form.querySelector<HTMLInputElement>("[data-referrer]");
+  const utmSource = form.querySelector<HTMLInputElement>("[data-utm-source]");
+  const utmMedium = form.querySelector<HTMLInputElement>("[data-utm-medium]");
+  const utmCampaign = form.querySelector<HTMLInputElement>("[data-utm-campaign]");
+  const utmContent = form.querySelector<HTMLInputElement>("[data-utm-content]");
+  const utmTerm = form.querySelector<HTMLInputElement>("[data-utm-term]");
+  const clickId = form.querySelector<HTMLInputElement>("[data-click-id]");
+  const sessionId = form.querySelector<HTMLInputElement>("[data-session-id]");
+
+  if (pagePath) pagePath.value = window.location.pathname;
+  if (referrer) referrer.value = document.referrer;
+  if (utmSource) utmSource.value = String(utm.source || "");
+  if (utmMedium) utmMedium.value = String(utm.medium || "");
+  if (utmCampaign) utmCampaign.value = String(utm.campaign || "");
+  if (utmContent) utmContent.value = String(utm.content || "");
+  if (utmTerm) utmTerm.value = String(utm.term || "");
+  if (clickId) clickId.value = getClickId();
+  if (sessionId) sessionId.value = getSessionId();
+}
+
+function initSheetStatus(): void {
+  const nodes = document.querySelectorAll<HTMLElement>("[data-sheet-status]");
+  if (!nodes.length) return;
+
+  const update = (): void => {
+    const target = resolveLeadTarget();
+    nodes.forEach((node) => {
+      node.dataset.mode = target.kind;
+      node.textContent =
+        target.kind === "demo"
+          ? "Chưa nối Google Sheet — đăng ký chỉ được lưu tạm trong trình duyệt."
+          : `Đăng ký được gửi tới ${targetLabel(target)}.`;
     });
-    if (!response.ok) throw new Error(`API ${response.status}`);
-    return "api";
-  }
+  };
 
-  if (sheet) {
-    // Apps Script accepts a simple text/plain request without a CORS preflight.
-    // The response is opaque, so success is optimistic; use PUBLIC_API_ENDPOINT for strict confirmation.
-    await fetch(sheet, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=UTF-8" },
-      body: JSON.stringify({ type: "lead", ...data }),
-    });
-    return "sheet";
-  }
-
-  const stored = JSON.parse(localStorage.getItem(LEADS_KEY) || "[]") as Dict[];
-  stored.push({ ...data, receivedAt: new Date().toISOString() });
-  localStorage.setItem(LEADS_KEY, JSON.stringify(stored.slice(-50)));
-  await new Promise((resolve) => window.setTimeout(resolve, 500));
-  return "demo";
+  update();
+  window.addEventListener("storage", (event) => {
+    if (!event.key || event.key === SHEET_CONFIG_KEY) update();
+  });
+  window.addEventListener(SHEET_CONFIG_EVENT, update);
 }
 
 function initForms(): void {
@@ -893,27 +929,8 @@ function initForms(): void {
       vehicleSelect.value = model;
     }
 
-    const utm = getUtm();
-    const pagePath = form.querySelector<HTMLInputElement>("[data-page-path]");
-    const referrer = form.querySelector<HTMLInputElement>("[data-referrer]");
-    const utmSource = form.querySelector<HTMLInputElement>("[data-utm-source]");
-    const utmMedium = form.querySelector<HTMLInputElement>("[data-utm-medium]");
-    const utmCampaign = form.querySelector<HTMLInputElement>("[data-utm-campaign]");
-    const utmContent = form.querySelector<HTMLInputElement>("[data-utm-content]");
-    const utmTerm = form.querySelector<HTMLInputElement>("[data-utm-term]");
-    const clickId = form.querySelector<HTMLInputElement>("[data-click-id]");
-    const sessionId = form.querySelector<HTMLInputElement>("[data-session-id]");
+    fillTrackingFields(form);
     const elapsed = form.querySelector<HTMLInputElement>("[data-elapsed]");
-
-    if (pagePath) pagePath.value = window.location.pathname;
-    if (referrer) referrer.value = document.referrer;
-    if (utmSource) utmSource.value = String(utm.source || "");
-    if (utmMedium) utmMedium.value = String(utm.medium || "");
-    if (utmCampaign) utmCampaign.value = String(utm.campaign || "");
-    if (utmContent) utmContent.value = String(utm.content || "");
-    if (utmTerm) utmTerm.value = String(utm.term || "");
-    if (clickId) clickId.value = getClickId();
-    if (sessionId) sessionId.value = getSessionId();
 
     let startedTracked = false;
     form.addEventListener(
@@ -1015,21 +1032,35 @@ function initForms(): void {
       }
 
       try {
-        const mode = await submitLead(data);
+        const result = await submitLead(data);
         form.reset();
+        fillTrackingFields(form);
         if (dateInput) dateInput.min = todayLocal();
-        track("form_submit", { formType: form.dataset.formType || "unknown", mode });
+        track("form_submit", {
+          formType: form.dataset.formType || "unknown",
+          mode: result.mode,
+          source: result.source,
+        });
 
-        if (mode === "demo") {
+        if (result.mode === "demo") {
           setStatus(
             form,
             `Đã ghi nhận thông tin ở chế độ demo. Dữ liệu được lưu tạm trong trình duyệt. Gọi <a href="tel:0900000000">0900 000 000</a> nếu cần hỗ trợ ngay.`,
             "success",
           );
-        } else {
+        } else if (result.mode === "sheet") {
           setStatus(
             form,
-            `Gửi thành công. Đội ngũ demo sẽ liên hệ với bạn. Gọi <a href="tel:0900000000">0900 000 000</a> nếu cần hỗ trợ ngay.`,
+            `Đã gửi đăng ký tới Google Sheet. Kiểm tra tab <strong>Leads</strong> để xác nhận. Gọi <a href="tel:0900000000">0900 000 000</a> nếu cần hỗ trợ ngay.`,
+            "success",
+          );
+        } else {
+          const lead = result.leadId
+            ? ` Mã lead: <strong>${escapeHtml(result.leadId)}</strong>.`
+            : "";
+          setStatus(
+            form,
+            `Gửi thành công.${lead} Đội ngũ demo sẽ liên hệ với bạn. Gọi <a href="tel:0900000000">0900 000 000</a> nếu cần hỗ trợ ngay.`,
             "success",
           );
         }
@@ -1249,6 +1280,11 @@ function initBookingForms(): void {
 
     select.addEventListener("change", () => update());
 
+    const form = root.querySelector<HTMLFormElement>("form");
+    form?.addEventListener("reset", () => {
+      window.setTimeout(() => update(false), 0);
+    });
+
     const model = new URLSearchParams(window.location.search).get("model");
     const match = model ? list.find((vehicle) => vehicle.slug === model) : undefined;
     if (match) {
@@ -1275,6 +1311,7 @@ initFilters();
 initCompare();
 initMap();
 initForms();
+initSheetStatus();
 initBackTop();
 initTracking();
 initReveal();
