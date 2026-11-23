@@ -388,6 +388,39 @@ Add repository variables under:
 
 Then redeploy the site.
 
+### 7.4 Cloudflare Pages / Workers static hosting
+
+Build settings:
+
+| Setting | Value |
+|---|---|
+| Build command | `npm run build` |
+| Output directory | `dist` |
+| Node version | `22` |
+
+Environment variables:
+
+```text
+SITE_URL=https://vinfast-demo-site.hoathong99.workers.dev
+BASE_PATH=/
+PUBLIC_API_ENDPOINT=https://tiny-night-de11.hoathong99.workers.dev/lead
+PUBLIC_EVENT_ENDPOINT=https://tiny-night-de11.hoathong99.workers.dev/event
+PUBLIC_WORKER_NAME=vinfast-lead-api
+PUBLIC_WORKERS_SUBDOMAIN=hoathong99
+PUBLIC_PRODUCTION_ORIGIN=https://vinfast-demo-site.hoathong99.workers.dev
+PUBLIC_SHEET_ENDPOINT=
+```
+
+Replace the hostnames with your actual Pages/Workers site. `BASE_PATH=/` is important: Astro uses it for asset URLs and canonical links.
+
+Then add the same site origin to the Worker:
+
+```text
+ALLOWED_ORIGINS=https://vinfast-demo-site.hoathong99.workers.dev,http://localhost:4321,http://127.0.0.1:4321
+```
+
+Cloudflare Pages/Workers serve `public/_headers` as an HTTP CSP. Keep it in sync with the meta tag in `BaseLayout.astro`; otherwise the stricter policy can block the Worker `fetch`.
+
 ---
 
 ## 8. Test it
@@ -576,9 +609,30 @@ At least one required Worker variable is missing:
 - `ALLOWED_ORIGINS` must contain the exact browser origin.
 - Local: `http://localhost:4321` and `http://127.0.0.1:4321`.
 - GitHub Pages: `https://yourname.github.io`, not `https://yourname.github.io/repo`.
+- Cloudflare Pages: `https://your-project.pages.dev`, not the URL with `/cau-hinh/`.
 - No trailing slash, no path, no query.
+- Preview deployments have their own origins; add the preview origin or test the production domain.
 - Update the variable in Cloudflare and deploy/save.
 - Reload the page and try again.
+
+### `Failed to fetch` / CSP `connect-src` error on the deployed site
+
+`public/_headers` is copied to `dist/_headers` and served by Cloudflare as a real HTTP header. Astro dev does not use it, so the problem only appears after deployment.
+
+Both the CSP meta tag in `BaseLayout.astro` and the HTTP header in `public/_headers` are enforced. The stricter policy wins. Make sure both allow the Worker:
+
+```text
+script-src 'self' https://script.google.com https://script.googleusercontent.com;
+connect-src 'self' https: http://localhost:* http://127.0.0.1:*;
+```
+
+Then redeploy and purge the Cloudflare cache. Verify:
+
+```bash
+curl -I https://your-site.example/cau-hinh/ | grep -i content-security-policy
+```
+
+Opening the Worker URL directly in a browser is not a CORS/CSP test; only the `fetch` from the deployed page is.
 
 ### `Unable to parse range` / missing tab
 
