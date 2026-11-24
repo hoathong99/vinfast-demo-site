@@ -1,0 +1,69 @@
+---
+import ServiceCard from "./ServiceCard.astro";
+import { url } from "../lib/format";
+import type { ServiceCardData, ServiceSection, ServiceStep } from "../lib/service-types";
+
+interface Props {
+  title: string;
+  intro: string;
+  type: "car" | "motorbike";
+  steps: ServiceStep[];
+  warranty: ServiceCardData[];
+  extraSections?: ServiceSection[];
+}
+
+const { title, intro, type, steps, warranty, extraSections = [] } = Astro.props;
+const bookingHref = url(`dat-lich-dich-vu/?type=${type}`);
+---
+
+<section class="service-hero">
+  <div class="container">
+    <h1>{title}</h1>
+    <h2>Quy trình dịch vụ</h2>
+    <p>{intro}</p>
+  </div>
+</section>
+
+<section class="service-process">
+  <div class="container">
+    <div class="service-steps">
+      {steps.map((step, index) => (
+        <div class="service-step">
+          <div class="service-step-icon">
+            <img
+              src={url(step.icon)}
+              alt=""
+              width="48"
+              height="58"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <strong>Bước {index + 1}</strong>
+          <span>{step.title}</span>
+        </div>
+      ))}
+    </div>
+    <a class="service-cta" href={bookingHref}>Đặt lịch dịch vụ</a>
+  </div>
+</section>
+
+<section class="service-warranty">
+  <div class="container">
+    <h2>Bảo hành – Bảo dưỡng</h2>
+    <div class="service-cards">
+      {warranty.map((card) => <ServiceCard {...card} />)}
+    </div>
+  </div>
+</section>
+
+{extraSections.map((section) => (
+  <section class="service-extra">
+    <div class="container">
+      <h2>{section.title}</h2>
+      <div class="service-cards">
+        {section.cards.map((card) => <ServiceCard {...card} />)}
+      </div>
+    </div>
+  </section>
+))}

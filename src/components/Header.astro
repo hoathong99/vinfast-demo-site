@@ -18,11 +18,9 @@ const cars = vehicles.filter((vehicle) => vehicle.type === "car").sort((a, b) =>
 const bikes = vehicles.filter((vehicle) => vehicle.type === "motorbike").sort((a, b) => a.order - b.order);
 
 const services = [
+  { label: "Dịch vụ xe máy điện", href: "dich-vu/xe-may-dien/" },
+  { label: "Dịch vụ ô tô", href: "dich-vu/o-to/" },
   { label: "Đặt lịch dịch vụ", href: "dat-lich-dich-vu/" },
-  { label: "Bảo dưỡng định kỳ", href: "dat-lich-dich-vu/#bao-duong" },
-  { label: "Sửa chữa chung", href: "dat-lich-dich-vu/#sua-chua" },
-  { label: "Đồng sơn", href: "dat-lich-dich-vu/#dong-son" },
-  { label: "Kiểm tra pin", href: "dat-lich-dich-vu/#kiem-tra-pin" },
 ];
 
 const navItems = [
@@ -58,7 +56,7 @@ const navItems = [
 <header class="site-header">
   <div class="container header-inner">
     <a class="logo" href={url("")} aria-label="VinFast — Trang chủ">
-      <img src={url("images/logo.webp")} alt="VinFast" width="240" height="298" />
+      <img src={url("images/logo.svg")} alt="VinFast" width="240" height="298" />
     </a>
 
     <nav class="main-nav" aria-label="Điều hướng chính">

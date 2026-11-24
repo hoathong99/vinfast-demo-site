@@ -1,0 +1,90 @@
+---
+import { url } from "../lib/format";
+import type { ServiceDetail } from "../data/service-details";
+
+interface Props {
+  detail: ServiceDetail;
+}
+
+const { detail } = Astro.props;
+const typeHref = url(`dich-vu/${detail.typePath}/`);
+const bookingHref = url(`dat-lich-dich-vu/?type=${detail.type}&service=${detail.bookingService}`);
+---
+
+<article class="service-detail">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href={url("")}>Trang chủ</a>
+      <span>/</span>
+      <a href={typeHref}>{detail.typeLabel}</a>
+      <span>/</span>
+      <span aria-current="page">{detail.title}</span>
+    </nav>
+
+    <header class="service-detail-head">
+      <h1>{detail.title}</h1>
+      <p class="service-detail-intro">{detail.intro}</p>
+      <a class="btn service-detail-cta" href={bookingHref}>Đặt lịch dịch vụ</a>
+    </header>
+
+    <img
+      class="service-detail-hero"
+      src={url(detail.heroImage)}
+      alt={detail.heroAlt}
+      width="1280"
+      height="720"
+      loading="eager"
+      decoding="async"
+    />
+
+    <div class="service-detail-body">
+      {detail.sections.map((section) => (
+        <section class="service-detail-section">
+          {section.heading && <h2>{section.heading}</h2>}
+          {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+          {section.bullets && (
+            <ul>
+              {section.bullets.map((item) => <li>{item}</li>)}
+            </ul>
+          )}
+          {section.steps && (
+            <ol class="service-detail-steps">
+              {section.steps.map((step) => <li>{step}</li>)}
+            </ol>
+          )}
+          {section.image && (
+            <img
+              class="service-detail-inline"
+              src={url(section.image)}
+              alt={section.imageAlt || ""}
+              loading="eager"
+              decoding="async"
+            />
+          )}
+        </section>
+      ))}
+    </div>
+
+    <aside class="service-detail-booking">
+      <div>
+        <h2>Bạn cần đặt lịch dịch vụ?</h2>
+        <p>Đặt hẹn trước để giảm thời gian chờ và được tư vấn kỹ hơn tại xưởng dịch vụ.</p>
+      </div>
+      <div class="service-detail-booking-actions">
+        <a class="btn" href={bookingHref}>Đặt lịch ngay</a>
+        <a class="btn btn--ghost" href={url("lien-he/")}>Liên hệ</a>
+      </div>
+    </aside>
+
+    {detail.related.length > 0 && (
+      <section class="service-detail-related">
+        <h2>Dịch vụ liên quan</h2>
+        <div class="service-detail-related-links">
+          {detail.related.map((link) => (
+            <a href={url(link.href)}>{link.label}</a>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+</article>

@@ -26,7 +26,7 @@ const jobs = [
   { src: join(home, "Gemini_Generated_Image_5zbsf5zbsf5zbsf5-2048x1143_8KgB.png"), dest: "service-banner.webp", width: 1920, height: 900 },
 
   // Brand
-  { src: join(home, "Logo-VinFast-CarOn-Cao_8KgB.png"), dest: "logo.webp", width: 240, height: 298, fit: "inside", transparent: true },
+  { src: join(home, "Logo-VinFast-CarOn-Cao_8KgB.png"), dest: "logo.svg", width: 240, height: 298, fit: "inside", transparent: true },
   { src: join(home, "Logo-VinFast-CarOn-Cao_8KgB.png"), dest: "favicon.png", width: 64, height: 64, fit: "contain", pad: "#ffffff" },
 
   // News

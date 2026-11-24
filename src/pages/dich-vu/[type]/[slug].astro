@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import ServiceDetailPage from "../../../components/ServiceDetailPage.astro";
+import { serviceDetails } from "../../../data/service-details";
+import type { ServiceDetail } from "../../../data/service-details";
+
+export function getStaticPaths() {
+  return serviceDetails.map((detail) => ({
+    params: { type: detail.typePath, slug: detail.slug },
+    props: { detail },
+  }));
+}
+
+interface Props {
+  detail: ServiceDetail;
+}
+
+const { detail } = Astro.props;
+---
+
+<BaseLayout title={`${detail.title} — VinFast Demo`} description={detail.intro}>
+  <ServiceDetailPage detail={detail} />
+</BaseLayout>

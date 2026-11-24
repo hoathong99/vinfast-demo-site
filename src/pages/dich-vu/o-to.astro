@@ -1,0 +1,78 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+import type { ServiceCardData, ServiceSection, ServiceStep } from "../../lib/service-types";
+
+const steps: ServiceStep[] = [
+  { icon: "images/services/step-calendar.svg", title: "Nhắc bảo dưỡng và Đặt lịch hẹn" },
+  { icon: "images/services/step-consult.svg", title: "Tiếp nhận và Tư vấn" },
+  { icon: "images/services/step-service.svg", title: "Thực hiện dịch vụ" },
+  { icon: "images/services/step-handover-car.svg", title: "Bàn giao xe" },
+  { icon: "images/services/step-care-car.svg", title: "Chăm sóc sau sửa chữa" },
+];
+
+const warranty: ServiceCardData[] = [
+  {
+    image: "images/services/warranty-car-1.webp",
+    title: "Bảo hành",
+    text: "Chính sách bảo hành áp dụng cho các hư hỏng do lỗi phần mềm, lỗi chất lượng của linh kiện hoặc lỗi từ nhà sản xuất.",
+    href: "dich-vu/o-to/bao-hanh/",
+    alt: "Khách hàng nhận xe tại showroom VinFast",
+  },
+  {
+    image: "images/services/warranty-car-2.webp",
+    title: "Bảo dưỡng định kỳ",
+    text: "Bảo dưỡng định kỳ giúp duy trì trạng thái ổn định, kéo dài tuổi thọ của chi tiết và phát hiện sớm những hư hỏng.",
+    href: "dich-vu/o-to/bao-duong-dinh-ky/",
+    alt: "Kỹ thuật viên kiểm tra lốp xe VinFast",
+  },
+];
+
+const extraSections: ServiceSection[] = [
+  {
+    title: "Đồng sơn",
+    cards: [
+      {
+        image: "images/services/car-dong-son.webp",
+        title: "Đồng sơn",
+        text: "Sửa chữa hư hỏng nhẹ và hư hỏng nặng liên quan đến thay thế vỏ xe, xử lý bề mặt và sơn lại theo đúng màu nguyên bản.",
+        href: "dich-vu/o-to/dong-son/",
+        alt: "Sửa chữa và đồng sơn ô tô VinFast",
+      },
+    ],
+  },
+  {
+    title: "Chăm sóc – Làm đẹp",
+    cards: [
+      {
+        image: "images/services/car-engine-clean.jpg",
+        title: "Vệ sinh khoang máy",
+        text: "Quy trình vệ sinh khoang máy giúp loại bỏ bụi bẩn, dầu mỡ và kiểm tra sớm các dấu hiệu bất thường.",
+        href: "dich-vu/o-to/ve-sinh-khoang-may/",
+        alt: "Vệ sinh khoang máy ô tô",
+      },
+      {
+        image: "images/services/car-interior-clean.jpg",
+        title: "Vệ sinh nội thất",
+        text: "Quy trình vệ sinh nội thất giúp khoang cabin sạch sẽ, khử mùi và bảo vệ các bề mặt trong xe.",
+        href: "dich-vu/o-to/ve-sinh-noi-that/",
+        alt: "Vệ sinh nội thất ô tô",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Dịch vụ ô tô — VinFast Demo"
+  description="Quy trình dịch vụ ô tô VinFast: tiếp nhận, tư vấn, thực hiện dịch vụ, bàn giao xe và chăm sóc sau sửa chữa."
+>
+  <ServicePage
+    title="Dịch vụ ô tô"
+    intro="Chuyên nghiệp và chu đáo với 5 bước"
+    type="car"
+    steps={steps}
+    warranty={warranty}
+    extraSections={extraSections}
+  />
+</BaseLayout>

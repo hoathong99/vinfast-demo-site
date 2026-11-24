@@ -929,6 +929,24 @@ function initForms(): void {
       vehicleSelect.value = model;
     }
 
+    const serviceParam = params.get("service");
+    const serviceMap: Record<string, string> = {
+      "bao-duong": "Bảo dưỡng",
+      "sua-chua": "Sửa chữa chung",
+      "dong-son": "Đồng sơn",
+      "kiem-tra-pin": "Kiểm tra pin",
+      "bao-hanh": "Bảo hành",
+      "ve-sinh": "Vệ sinh",
+      "khac": "Khác",
+    };
+    const serviceValue = serviceParam ? serviceMap[serviceParam] : "";
+    if (serviceValue) {
+      const match = Array.from(
+        form.querySelectorAll<HTMLInputElement>('input[name="serviceType"]'),
+      ).find((input) => input.value === serviceValue);
+      if (match) match.checked = true;
+    }
+
     fillTrackingFields(form);
     const elapsed = form.querySelector<HTMLInputElement>("[data-elapsed]");
 
@@ -1285,13 +1303,19 @@ function initBookingForms(): void {
       window.setTimeout(() => update(false), 0);
     });
 
-    const model = new URLSearchParams(window.location.search).get("model");
+    const params = new URLSearchParams(window.location.search);
+    const model = params.get("model");
     const match = model ? list.find((vehicle) => vehicle.slug === model) : undefined;
     if (match) {
       const tab = tabs.find((item) => item.dataset.bookingTab === match.type);
       tab?.click();
       if (Array.from(select.options).some((option) => option.value === match.slug)) {
         select.value = match.slug;
+      }
+    } else {
+      const typeParam = params.get("type");
+      if (typeParam === "car" || typeParam === "motorbike") {
+        tabs.find((item) => item.dataset.bookingTab === typeParam)?.click();
       }
     }
     update(false);

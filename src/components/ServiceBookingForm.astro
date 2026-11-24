@@ -8,7 +8,7 @@ const bikes = vehicles.filter((vehicle) => vehicle.type === "motorbike").sort((a
 const initial = cars[0];
 
 const times = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "17:30"];
-const serviceOptions = ["Bảo dưỡng", "Sửa chữa", "Đồng sơn", "Kiểm tra pin", "Khác"];
+const serviceOptions = ["Bảo dưỡng", "Sửa chữa chung", "Đồng sơn", "Kiểm tra pin", "Bảo hành", "Vệ sinh", "Khác"];
 
 const showrooms = [
   `VinFast 3S Gia Lâm — ${site.address}`,
@@ -40,17 +40,17 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
     />
     <div class="booking-caption">
       <strong data-booking-name>{initial.name}</strong>
-      <span data-booking-price>{formatVnd(initial.price)}</span>
+      
     </div>
   </div>
 
   <div class="booking-panel">
     <div class="booking-tabs" role="tablist" aria-label="Loại xe">
       <button class="booking-tab is-active" type="button" role="tab" aria-selected="true" data-booking-tab="car">
-        Xe ô tô
+        Dịch vụ ô tô
       </button>
       <button class="booking-tab" type="button" role="tab" aria-selected="false" data-booking-tab="motorbike">
-        Xe máy điện
+        Dịch vụ xe máy điện
       </button>
     </div>
 
@@ -195,7 +195,7 @@ const vehicleData = [...cars, ...bikes].map((vehicle) => ({
         <div class="field-error" data-error-for="consent">Vui lòng đồng ý trước khi gửi.</div>
       </div>
 
-      <button class="btn btn--block booking-submit" type="submit">Đặt lịch dịch vụ</button>
+      <button class="btn btn--block booking-submit" type="submit">Đặt hẹn dịch vụ</button>
       <div class="form-status" role="status" aria-live="polite"></div>
     </form>
   </div>

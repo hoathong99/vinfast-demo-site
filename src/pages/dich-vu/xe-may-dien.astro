@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ServicePage from "../../components/ServicePage.astro";
+import type { ServiceCardData, ServiceStep } from "../../lib/service-types";
+
+const steps: ServiceStep[] = [
+  { icon: "images/services/step-calendar.svg", title: "Nhắc bảo dưỡng và Đặt lịch hẹn" },
+  { icon: "images/services/step-consult.svg", title: "Tiếp nhận và Tư vấn" },
+  { icon: "images/services/step-service.svg", title: "Thực hiện dịch vụ" },
+  { icon: "images/services/step-handover-bike.svg", title: "Bàn giao xe" },
+  { icon: "images/services/step-care-bike.svg", title: "Chăm sóc sau sửa chữa" },
+];
+
+const warranty: ServiceCardData[] = [
+  {
+    image: "images/services/warranty-bike-1.webp",
+    title: "Bảo hành",
+    text: "Đối với các dòng xe máy điện VinFast sử dụng pin LFP, thời hạn bảo hành xe là 6 năm/không giới hạn số km, cùng thời gian sử dụng pin.",
+    href: "dich-vu/xe-may-dien/bao-hanh/",
+    alt: "Kỹ thuật viên bảo dưỡng xe máy điện VinFast",
+  },
+  {
+    image: "images/services/warranty-bike-2.webp",
+    title: "Bảo dưỡng định kỳ",
+    text: "Để đảm bảo xe máy điện VinFast luôn hoạt động ổn định và an toàn, việc thực hiện bảo dưỡng định kỳ là cần thiết.",
+    href: "dich-vu/xe-may-dien/bao-duong-dinh-ky/",
+    alt: "Khu vực bảo dưỡng xe máy điện VinFast",
+  },
+];
+---
+
+<BaseLayout
+  title="Dịch vụ xe máy điện — VinFast Demo"
+  description="Quy trình dịch vụ xe máy điện VinFast: tiếp nhận, tư vấn, thực hiện dịch vụ, bàn giao xe và chăm sóc sau sửa chữa."
+>
+  <ServicePage
+    title="Dịch vụ xe máy điện"
+    intro="Chuyên nghiệp và chu đáo với 5 bước"
+    type="motorbike"
+    steps={steps}
+    warranty={warranty}
+  />
+</BaseLayout>

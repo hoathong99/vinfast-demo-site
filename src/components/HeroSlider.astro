@@ -14,44 +14,48 @@ const { slides } = Astro.props;
 ---
 
 <section class="hero" aria-label="Ưu đãi nổi bật" data-carousel data-autoplay="6000">
-  <div class="hero-track" data-carousel-track>
-    {slides.map((slide, index) => (
-      <div class="hero-slide" data-carousel-slide>
-        <img
-          src={url(slide.image)}
-          srcset={`${url(slide.image)} 1920w, ${url(slide.image.replace(/\.webp$/, "-960.webp"))} 960w`}
-          sizes="100vw"
-          alt={slide.alt}
-          width="1920"
-          height="900"
-          draggable="false"
-          loading={index === 0 ? "eager" : "lazy"}
-          fetchpriority={index === 0 ? "high" : "auto"}
-        />
-      </div>
-    ))}
+  <div class="hero-stage">
+    <div class="hero-track" data-carousel-track>
+      {slides.map((slide, index) => (
+        <div class="hero-slide" data-carousel-slide>
+          <img
+            src={url(slide.image)}
+            srcset={`${url(slide.image)} 1920w, ${url(slide.image.replace(/\.webp$/, "-960.webp"))} 960w`}
+            sizes="100vw"
+            alt={slide.alt}
+            width="1920"
+            height="900"
+            draggable="false"
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchpriority={index === 0 ? "high" : "auto"}
+          />
+        </div>
+      ))}
+    </div>
+
+    <button class="hero-arrow hero-arrow--prev" type="button" data-carousel-prev aria-label="Ảnh trước">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="m15 5-7 7 7 7" />
+      </svg>
+    </button>
+    <button class="hero-arrow hero-arrow--next" type="button" data-carousel-next aria-label="Ảnh sau">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="m9 5 7 7-7 7" />
+      </svg>
+    </button>
   </div>
 
-  <button class="hero-arrow hero-arrow--prev" type="button" data-carousel-prev aria-label="Ảnh trước">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="m15 5-7 7 7 7" />
-    </svg>
-  </button>
-  <button class="hero-arrow hero-arrow--next" type="button" data-carousel-next aria-label="Ảnh sau">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="m9 5 7 7-7 7" />
-    </svg>
-  </button>
-
-  <div class="hero-dots" data-carousel-dots>
-    {slides.map((_, index) => (
-      <button
-        class="hero-dot"
-        type="button"
-        data-carousel-dot
-        aria-label={`Chuyển đến ảnh ${index + 1}`}
-        aria-current={index === 0 ? "true" : "false"}
-      />
-    ))}
+  <div class="hero-footer">
+    <div class="hero-dots" data-carousel-dots>
+      {slides.map((_, index) => (
+        <button
+          class="hero-dot"
+          type="button"
+          data-carousel-dot
+          aria-label={`Chuyển đến ảnh ${index + 1}`}
+          aria-current={index === 0 ? "true" : "false"}
+        />
+      ))}
+    </div>
   </div>
 </section>

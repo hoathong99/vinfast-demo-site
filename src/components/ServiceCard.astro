@@ -1,0 +1,26 @@
+---
+import { url } from "../lib/format";
+import type { ServiceCardData } from "../lib/service-types";
+
+interface Props extends ServiceCardData {}
+
+const { image, title, text, href, alt } = Astro.props;
+---
+
+<article class="service-card">
+  <div class="service-card-media">
+    <img
+      src={url(image)}
+      alt={alt || title}
+      width="1020"
+      height="574"
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+  <div class="service-card-body">
+    <h3>{title}</h3>
+    <p>{text}</p>
+    <a class="btn btn--outline btn--sm" href={url(href)}>Xem chi tiết</a>
+  </div>
+</article>
