@@ -4,6 +4,10 @@ This guide configures the demo site so test-drive leads are written directly int
 
 No Apps Script deployment is required for this path. `apps-script/` remains available as an older alternative.
 
+> CMS data (products, sale programs, articles, media) uses Cloudflare D1 + R2 instead of
+> Sheets. See [`D1-R2-BACKEND.md`](./D1-R2-BACKEND.md). This guide stays focused on the
+> lead/event pipeline.
+
 ---
 
 ## 1. How it works
